@@ -3,9 +3,14 @@ Portakal Fiyat Tahmini — Interactive Dashboard
 
 Run: streamlit run dashboard.py
 """
+import json
 import os
 import sys
 from pathlib import Path
+
+# Ensure src is importable
+ROOT = Path(__file__).parent
+sys.path.insert(0, str(ROOT))
 
 import numpy as np
 import pandas as pd
@@ -16,7 +21,6 @@ import streamlit as st
 
 # ─── Setup ───────────────────────────────────────────────────────────────────────
 
-ROOT = Path(__file__).parent
 RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
 
@@ -123,7 +127,6 @@ def load_data():
 
     farmer_advice_path = PROCESSED_DIR / "farmer_advice.json"
     if farmer_advice_path.exists():
-        import json
         data["farmer_advice"] = json.loads(farmer_advice_path.read_text(encoding="utf-8"))
 
     farmer_results_path = PROCESSED_DIR / "farmer_model_results.csv"
@@ -790,7 +793,6 @@ elif page == "Pazar & Politika":
                     st.plotly_chart(fig_comp, use_container_width=True)
 
             # Competitor production
-            sys.path.insert(0, str(ROOT))
             from src.data.foreign_markets import fetch_competitor_production
             prod = fetch_competitor_production()
 
@@ -1055,7 +1057,6 @@ elif page == "Tahminler & Uyarılar":
             # Generate live alerts
             st.subheader("Canlı Uyarı Kontrolü")
             if st.button("Uyarıları Kontrol Et"):
-                sys.path.insert(0, str(ROOT))
                 from src.auto_refresh import run_alerts
                 alerts = run_alerts()
                 st.success(f"{len(alerts)} uyarı kontrol edildi.")

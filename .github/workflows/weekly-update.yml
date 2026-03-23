@@ -1,0 +1,170 @@
+name: Weekly Data Update
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC (09:00 Turkey time)
+    - cron: '0 6 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas numpy requests beautifulsoup4 lxml scikit-learn xgboost lightgbm shap joblib statsmodels pytrends pyyaml
+
+      - name: Update IBB Istanbul Hal prices
+        run: |
+          python -c "
+          import sys, logging
+          logging.basicConfig(level=logging.INFO, format='%(message)s')
+          from src.data.hal_prices import fetch_ibb_monthly, save_prices, PORTAKAL_PRODUCTS
+          from datetime import datetime
+          import pandas as pd
+
+          guid = PORTAKAL_PRODUCTS['portakal']
+          now = datetime.now()
+          new_data = []
+
+          # Fetch last 3 months
+          for offset in range(3):
+              m = now.month - offset
+              y = now.year
+              if m <= 0:
+                  m += 12
+                  y -= 1
+              df = fetch_ibb_monthly(y, m, guid)
+              if not df.empty:
+                  new_data.append(df)
+
+          if new_data:
+              new_df = pd.concat(new_data, ignore_index=True)
+              existing = pd.read_csv('data/raw/hal_prices.csv', parse_dates=['date'])
+              combined = pd.concat([existing, new_df], ignore_index=True)
+              combined = combined.drop_duplicates(subset=['date'], keep='last')
+              combined = combined.sort_values('date').reset_index(drop=True)
+              if 'avg_price' not in combined.columns:
+                  combined['avg_price'] = (combined['min_price'] + combined['max_price']) / 2
+              save_prices(combined)
+              print(f'Istanbul prices updated: {len(combined)} total records')
+          "
+
+      - name: Update weather data
+        run: |
+          python -c "
+          import logging
+          logging.basicConfig(level=logging.INFO, format='%(message)s')
+          from src.data.weather import fetch_historical_weather, fetch_weather_forecast, save_weather
+          from datetime import datetime, timedelta
+          import pandas as pd
+
+          now = datetime.now()
+          # Fetch last 90 days + forecast
+          start = (now - timedelta(days=90)).strftime('%Y-%m-%d')
+          end = (now - timedelta(days=1)).strftime('%Y-%m-%d')
+
+          recent = fetch_historical_weather(start, end)
+          forecast = fetch_weather_forecast()
+          if not forecast.empty:
+              forecast['is_forecast'] = True
+          if not recent.empty:
+              recent['is_forecast'] = False
+
+          existing = pd.read_csv('data/raw/weather_finike.csv', parse_dates=['date'])
+          parts = [existing]
+          if not recent.empty: parts.append(recent)
+          if not forecast.empty: parts.append(forecast)
+
+          combined = pd.concat(parts, ignore_index=True)
+          combined = combined.drop_duplicates(subset=['date'], keep='last')
+          combined = combined.sort_values('date').reset_index(drop=True)
+          save_weather(combined)
+          print(f'Weather updated: {len(combined)} records')
+          "
+
+      - name: Update FX rates
+        run: |
+          python -c "
+          import logging
+          logging.basicConfig(level=logging.INFO, format='%(message)s')
+          from src.data.fx_rates import fetch_try_rates, save_fx
+          from datetime import datetime, timedelta
+          import pandas as pd
+
+          start = (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d')
+          new_fx = fetch_try_rates(start_date=start)
+
+          existing = pd.read_csv('data/raw/fx_rates.csv', parse_dates=['date'])
+          combined = pd.concat([existing, new_fx], ignore_index=True)
+          combined = combined.drop_duplicates(subset=['date'], keep='last')
+          combined = combined.sort_values('date').reset_index(drop=True)
+          save_fx(combined)
+          print(f'FX updated: {len(combined)} records')
+          "
+
+      - name: Update demand & policy features
+        run: |
+          python -c "
+          import logging
+          logging.basicConfig(level=logging.INFO, format='%(message)s')
+          from src.data.demand_features import build_demand_features, save_demand_features
+          from src.data.policy_events import build_policy_features, save_policy_features
+
+          demand = build_demand_features(start_date='2007-01-01')
+          save_demand_features(demand)
+          print(f'Demand features: {len(demand)} records')
+
+          policy = build_policy_features(start_date='2007-01-01')
+          save_policy_features(policy)
+          print(f'Policy features: {len(policy)} records')
+          "
+
+      - name: Rebuild features & retrain models
+        run: |
+          python -c "
+          import sys, logging
+          logging.basicConfig(level=logging.INFO, format='%(message)s')
+          from src.pipeline import build_features, train_models
+          from src.models.farmer import train_all_farmer_models
+          from src.auto_refresh import generate_predictions
+
+          print('=== Building features ===')
+          build_features()
+
+          print('=== Training baseline models ===')
+          train_models()
+
+          print('=== Training farmer models ===')
+          train_all_farmer_models()
+
+          print('=== Generating predictions ===')
+          generate_predictions()
+
+          print('=== Done ===')
+          "
+
+      - name: Commit and push updates
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add data/ models/
+          git diff --cached --quiet && echo "No changes to commit" || {
+            git commit -m "Weekly data update: $(date +'%Y-%m-%d')
+
+          Automated by GitHub Actions weekly-update workflow.
+
+          Co-Authored-By: GitHub Actions <actions@github.com>"
+            git push
+          }

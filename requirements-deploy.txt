@@ -1,4 +1,4 @@
-# Deployment-only requirements (lightweight, no scraping/training tools)
+# Deployment-only requirements (lightweight, no Playwright/scraping)
 pandas>=2.0
 numpy>=1.24
 plotly>=5.15
@@ -8,3 +8,9 @@ xgboost>=2.0
 lightgbm>=4.0
 joblib>=1.3
 requests>=2.31
+beautifulsoup4>=4.12
+lxml>=4.9
+statsmodels>=0.14
+shap>=0.42
+pytrends>=4.9
+pyyaml>=6.0
