@@ -1,0 +1,1637 @@
+date,product,min_price,max_price,avg_price,unit,market
+2025-01-01,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-01-01,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2025-01-01,Limon,40.0,75.0,57.5,Kg,antalya
+2025-01-01,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2025-01-01,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2025-01-02,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-02,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-02,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-02,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-03,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-03,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-03,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-03,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-04,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-04,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-04,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-04,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-06,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-06,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-06,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-06,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-07,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-07,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-07,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-07,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-08,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-08,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-08,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-08,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-09,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-09,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-09,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-09,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-10,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-10,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-10,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-10,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-11,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-11,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-11,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-11,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-13,Greyfurt,18.0,27.0,22.5,Kg,antalya
+2025-01-13,Limon,12.0,20.0,16.0,Kg,antalya
+2025-01-13,Portakal (Sıkmalık),18.0,21.0,19.5,Kg,antalya
+2025-01-13,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-14,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-14,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-14,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-14,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-15,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-15,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-15,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-15,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-16,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-16,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-16,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-16,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-17,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-17,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-17,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-17,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-18,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-18,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-18,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-18,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-20,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-20,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-20,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-20,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-21,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-21,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-21,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-21,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-22,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-22,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-22,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-22,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-23,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-23,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-23,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-23,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-24,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-24,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-24,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-24,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-25,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-25,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-25,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-25,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-27,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-27,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-27,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-27,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-28,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-28,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-28,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-28,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-29,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-29,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-29,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-29,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-30,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-01-30,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-30,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-30,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-31,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-01-31,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-01-31,Limon,12.0,25.0,18.5,Kg,antalya
+2025-01-31,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-01,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-01,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-01,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-01,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-03,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-03,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-03,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-03,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-04,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-04,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-04,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-04,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-05,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-05,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-05,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-05,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-06,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-06,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-06,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-06,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-07,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-07,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-07,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-07,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-08,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-08,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-08,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-08,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-10,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-10,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-10,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-10,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-11,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-11,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-11,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-11,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-12,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-12,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-12,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-12,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-13,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-13,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-13,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-13,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-14,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-14,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-14,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-14,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-15,Greyfurt,20.0,28.0,24.0,Kg,antalya
+2025-02-15,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-15,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-15,Portakal (Valencia Pak),20.0,30.0,25.0,Kg,antalya
+2025-02-17,Portakal (Sıkmalık),15.0,20.0,17.5,Kg,antalya
+2025-02-17,Portakal (Valencia Pak),20.0,32.0,26.0,Kg,antalya
+2025-02-17,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-17,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-18,Portakal (Valencia Pak),20.0,32.0,26.0,Kg,antalya
+2025-02-18,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-18,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-18,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-19,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-19,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-19,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-19,Portakal (Valencia Pak),20.0,32.0,26.0,Kg,antalya
+2025-02-20,Portakal (Valencia Pak),20.0,32.0,26.0,Kg,antalya
+2025-02-20,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-20,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-20,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-21,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-02-21,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-21,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-21,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-22,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-22,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-22,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-22,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-02-24,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-02-24,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-24,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-24,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-25,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-25,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-02-25,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-25,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-26,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-26,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-26,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-26,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-02-27,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-02-27,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-02-27,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-27,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-28,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-02-28,Limon,12.0,25.0,18.5,Kg,antalya
+2025-02-28,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-02-28,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-01,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-01,Limon,12.0,25.0,18.5,Kg,antalya
+2025-03-01,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-01,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-03,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-03,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-03,Limon,12.0,25.0,18.5,Kg,antalya
+2025-03-03,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-04,Limon,12.0,25.0,18.5,Kg,antalya
+2025-03-04,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-04,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-04,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-05,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-05,Limon,12.0,25.0,18.5,Kg,antalya
+2025-03-05,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-05,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-06,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-06,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-06,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-06,Limon,12.0,25.0,18.5,Kg,antalya
+2025-03-07,Limon,20.0,30.0,25.0,Kg,antalya
+2025-03-07,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-07,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-07,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-08,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-08,Limon,20.0,30.0,25.0,Kg,antalya
+2025-03-08,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-08,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-10,Portakal (Sıkmalık),15.0,26.0,20.5,Kg,antalya
+2025-03-10,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2025-03-10,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-10,Limon,20.0,30.0,25.0,Kg,antalya
+2025-03-11,Greyfurt,20.0,26.0,23.0,Kg,antalya
+2025-03-11,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-11,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-11,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-12,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-12,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-12,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-12,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-13,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-13,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-13,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-13,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-14,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-14,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-14,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-14,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-15,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-15,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-15,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-15,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-17,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-17,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-17,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-17,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-18,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-18,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-18,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-18,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-19,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-19,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-19,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-19,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-20,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-20,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-20,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-20,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-21,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-21,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-21,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-21,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-22,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-22,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-22,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-22,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-24,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-24,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-24,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-24,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-25,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-25,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-25,Greyfurt,20.0,30.0,25.0,Kg,antalya
+2025-03-25,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-26,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-26,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-03-26,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-26,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-27,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-27,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-27,Limon,20.0,40.0,30.0,Kg,antalya
+2025-03-27,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-03-28,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-28,Limon,15.0,30.0,22.5,Kg,antalya
+2025-03-28,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-28,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-03-29,Limon,15.0,40.0,27.5,Kg,antalya
+2025-03-29,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-03-29,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-03-29,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-03-31,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2025-03-31,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2025-03-31,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-03-31,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2025-03-31,Limon,40.0,75.0,57.5,Kg,antalya
+2025-04-01,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2025-04-01,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2025-04-01,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2025-04-01,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-04-01,Limon,40.0,75.0,57.5,Kg,antalya
+2025-04-02,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-02,Limon,15.0,40.0,27.5,Kg,antalya
+2025-04-02,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-02,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-03,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-03,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-03,Limon,15.0,40.0,27.5,Kg,antalya
+2025-04-03,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-04,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-04,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-04,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-04,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-05,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-05,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-05,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-05,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-07,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-07,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-07,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-07,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-08,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-08,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-08,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-08,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-09,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-09,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-09,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-09,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-10,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-10,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-10,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-10,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-11,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-11,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-11,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-11,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-12,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-12,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-12,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-12,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-14,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-14,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-14,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-14,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-15,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-15,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-15,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-15,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-16,Greyfurt,20.0,33.0,26.5,Kg,antalya
+2025-04-16,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-16,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-16,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-17,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-17,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-17,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-17,Greyfurt,20.0,35.0,27.5,Kg,antalya
+2025-04-18,Portakal (Valencia Pak),20.0,40.0,30.0,Kg,antalya
+2025-04-18,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-18,Limon,25.0,50.0,37.5,Kg,antalya
+2025-04-18,Greyfurt,20.0,35.0,27.5,Kg,antalya
+2025-04-19,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-19,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-19,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-19,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-21,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-21,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-21,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-21,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-22,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-22,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-22,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-22,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-23,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-23,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-23,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-23,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-24,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-24,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-24,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-24,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-25,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-25,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-25,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-25,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-26,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-26,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-26,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-26,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-28,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-28,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-28,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-28,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-29,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-29,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-29,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-29,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-04-30,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-04-30,Limon,25.0,55.0,40.0,Kg,antalya
+2025-04-30,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-04-30,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-05-01,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-05-01,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-01,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-05-01,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-05-02,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-05-02,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2025-05-02,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-02,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2025-05-03,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-05-03,Portakal (Sıkmalık),20.0,33.0,26.5,Kg,antalya
+2025-05-03,Greyfurt,20.0,45.0,32.5,Kg,antalya
+2025-05-03,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-05,Greyfurt,20.0,45.0,32.5,Kg,antalya
+2025-05-05,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-05,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-05,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-05-06,Portakal (Valencia Pak),30.0,50.0,40.0,Kg,antalya
+2025-05-06,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-06,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-06,Greyfurt,20.0,45.0,32.5,Kg,antalya
+2025-05-07,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-07,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-07,Greyfurt,20.0,45.0,32.5,Kg,antalya
+2025-05-07,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-08,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-05-08,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-08,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-08,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-09,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-09,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-09,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-05-09,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-10,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-10,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-10,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-10,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-05-12,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-05-12,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-12,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-12,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-13,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-13,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-13,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-13,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-13,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-05-14,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-14,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-14,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-05-14,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-14,Limon,25.0,55.0,40.0,Kg,antalya
+2025-05-15,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-15,Limon,25.0,57.0,41.0,Kg,antalya
+2025-05-15,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-15,Greyfurt,30.0,55.0,42.5,Kg,antalya
+2025-05-15,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-16,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-16,Limon,25.0,57.0,41.0,Kg,antalya
+2025-05-16,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-16,Greyfurt,40.0,75.0,57.5,Kg,antalya
+2025-05-16,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-17,Greyfurt,40.0,75.0,57.5,Kg,antalya
+2025-05-17,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-17,Limon,30.0,60.0,45.0,Kg,antalya
+2025-05-17,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-17,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-19,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-19,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-19,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-19,Greyfurt,40.0,75.0,57.5,Kg,antalya
+2025-05-19,Limon,35.0,65.0,50.0,Kg,antalya
+2025-05-20,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-20,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-20,Limon,40.0,70.0,55.0,Kg,antalya
+2025-05-20,Greyfurt,40.0,75.0,57.5,Kg,antalya
+2025-05-20,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-21,Limon,40.0,70.0,55.0,Kg,antalya
+2025-05-21,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-21,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-21,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-21,Greyfurt,40.0,75.0,57.5,Kg,antalya
+2025-05-22,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-22,Limon,40.0,70.0,55.0,Kg,antalya
+2025-05-22,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-22,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-22,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-23,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-23,Limon,40.0,70.0,55.0,Kg,antalya
+2025-05-23,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-23,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-23,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-24,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-24,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-24,Limon,40.0,70.0,55.0,Kg,antalya
+2025-05-24,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-24,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-26,Limon,40.0,70.0,55.0,Kg,antalya
+2025-05-26,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-26,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-26,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-26,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-27,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-27,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-27,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-27,Limon,35.0,75.0,55.0,Kg,antalya
+2025-05-27,Portakal (Sıkmalık),20.0,38.0,29.0,Kg,antalya
+2025-05-28,Limon,35.0,75.0,55.0,Kg,antalya
+2025-05-28,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-05-28,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-28,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-28,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-29,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-29,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-29,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-29,Limon,35.0,75.0,55.0,Kg,antalya
+2025-05-29,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-05-30,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-30,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-30,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-30,Limon,35.0,75.0,55.0,Kg,antalya
+2025-05-30,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-05-31,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-05-31,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-05-31,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-05-31,Limon,35.0,75.0,55.0,Kg,antalya
+2025-05-31,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-02,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-06-02,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-02,Limon,35.0,75.0,55.0,Kg,antalya
+2025-06-02,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-02,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-03,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-03,Limon,35.0,75.0,55.0,Kg,antalya
+2025-06-03,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-03,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-06-03,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-04,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-04,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-04,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-04,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-06-04,Limon,35.0,75.0,55.0,Kg,antalya
+2025-06-05,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-06-05,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-05,Limon,35.0,75.0,55.0,Kg,antalya
+2025-06-05,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-05,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-06,Limon,40.0,75.0,57.5,Kg,antalya
+2025-06-06,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-06-06,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2025-06-06,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2025-06-06,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2025-06-07,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2025-06-07,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-06-07,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2025-06-07,Limon,40.0,75.0,57.5,Kg,antalya
+2025-06-07,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2025-06-09,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2025-06-09,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2025-06-09,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2025-06-09,Limon,40.0,75.0,57.5,Kg,antalya
+2025-06-09,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2025-06-10,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-10,Limon,35.0,75.0,55.0,Kg,antalya
+2025-06-10,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-10,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-06-10,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-11,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-06-11,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-11,Limon,40.0,85.0,62.5,Kg,antalya
+2025-06-11,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-11,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-12,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-06-12,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-12,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-12,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-12,Limon,30.0,95.0,62.5,Kg,antalya
+2025-06-13,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-06-13,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-13,Limon,30.0,95.0,62.5,Kg,antalya
+2025-06-13,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-13,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-14,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-14,Limon,30.0,95.0,62.5,Kg,antalya
+2025-06-14,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-14,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-06-14,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-16,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-16,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-16,Limon,40.0,100.0,70.0,Kg,antalya
+2025-06-16,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-16,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-06-17,Greyfurt,50.0,100.0,75.0,Kg,antalya
+2025-06-17,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-17,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-17,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-17,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-18,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-18,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-18,Greyfurt,50.0,100.0,75.0,Kg,antalya
+2025-06-18,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-18,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-19,Greyfurt,50.0,100.0,75.0,Kg,antalya
+2025-06-19,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-19,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-19,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-19,Portakal (Valencia Pak),35.0,55.0,45.0,Kg,antalya
+2025-06-20,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-20,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-20,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-20,Greyfurt,50.0,100.0,75.0,Kg,antalya
+2025-06-20,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-21,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-21,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-21,Greyfurt,50.0,100.0,75.0,Kg,antalya
+2025-06-21,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-21,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-23,Greyfurt,50.0,100.0,75.0,Kg,antalya
+2025-06-23,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-23,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-23,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-23,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-24,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-24,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-24,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-24,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-24,Greyfurt,50.0,100.0,75.0,Kg,antalya
+2025-06-25,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-25,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-25,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-25,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-26,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-26,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-26,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-26,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-27,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-27,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-27,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-27,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-28,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-28,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-28,Limon,45.0,105.0,75.0,Kg,antalya
+2025-06-28,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-30,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-06-30,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-06-30,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-06-30,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-01,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-07-01,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-01,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-07-01,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-02,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-07-02,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-02,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-02,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-07-03,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-07-03,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-03,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-03,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-07-04,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-04,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-07-04,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-07-04,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-05,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-07-05,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-05,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-05,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-07-07,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-07,Lime Limon,150.0,178.0,164.0,Kg,antalya
+2025-07-07,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-07,Portakal (Valencia Pak),40.0,58.0,49.0,Kg,antalya
+2025-07-08,Lime Limon,120.0,178.0,149.0,Kg,antalya
+2025-07-08,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-08,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-08,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-09,Lime Limon,120.0,178.0,149.0,Kg,antalya
+2025-07-09,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-09,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-09,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-10,Lime Limon,120.0,178.0,149.0,Kg,antalya
+2025-07-10,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-10,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-10,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-11,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-11,Lime Limon,120.0,178.0,149.0,Kg,antalya
+2025-07-11,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-11,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-12,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-12,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-12,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-12,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-14,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-14,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-14,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-14,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-15,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-15,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-15,Limon,45.0,105.0,75.0,Kg,antalya
+2025-07-15,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-16,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-16,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-16,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-16,Limon,60.0,110.0,85.0,Kg,antalya
+2025-07-17,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-17,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-17,Limon,60.0,110.0,85.0,Kg,antalya
+2025-07-17,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-18,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-18,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-18,Limon,60.0,110.0,85.0,Kg,antalya
+2025-07-18,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-19,Limon,60.0,110.0,85.0,Kg,antalya
+2025-07-19,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-19,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-19,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-21,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-21,Limon,60.0,110.0,85.0,Kg,antalya
+2025-07-21,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-21,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-22,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-22,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-22,Portakal (Sıkmalık),30.0,40.0,35.0,Kg,antalya
+2025-07-22,Limon,60.0,110.0,85.0,Kg,antalya
+2025-07-23,Portakal (Valencia Pak),30.0,60.0,45.0,Kg,antalya
+2025-07-23,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-07-23,Limon,60.0,135.0,97.5,Kg,antalya
+2025-07-23,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-24,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-24,Limon,60.0,140.0,100.0,Kg,antalya
+2025-07-24,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-07-24,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-07-25,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-07-25,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-07-25,Limon,60.0,140.0,100.0,Kg,antalya
+2025-07-25,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-26,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-07-26,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-07-26,Limon,60.0,140.0,100.0,Kg,antalya
+2025-07-26,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-28,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-28,Limon,60.0,140.0,100.0,Kg,antalya
+2025-07-28,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-07-28,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-07-29,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-07-29,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-07-29,Limon,60.0,140.0,100.0,Kg,antalya
+2025-07-29,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-30,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-07-30,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-07-30,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-30,Limon,60.0,140.0,100.0,Kg,antalya
+2025-07-31,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-07-31,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-07-31,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-07-31,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-01,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-01,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-01,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-01,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-02,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-02,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-02,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-02,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-04,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-04,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-04,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-04,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-05,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-05,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-05,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-05,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-06,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-06,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-06,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-06,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-07,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-07,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-07,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-07,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-08,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-08,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-08,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-08,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-09,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-09,Lime Limon,130.0,190.0,160.0,Kg,antalya
+2025-08-09,Limon,60.0,140.0,100.0,Kg,antalya
+2025-08-09,Portakal (Sıkmalık),35.0,60.0,47.5,Kg,antalya
+2025-08-11,Lime Limon,130.0,185.0,157.5,Kg,antalya
+2025-08-11,Limon,60.0,130.0,95.0,Kg,antalya
+2025-08-11,Portakal (Sıkmalık),35.0,50.0,42.5,Kg,antalya
+2025-08-11,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-12,Lime Limon,130.0,185.0,157.5,Kg,antalya
+2025-08-12,Limon,60.0,130.0,95.0,Kg,antalya
+2025-08-12,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-12,Portakal (Sıkmalık),35.0,50.0,42.5,Kg,antalya
+2025-08-13,Portakal (Sıkmalık),35.0,50.0,42.5,Kg,antalya
+2025-08-13,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-13,Lime Limon,130.0,185.0,157.5,Kg,antalya
+2025-08-13,Limon,60.0,130.0,95.0,Kg,antalya
+2025-08-14,Limon,60.0,130.0,95.0,Kg,antalya
+2025-08-14,Portakal (Sıkmalık),35.0,50.0,42.5,Kg,antalya
+2025-08-14,Lime Limon,130.0,185.0,157.5,Kg,antalya
+2025-08-14,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-15,Lime Limon,130.0,185.0,157.5,Kg,antalya
+2025-08-15,Limon,60.0,130.0,95.0,Kg,antalya
+2025-08-15,Portakal (Sıkmalık),35.0,50.0,42.5,Kg,antalya
+2025-08-15,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-16,Lime Limon,120.0,188.0,154.0,Kg,antalya
+2025-08-16,Limon,60.0,130.0,95.0,Kg,antalya
+2025-08-16,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-08-16,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-18,Lime Limon,120.0,188.0,154.0,Kg,antalya
+2025-08-18,Limon,60.0,150.0,105.0,Kg,antalya
+2025-08-18,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-08-18,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-19,Lime Limon,120.0,188.0,154.0,Kg,antalya
+2025-08-19,Limon,60.0,150.0,105.0,Kg,antalya
+2025-08-19,Portakal (Sıkmalık),30.0,47.0,38.5,Kg,antalya
+2025-08-19,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-08-20,Lime Limon,120.0,188.0,154.0,Kg,antalya
+2025-08-20,Limon,60.0,150.0,105.0,Kg,antalya
+2025-08-20,Portakal (Sıkmalık),30.0,47.0,38.5,Kg,antalya
+2025-08-20,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-08-21,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-21,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-21,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-08-21,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-22,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-22,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-22,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-22,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-08-23,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-23,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-23,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-08-23,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-25,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-25,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-25,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-08-25,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-26,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-26,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-08-26,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-26,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-08-27,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-27,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-27,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-08-27,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-08-28,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-08-28,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-28,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-28,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-08-29,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-08-29,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-08-29,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-08-29,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-30,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-08-30,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-08-30,Limon,100.0,170.0,135.0,Kg,antalya
+2025-08-30,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-01,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-01,Limon,100.0,170.0,135.0,Kg,antalya
+2025-09-01,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-09-01,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-09-02,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-09-02,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-09-02,Limon,100.0,170.0,135.0,Kg,antalya
+2025-09-02,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-03,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-09-03,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-09-03,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-03,Limon,100.0,170.0,135.0,Kg,antalya
+2025-09-04,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-04,Limon,100.0,170.0,135.0,Kg,antalya
+2025-09-04,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-09-04,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-09-05,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-09-05,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-09-05,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-06,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-06,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-09-06,Portakal (Valencia Pak),40.0,70.0,55.0,Kg,antalya
+2025-09-08,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-09-08,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-09-08,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-09,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-09,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-09-09,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-09-10,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-09-10,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-09-10,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-11,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-11,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-09-11,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-09-12,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-09-12,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-09-12,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-13,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-13,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-09-13,Portakal (Valencia Pak),40.0,65.0,52.5,Kg,antalya
+2025-09-15,Portakal (Sıkmalık),30.0,60.0,45.0,Kg,antalya
+2025-09-15,Portakal (Valencia Pak),40.0,80.0,60.0,Kg,antalya
+2025-09-15,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-16,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-16,Portakal (Sıkmalık),30.0,60.0,45.0,Kg,antalya
+2025-09-16,Portakal (Valencia Pak),40.0,80.0,60.0,Kg,antalya
+2025-09-17,Portakal (Sıkmalık),30.0,60.0,45.0,Kg,antalya
+2025-09-17,Portakal (Valencia Pak),40.0,80.0,60.0,Kg,antalya
+2025-09-17,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-18,Portakal (Valencia Pak),40.0,80.0,60.0,Kg,antalya
+2025-09-18,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-18,Portakal (Sıkmalık),30.0,60.0,45.0,Kg,antalya
+2025-09-19,Portakal (Valencia Pak),40.0,75.0,57.5,Kg,antalya
+2025-09-19,Portakal (Sıkmalık),30.0,65.0,47.5,Kg,antalya
+2025-09-19,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-20,Lime Limon,120.0,167.0,143.5,Kg,antalya
+2025-09-20,Portakal (Sıkmalık),30.0,65.0,47.5,Kg,antalya
+2025-09-20,Portakal (Valencia Pak),40.0,75.0,57.5,Kg,antalya
+2025-09-22,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-22,Portakal (Sıkmalık),30.0,70.0,50.0,Kg,antalya
+2025-09-22,Portakal (Valencia Pak),40.0,80.0,60.0,Kg,antalya
+2025-09-23,Portakal (Valencia Pak),40.0,80.0,60.0,Kg,antalya
+2025-09-23,Portakal (Sıkmalık),30.0,70.0,50.0,Kg,antalya
+2025-09-23,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-24,Portakal (Valencia Pak),40.0,80.0,60.0,Kg,antalya
+2025-09-24,Portakal (Sıkmalık),30.0,70.0,50.0,Kg,antalya
+2025-09-24,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-25,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-25,Portakal (Sıkmalık),40.0,80.0,60.0,Kg,antalya
+2025-09-25,Portakal (Valencia Pak),45.0,90.0,67.5,Kg,antalya
+2025-09-26,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-26,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-09-26,Portakal (Valencia Pak),55.0,110.0,82.5,Kg,antalya
+2025-09-27,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-09-27,Portakal (Valencia Pak),55.0,110.0,82.5,Kg,antalya
+2025-09-27,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-29,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-09-29,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-09-29,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-30,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-09-30,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-09-30,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-01,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-01,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-01,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-02,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-02,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-02,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-03,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-03,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-03,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-04,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-04,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-04,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-06,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-06,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-06,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-07,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-07,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-07,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-08,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-08,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-08,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-09,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-09,Portakal (Sıkmalık),50.0,100.0,75.0,Kg,antalya
+2025-10-09,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-10,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-10,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-10,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-11,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-11,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-11,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-13,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-13,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-13,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-14,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-14,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-14,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-15,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-15,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-15,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-16,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-16,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-16,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-17,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-17,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-17,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-18,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-18,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-18,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-20,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-20,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-20,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-21,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-21,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-21,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-22,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-22,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-22,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-23,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-23,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-23,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-24,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-24,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-24,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-25,Portakal (Sıkmalık),50.0,110.0,80.0,Kg,antalya
+2025-10-25,Portakal (Valencia Pak),55.0,120.0,87.5,Kg,antalya
+2025-10-25,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-27,Portakal (Sıkmalık),50.0,90.0,70.0,Kg,antalya
+2025-10-27,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-27,Portakal (Valencia Pak),55.0,100.0,77.5,Kg,antalya
+2025-10-28,Portakal (Valencia Pak),55.0,100.0,77.5,Kg,antalya
+2025-10-28,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-28,Portakal (Sıkmalık),50.0,90.0,70.0,Kg,antalya
+2025-10-29,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-29,Portakal (Sıkmalık),50.0,90.0,70.0,Kg,antalya
+2025-10-29,Portakal (Valencia Pak),55.0,100.0,77.5,Kg,antalya
+2025-10-30,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-30,Portakal (Valencia Pak),55.0,100.0,77.5,Kg,antalya
+2025-10-30,Portakal (Sıkmalık),50.0,90.0,70.0,Kg,antalya
+2025-10-31,Portakal (Valencia Pak),55.0,100.0,77.5,Kg,antalya
+2025-10-31,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-10-31,Portakal (Sıkmalık),50.0,90.0,70.0,Kg,antalya
+2025-11-01,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-11-01,Portakal (Sıkmalık),30.0,60.0,45.0,Kg,antalya
+2025-11-01,Portakal (Valencia Pak),55.0,80.0,67.5,Kg,antalya
+2025-11-03,Portakal (Valencia Pak),55.0,80.0,67.5,Kg,antalya
+2025-11-03,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-11-03,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-11-03,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-11-04,Greyfurt,40.0,80.0,60.0,Kg,antalya
+2025-11-04,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-11-04,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-11-04,Portakal (Valencia Pak),55.0,80.0,67.5,Kg,antalya
+2025-11-05,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-11-05,Portakal (Valencia Pak),55.0,80.0,67.5,Kg,antalya
+2025-11-05,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-11-05,Greyfurt,40.0,75.0,57.5,Kg,antalya
+2025-11-06,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-11-06,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-11-06,Portakal (Valencia Pak),55.0,80.0,67.5,Kg,antalya
+2025-11-06,Portakal (Sıkmalık),30.0,55.0,42.5,Kg,antalya
+2025-11-07,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-07,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-07,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-11-07,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-11-08,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-08,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-11-08,Lime Limon,120.0,190.0,155.0,Kg,antalya
+2025-11-08,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-10,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-10,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-10,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-10,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-11,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-11,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-11,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-11,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-11,Limon,40.0,55.0,47.5,Kg,antalya
+2025-11-12,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-12,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-12,Limon,40.0,55.0,47.5,Kg,antalya
+2025-11-12,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-12,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-13,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-13,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-13,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-13,Limon,40.0,55.0,47.5,Kg,antalya
+2025-11-13,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-14,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-14,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-14,Limon,40.0,50.0,45.0,Kg,antalya
+2025-11-14,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-14,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-15,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-15,Limon,30.0,50.0,40.0,Kg,antalya
+2025-11-15,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-15,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-15,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-17,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-17,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-17,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-17,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-17,Limon,30.0,60.0,45.0,Kg,antalya
+2025-11-18,Limon,30.0,55.0,42.5,Kg,antalya
+2025-11-18,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-18,Portakal (Valencia Pak),40.0,60.0,50.0,Kg,antalya
+2025-11-18,Portakal (Sıkmalık),30.0,50.0,40.0,Kg,antalya
+2025-11-18,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-19,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2025-11-19,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-19,Limon,30.0,55.0,42.5,Kg,antalya
+2025-11-19,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-19,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-20,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2025-11-20,Limon,30.0,55.0,42.5,Kg,antalya
+2025-11-20,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-20,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-20,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-21,Limon,30.0,55.0,42.5,Kg,antalya
+2025-11-21,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-21,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-21,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2025-11-21,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-22,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-22,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-22,Limon,30.0,50.0,40.0,Kg,antalya
+2025-11-22,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2025-11-22,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-24,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-24,Limon,30.0,50.0,40.0,Kg,antalya
+2025-11-24,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-24,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-24,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2025-11-25,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-11-25,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-11-25,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-25,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-25,Limon,30.0,48.0,39.0,Kg,antalya
+2025-11-26,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-26,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-11-26,Limon,30.0,48.0,39.0,Kg,antalya
+2025-11-26,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-26,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-27,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-27,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-27,Limon,30.0,45.0,37.5,Kg,antalya
+2025-11-27,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-11-27,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-28,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-11-28,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-28,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-11-28,Limon,30.0,45.0,37.5,Kg,antalya
+2025-11-28,Portakal (Valencia Pak),25.0,48.0,36.5,Kg,antalya
+2025-11-29,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-11-29,Limon,30.0,45.0,37.5,Kg,antalya
+2025-11-29,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-11-29,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-11-29,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-01,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-01,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-01,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-01,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-01,Portakal (Valencia Pak),25.0,50.0,37.5,Kg,antalya
+2025-12-02,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-02,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-02,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-02,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-02,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-03,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-03,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-03,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-03,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-03,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-04,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-04,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-04,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-04,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-04,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-05,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-05,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-05,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-05,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-05,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-06,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-06,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-06,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-06,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-06,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-08,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-08,Limon,30.0,60.0,45.0,Kg,antalya
+2025-12-08,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-08,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-08,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-09,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-09,Limon,30.0,60.0,45.0,Kg,antalya
+2025-12-09,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-09,Greyfurt,40.0,65.0,52.5,Kg,antalya
+2025-12-09,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-10,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-10,Limon,30.0,60.0,45.0,Kg,antalya
+2025-12-10,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-10,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-10,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-11,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-11,Limon,30.0,60.0,45.0,Kg,antalya
+2025-12-11,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-11,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-11,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-12,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-12,Portakal (Valencia Pak),25.0,38.0,31.5,Kg,antalya
+2025-12-12,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-12,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-12,Limon,30.0,50.0,40.0,Kg,antalya
+2025-12-13,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-13,Limon,30.0,50.0,40.0,Kg,antalya
+2025-12-13,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-13,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-13,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-15,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-15,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2025-12-15,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2025-12-15,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-15,Limon,30.0,50.0,40.0,Kg,antalya
+2025-12-16,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-16,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-16,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-16,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-16,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-17,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-17,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-17,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-17,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-17,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-18,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-18,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-18,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-18,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-18,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-19,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-19,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-19,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-19,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-19,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-20,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-20,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-20,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-20,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-20,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-22,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-22,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-22,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-22,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-22,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-23,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-23,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-23,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-23,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-23,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-24,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-24,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-24,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-24,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-24,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-25,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-25,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-25,Limon,30.0,45.0,37.5,Kg,antalya
+2025-12-25,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-25,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-26,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-26,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-26,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-26,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-26,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-27,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-27,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-27,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-27,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-27,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-29,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-29,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-29,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-29,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-29,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-30,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-30,Greyfurt,40.0,60.0,50.0,Kg,antalya
+2025-12-30,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2025-12-30,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-30,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-31,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2025-12-31,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2025-12-31,Limon,30.0,40.0,35.0,Kg,antalya
+2025-12-31,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2025-12-31,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-01,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-01-01,Limon,40.0,75.0,57.5,Kg,antalya
+2026-01-01,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2026-01-01,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-01-01,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-01-02,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2026-01-02,Limon,30.0,40.0,35.0,Kg,antalya
+2026-01-02,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-02,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-02,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2026-01-03,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-03,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2026-01-03,Limon,30.0,40.0,35.0,Kg,antalya
+2026-01-03,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2026-01-03,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-05,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2026-01-05,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-05,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-05,Limon,30.0,40.0,35.0,Kg,antalya
+2026-01-05,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2026-01-06,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2026-01-06,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-06,Portakal (Sıkmalık),20.0,30.0,25.0,Kg,antalya
+2026-01-06,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-06,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-07,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-07,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-07,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-07,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-07,Lime Limon,120.0,210.0,165.0,Kg,antalya
+2026-01-08,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-08,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-08,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-08,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-08,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-09,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-09,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-09,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-09,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-09,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-10,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-10,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-10,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-10,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-10,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-12,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-12,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-12,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-12,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-12,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-13,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-13,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-13,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-13,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-13,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-14,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-14,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-14,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-14,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-14,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-15,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-15,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-15,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-15,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-15,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-16,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-16,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-16,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-16,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-16,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-17,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-17,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-17,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-17,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-17,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-19,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-19,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-19,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-19,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-19,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-20,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-20,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-20,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-20,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-20,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-21,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-21,Limon,30.0,45.0,37.5,Kg,antalya
+2026-01-21,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-21,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-21,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-22,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-22,Limon,30.0,55.0,42.5,Kg,antalya
+2026-01-22,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-22,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-22,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-23,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-23,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-23,Limon,30.0,65.0,47.5,Kg,antalya
+2026-01-23,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-23,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-24,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-24,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-24,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-24,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-24,Limon,30.0,65.0,47.5,Kg,antalya
+2026-01-26,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-26,Lime Limon,120.0,230.0,175.0,Kg,antalya
+2026-01-26,Limon,30.0,70.0,50.0,Kg,antalya
+2026-01-26,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-26,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-27,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-01-27,Limon,30.0,70.0,50.0,Kg,antalya
+2026-01-27,Portakal (Valencia Pak),25.0,35.0,30.0,Kg,antalya
+2026-01-27,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-27,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-01-28,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-28,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-01-28,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-28,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-01-28,Limon,30.0,70.0,50.0,Kg,antalya
+2026-01-29,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-29,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-01-29,Limon,30.0,70.0,50.0,Kg,antalya
+2026-01-29,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-01-29,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-30,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-01-30,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-30,Limon,30.0,70.0,50.0,Kg,antalya
+2026-01-30,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-30,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-01-31,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-01-31,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-01-31,Limon,30.0,70.0,50.0,Kg,antalya
+2026-01-31,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-01-31,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-02,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2026-02-02,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-02,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-02,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-02,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-03,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-03,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-03,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-03,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2026-02-03,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-04,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2026-02-04,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-04,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-04,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-04,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-05,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2026-02-05,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-05,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-05,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-05,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-06,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-06,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-06,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-06,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2026-02-06,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-07,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-07,Portakal (Sıkmalık),20.0,35.0,27.5,Kg,antalya
+2026-02-07,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-07,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-07,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-09,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-09,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-09,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-09,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-09,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-10,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-10,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-10,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-10,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-10,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-11,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-11,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-11,Limon,30.0,70.0,50.0,Kg,antalya
+2026-02-11,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-11,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-12,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-12,Limon,30.0,60.0,45.0,Kg,antalya
+2026-02-12,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-12,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-12,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-13,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-13,Limon,30.0,60.0,45.0,Kg,antalya
+2026-02-13,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-13,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-13,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-14,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-14,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-14,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-14,Limon,30.0,60.0,45.0,Kg,antalya
+2026-02-14,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-16,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-16,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-16,Limon,30.0,60.0,45.0,Kg,antalya
+2026-02-16,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-16,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-17,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-17,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-17,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-17,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-17,Limon,30.0,60.0,45.0,Kg,antalya
+2026-02-18,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-18,Limon,30.0,60.0,45.0,Kg,antalya
+2026-02-18,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-18,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-18,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-19,Limon,30.0,60.0,45.0,Kg,antalya
+2026-02-19,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-19,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-19,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-19,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-20,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-20,Limon,40.0,70.0,55.0,Kg,antalya
+2026-02-20,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-20,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-20,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-21,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-21,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-21,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-21,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-21,Limon,40.0,70.0,55.0,Kg,antalya
+2026-02-23,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-23,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-23,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-23,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-23,Limon,40.0,70.0,55.0,Kg,antalya
+2026-02-24,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-24,Limon,40.0,70.0,55.0,Kg,antalya
+2026-02-24,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-24,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-24,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-25,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-25,Limon,40.0,70.0,55.0,Kg,antalya
+2026-02-25,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-25,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-25,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-26,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-26,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-26,Limon,40.0,70.0,55.0,Kg,antalya
+2026-02-26,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-26,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-27,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-27,Limon,40.0,75.0,57.5,Kg,antalya
+2026-02-27,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-27,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-02-27,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-28,Limon,40.0,75.0,57.5,Kg,antalya
+2026-02-28,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-02-28,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-02-28,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-02-28,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-03-02,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-03-02,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-02,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-02,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-03-02,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-03-03,Portakal (Valencia Pak),25.0,45.0,35.0,Kg,antalya
+2026-03-03,Portakal (Sıkmalık),20.0,40.0,30.0,Kg,antalya
+2026-03-03,Greyfurt,40.0,70.0,55.0,Kg,antalya
+2026-03-03,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-03,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-04,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-04,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-03-04,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-03-04,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-04,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-05,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-03-05,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-03-05,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-05,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-05,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-06,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-03-06,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-06,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-03-06,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-06,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-07,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-03-07,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-07,Portakal (Valencia Pak),25.0,40.0,32.5,Kg,antalya
+2026-03-07,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-07,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-09,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-09,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-09,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-03-09,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-09,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-10,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-10,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-10,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-10,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-03-10,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-11,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-11,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-11,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-11,Portakal (Sıkmalık),15.0,30.0,22.5,Kg,antalya
+2026-03-11,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-12,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-12,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-12,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-12,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-12,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-13,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-13,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-13,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-13,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-13,Lime Limon,120.0,250.0,185.0,Kg,antalya
+2026-03-14,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-14,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-14,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-14,Lime Limon,120.0,280.0,200.0,Kg,antalya
+2026-03-14,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-16,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-16,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-03-16,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-16,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-16,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-17,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-17,Portakal (Valencia Pak),20.0,35.0,27.5,Kg,antalya
+2026-03-17,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-03-17,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-17,Limon,40.0,70.0,55.0,Kg,antalya
+2026-03-18,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2026-03-18,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-18,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-03-18,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-18,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-19,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-19,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-19,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2026-03-19,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-19,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-03-20,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-20,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2026-03-20,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-03-20,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-20,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-21,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-21,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2026-03-21,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-21,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-03-21,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-23,Greyfurt,25.0,50.0,37.5,Kg,antalya
+2026-03-23,Lime Limon,120.0,260.0,190.0,Kg,antalya
+2026-03-23,Limon,40.0,75.0,57.5,Kg,antalya
+2026-03-23,Portakal (Sıkmalık),10.0,25.0,17.5,Kg,antalya
+2026-03-23,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya

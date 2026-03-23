@@ -1,0 +1,64 @@
+{
+  "date": "2026-03-23",
+  "current_price": 20.0,
+  "breakeven_price": 13.59,
+  "margin_per_kg": 6.41,
+  "margin_pct": 47.2,
+  "forecasts": {
+    "7": {
+      "price": 23.15582275390625,
+      "lower": 20.669859854132284,
+      "upper": 32.50085677791791,
+      "change_pct": 15.77911376953125,
+      "target_date": "2026-03-30"
+    },
+    "14": {
+      "price": 26.291584014892578,
+      "lower": 20.738707063392795,
+      "upper": 31.505349305009123,
+      "change_pct": 31.457920074462887,
+      "target_date": "2026-04-06"
+    },
+    "30": {
+      "price": 29.462982177734375,
+      "lower": 28.252302376045787,
+      "upper": 33.671305306895505,
+      "change_pct": 47.31491088867188,
+      "target_date": "2026-04-22"
+    },
+    "60": {
+      "price": 27.20126724243164,
+      "lower": 24.027758432279683,
+      "upper": 39.81842583766217,
+      "change_pct": 36.00633621215821,
+      "target_date": "2026-05-22"
+    },
+    "90": {
+      "price": 39.97857666015625,
+      "lower": 36.23848975475324,
+      "upper": 38.43043746732836,
+      "change_pct": 99.89288330078125,
+      "target_date": "2026-06-21"
+    }
+  },
+  "recommendation": {
+    "action": "SOĞUK HAVA",
+    "reason": "90 gün depolayıp satın. Beklenen fiyat: 40.0 ₺/kg, depolama maliyeti: 13.5 ₺/kg, net kazanç: +6.5 ₺/kg.",
+    "urgency": "medium",
+    "best_sell_horizon": 90,
+    "best_expected_price": 39.98
+  },
+  "season_info": {
+    "phase": "Geç Hasat",
+    "advice": "Valencia sezonu başlıyor. Fiyatlar yükselmeye başlayabilir."
+  },
+  "costs": {
+    "hasat_iscilik": 5.0,
+    "nakliye_hale": 2.0,
+    "komisyon_pct": 8.0,
+    "ambalaj": 1.5,
+    "ilac_gubre": 3.0,
+    "sulama": 1.0,
+    "soguk_hava_gunluk": 0.15
+  }
+}

@@ -1,0 +1,52 @@
+# Data processing
+pandas>=2.0
+numpy>=1.24
+
+# ML
+scikit-learn>=1.3
+xgboost>=2.0
+lightgbm>=4.0
+shap>=0.42
+
+# Visualization
+matplotlib>=3.7
+seaborn>=0.12
+plotly>=5.15
+
+# API & web
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=4.9
+
+# Satellite data
+sentinelsat>=1.2
+rasterio>=1.3
+
+# Time series
+statsmodels>=0.14
+
+# Trends & scheduling
+pytrends>=4.9
+schedule>=1.2
+
+# Model persistence
+joblib>=1.3
+
+# Jupyter
+jupyter>=1.0
+ipykernel>=6.25
+
+# Testing
+pytest>=7.0
+
+# Dashboard
+streamlit>=1.30
+plotly>=5.15
+
+# Browser scraping (Antalya Hal)
+playwright>=1.40
+
+# Utilities
+python-dateutil>=2.8
+pyyaml>=6.0
+tqdm>=4.65

@@ -1,0 +1,37 @@
+date,event_type,description,impact_direction,impact_magnitude,impact_sign
+2008-01-01,regulation,Rusya'ya narenciye ihracat protokolü yenilendi,up,1,1
+2008-01-15,frost,Antalya bölgesi ağır don olayı,up,3,1
+2009-07-01,regulation,AB ile gümrük birliği tarım ürünleri genişletildi,down,1,-1
+2012-02-01,frost,Akdeniz bölgesi soğuk dalgası,up,2,1
+2014-08-01,sanction,Rusya AB/ABD gıda ambargosu — Türk narenciyeye talep artışı,up,3,1
+2015-11-24,sanction,Rusya-Türkiye krizi — narenciye ihracatı durduruldu,down,3,-1
+2016-01-10,frost,Finike bölgesi don hasarı,up,2,1
+2016-06-29,sanction,Rusya-Türkiye ilişkileri normalleşme başladı,up,2,1
+2017-01-01,regulation,Rusya'ya narenciye ihracatı tam açıldı,up,2,1
+2018-08-01,economic,"TL krizi — döviz fiyat artışı, girdi maliyeti yükseldi",up,3,1
+2019-01-08,frost,Batı Akdeniz don olayı — rekolte kaybı %15,up,2,1
+2019-07-01,economic,MB faiz indirimi — TL değer kaybı devam,up,1,1
+2019-10-01,trade,Türkiye Suriye operasyonu — bazı pazarlarla ilişki gerginliği,down,1,-1
+2020-03-15,pandemic,"COVID-19 — lojistik aksama, hal kapanmaları",up,2,1
+2020-05-01,supply,"COVID — mevsimlik işçi sıkıntısı, hasat gecikmesi",up,2,1
+2020-06-01,pandemic,COVID sonrası talep artışı — sağlıklı beslenme trendi,up,1,1
+2021-02-15,frost,Antalya kar yağışı — narenciye hasarı,up,2,1
+2021-03-01,trade,Süveyş Kanalı tıkanması — deniz taşımacılığı aksadı,up,1,1
+2021-07-01,supply,Antalya orman yangınları — bazı bahçeler etkilendi,up,1,1
+2021-12-01,economic,TL sert değer kaybı — girdi+nakliye maliyeti patlaması,up,3,1
+2022-02-24,sanction,Rusya-Ukrayna savaşı — Türk narenciyeye yönelim,up,2,1
+2022-06-01,economic,Mazot ve gübre fiyatları %100+ artış,up,3,1
+2022-06-01,regulation,Rusya liman kısıtlamaları — alternatif rota maliyeti,up,1,1
+2023-01-01,regulation,Irak gümrük vergisi artışı — ihracat maliyeti yükseldi,down,2,-1
+2023-02-06,supply,Kahramanmaraş depremi — Hatay narenciye bölgesi etkilendi,up,2,1
+2023-06-01,economic,MB ortodoks politikaya dönüş — TL stabilize,down,1,-1
+2023-07-01,economic,Asgari ücret artışı — işçilik maliyeti yükseldi,up,1,1
+2023-09-01,supply,Akdeniz'de kuraklık — su kısıtlamaları,up,2,1
+2023-10-07,trade,İsrail-Gazze çatışması — rakip ihracatçı devre dışı,up,2,1
+2024-01-01,regulation,AB pestisit kalıntı limitleri sıkılaştırıldı,down,1,-1
+2024-01-01,economic,Asgari ücret %49 artış — hasat işçiliği maliyeti,up,2,1
+2024-01-20,frost,Mersin-Adana don olayı — erken hasat zorlandı,up,2,1
+2024-04-01,supply,Finike bölgesi dolu hasarı,up,1,1
+2024-09-01,regulation,Mısır narenciye ihracat sübvansiyonu artırdı,down,2,-1
+2024-12-01,trade,Kızıldeniz krizi — navlun maliyeti artışı,up,1,1
+2025-01-01,economic,Asgari ücret %30 artış,up,1,1
