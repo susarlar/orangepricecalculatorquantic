@@ -80,6 +80,7 @@ jobs:
           git add data/ models/
           git diff --cached --quiet && echo "No changes to commit" || {
             git commit -m "${{ steps.commit_msg.outputs.msg }}"
+            git pull --rebase
             git push
           }
 

@@ -175,5 +175,6 @@ jobs:
           Automated by GitHub Actions weekly-update workflow.
 
           Co-Authored-By: GitHub Actions <actions@github.com>"
+            git pull --rebase
             git push
           }
