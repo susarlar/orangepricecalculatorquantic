@@ -133,6 +133,18 @@ def load_data():
     if farmer_results_path.exists():
         data["farmer_results"] = pd.read_csv(farmer_results_path)
 
+    pred_history_path = PROCESSED_DIR / "prediction_history.csv"
+    if pred_history_path.exists():
+        data["pred_history"] = pd.read_csv(pred_history_path, parse_dates=["date_generated", "target_date"])
+
+    accuracy_path = PROCESSED_DIR / "accuracy_report.csv"
+    if accuracy_path.exists():
+        data["accuracy"] = pd.read_csv(accuracy_path)
+
+    refresh_log_path = PROCESSED_DIR / "refresh_log.csv"
+    if refresh_log_path.exists():
+        data["refresh_log"] = pd.read_csv(refresh_log_path)
+
     return data
 
 
@@ -992,7 +1004,7 @@ elif page == "Talep & Trendler":
 elif page == "Tahminler & Uyarılar":
     st.title("🔮 Tahminler & Uyarı Sistemi")
 
-    tab1, tab2, tab3 = st.tabs(["Fiyat Tahminleri", "Uyarılar", "SHAP Analizi"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Fiyat Tahminleri", "Tahmin Takibi", "Uyarılar", "SHAP Analizi"])
 
     with tab1:
         if "predictions" in data:
@@ -1051,6 +1063,144 @@ elif page == "Tahminler & Uyarılar":
             st.info("Tahmin verisi bulunamadı. `python -m src.auto_refresh --predict` çalıştırın.")
 
     with tab2:
+        st.subheader("Tahmin Takibi — Tahmin vs Gerçek")
+
+        if "pred_history" in data:
+            hist = data["pred_history"]
+            evaluated = hist[hist["evaluated"] == True] if "evaluated" in hist.columns else pd.DataFrame()  # noqa: E712
+
+            # ── Data freshness ──
+            if "refresh_log" in data:
+                rlog = data["refresh_log"]
+                st.markdown("**Veri Güncelliği**")
+                fresh_cols = st.columns(4)
+                sources = ["hal_prices", "weather", "fx_rates", "demand_policy"]
+                for i, src in enumerate(sources):
+                    src_rows = rlog[rlog["source"] == src] if "source" in rlog.columns else pd.DataFrame()
+                    if not src_rows.empty:
+                        last = src_rows.iloc[-1]
+                        status_icon = "✅" if last.get("status") == "ok" else "⚠️"
+                        fresh_cols[i].metric(src, f"{status_icon} {last.get('timestamp', '?')[:10]}")
+                    else:
+                        fresh_cols[i].metric(src, "—")
+                st.markdown("---")
+
+            # ── Accuracy summary table ──
+            if "accuracy" in data and not data["accuracy"].empty:
+                acc = data["accuracy"]
+                st.markdown("**Model Doğruluğu (Horizona Göre)**")
+
+                acc_cols = st.columns(len(acc))
+                for i, (_, row) in enumerate(acc.iterrows()):
+                    horizon = int(row["horizon_days"])
+                    with acc_cols[i]:
+                        label = f"{horizon // 7} Hafta" if horizon % 7 == 0 and horizon <= 28 else f"{horizon} Gün"
+                        st.metric(f"{label} MAE", f"{row['mae']:.2f} ₺/kg")
+                        st.caption(
+                            f"MAPE: {row['mape_pct']:.1f}%\n\n"
+                            f"Yön: %{row['direction_accuracy_pct']:.0f}\n\n"
+                            f"n={int(row['n_predictions'])}"
+                        )
+                st.markdown("---")
+
+            # ── Prediction vs Actual chart ──
+            if not evaluated.empty:
+                st.markdown("**Tahmin vs Gerçek Fiyat**")
+
+                horizon_options = sorted(evaluated["horizon_days"].unique())
+                horizon_labels = {h: (f"{h // 7} Hafta" if h % 7 == 0 and h <= 28 else f"{h} Gün") for h in horizon_options}
+                selected_horizon = st.selectbox(
+                    "Horizon seçin",
+                    horizon_options,
+                    format_func=lambda x: horizon_labels[x],
+                )
+
+                subset = evaluated[evaluated["horizon_days"] == selected_horizon].sort_values("target_date")
+
+                fig_track = go.Figure()
+
+                # Actual prices
+                fig_track.add_trace(go.Scatter(
+                    x=subset["target_date"], y=subset["actual_price"],
+                    mode="lines+markers", name="Gerçek Fiyat",
+                    line=dict(color="darkorange", width=2),
+                    marker=dict(size=6),
+                ))
+
+                # Predicted prices
+                fig_track.add_trace(go.Scatter(
+                    x=subset["target_date"], y=subset["predicted_price"],
+                    mode="lines+markers", name="Tahmin",
+                    line=dict(color="royalblue", width=2, dash="dash"),
+                    marker=dict(size=6),
+                ))
+
+                # Confidence interval
+                if subset["pred_lower"].notna().any():
+                    fig_track.add_trace(go.Scatter(
+                        x=pd.concat([subset["target_date"], subset["target_date"][::-1]]),
+                        y=pd.concat([subset["pred_upper"], subset["pred_lower"][::-1]]),
+                        fill="toself", fillcolor="rgba(65,105,225,0.1)",
+                        line=dict(color="rgba(65,105,225,0)"),
+                        name="Güven Aralığı",
+                    ))
+
+                fig_track.update_layout(
+                    title=f"Tahmin vs Gerçek — {horizon_labels[selected_horizon]}",
+                    xaxis_title="Tarih", yaxis_title="Fiyat (₺/kg)",
+                    height=400, hovermode="x unified",
+                )
+                st.plotly_chart(fig_track, use_container_width=True)
+
+                # ── Error over time chart ──
+                fig_err = go.Figure()
+                fig_err.add_trace(go.Bar(
+                    x=subset["target_date"], y=subset["error"],
+                    name="Hata (₺/kg)",
+                    marker_color=["crimson" if e > 0 else "forestgreen" for e in subset["error"]],
+                ))
+                fig_err.add_hline(y=0, line_dash="dash", line_color="gray")
+                fig_err.update_layout(
+                    title="Tahmin Hatası (Pozitif = Fazla Tahmin)",
+                    xaxis_title="Tarih", yaxis_title="Hata (₺/kg)",
+                    height=300,
+                )
+                st.plotly_chart(fig_err, use_container_width=True)
+
+                # ── Detailed table ──
+                st.markdown("**Detaylı Tablo**")
+                display_cols = ["date_generated", "target_date", "predicted_price",
+                                "actual_price", "error", "pct_error"]
+                display_cols = [c for c in display_cols if c in subset.columns]
+                st.dataframe(
+                    subset[display_cols].sort_values("target_date", ascending=False),
+                    use_container_width=True, hide_index=True,
+                    column_config={
+                        "date_generated": st.column_config.DateColumn("Tahmin Tarihi"),
+                        "target_date": st.column_config.DateColumn("Hedef Tarih"),
+                        "predicted_price": st.column_config.NumberColumn("Tahmin (₺/kg)", format="%.2f"),
+                        "actual_price": st.column_config.NumberColumn("Gerçek (₺/kg)", format="%.2f"),
+                        "error": st.column_config.NumberColumn("Hata (₺)", format="%.2f"),
+                        "pct_error": st.column_config.NumberColumn("Hata (%)", format="%.1f%%"),
+                    },
+                )
+            else:
+                st.info("Henüz değerlendirilmiş tahmin yok. Hedef tarihler geçtikçe veriler dolacak.")
+
+            # ── Pending predictions ──
+            pending = hist[hist["evaluated"] != True] if "evaluated" in hist.columns else pd.DataFrame()  # noqa: E712
+            if not pending.empty:
+                with st.expander(f"Bekleyen Tahminler ({len(pending)})"):
+                    pending_display = pending[["date_generated", "horizon_days", "target_date",
+                                               "predicted_price", "current_price"]].sort_values("target_date")
+                    st.dataframe(pending_display, use_container_width=True, hide_index=True)
+        else:
+            st.info(
+                "Tahmin geçmişi bulunamadı. Günlük pipeline çalıştıkça veriler birikecek.\n\n"
+                "`python -m src.auto_refresh --full`"
+            )
+
+    with tab3:
         if "alerts_text" in data:
             st.code(data["alerts_text"], language=None)
         else:
@@ -1061,7 +1211,7 @@ elif page == "Tahminler & Uyarılar":
                 alerts = run_alerts()
                 st.success(f"{len(alerts)} uyarı kontrol edildi.")
 
-    with tab3:
+    with tab4:
         if "shap" in data:
             shap_df = data["shap"]
             top_n = st.slider("Top N Özellik", 10, 40, 20)

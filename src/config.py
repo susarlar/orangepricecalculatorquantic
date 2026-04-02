@@ -58,7 +58,7 @@ COMPETITOR_COUNTRIES = {
 IMPORT_MARKETS = ["russia", "iraq", "eu", "saudi_arabia", "uae", "ukraine", "belarus"]
 
 # Prediction horizons (days)
-PREDICTION_HORIZONS = [30, 60, 90]
+PREDICTION_HORIZONS = [7, 14, 21, 28, 30, 60, 90]
 
 # Feature engineering
 ROLLING_WINDOWS = [7, 14, 30, 60, 90]

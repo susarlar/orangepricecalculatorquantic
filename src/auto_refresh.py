@@ -25,7 +25,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from src.config import MODELS_DIR, PROCESSED_DIR, RAW_DIR
+from src.config import MODELS_DIR, PREDICTION_HORIZONS, PROCESSED_DIR, RAW_DIR
 
 logging.basicConfig(
     level=logging.INFO,
@@ -249,7 +249,7 @@ def generate_predictions() -> pd.DataFrame:
     current_price = latest_row["avg_price"].iloc[0]
 
     results = []
-    for horizon in [30, 60, 90]:
+    for horizon in PREDICTION_HORIZONS:
         model_path = MODELS_DIR / f"xgboost_tuned_{horizon}d.joblib"
         quantile_path = MODELS_DIR / f"quantile_{horizon}d.joblib"
 
