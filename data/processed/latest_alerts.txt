@@ -1,1 +1,16 @@
-Aktif uyarı yok. Tüm göstergeler normal.
+============================================================
+  PORTAKAL FİYAT UYARI RAPORU
+  Tarih: 2026-04-02 06:04
+  Toplam uyarı: 1
+============================================================
+
+--- Uyarı #1 ---
+[MEDIUM] Sezon Sonu — Arz Azalması
+  Impact: +10% to +25%
+  Confidence: 80%
+  Lead time: 0-30 days
+  Hasat sonu yaklaşıyor. Azalan arz fiyatları yükseltir.
+
+============================================================
+  Tahmini Net Etki: %+8.0 ile %+20.0 arası
+============================================================
