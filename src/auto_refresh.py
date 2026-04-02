@@ -83,7 +83,8 @@ def refresh_data() -> dict:
         logger.info("Refreshing hal prices...")
         guid = PORTAKAL_PRODUCTS["portakal"]
         new_prices = []
-        for month_offset in [0, 1]:
+        # Fetch last 3 months for better coverage
+        for month_offset in range(3):
             month = now.month - month_offset
             year = now.year
             if month <= 0:
@@ -97,18 +98,26 @@ def refresh_data() -> dict:
             existing = pd.read_csv(prices_path, parse_dates=["date"])
             if new_prices:
                 new_df = pd.concat(new_prices, ignore_index=True)
-                combined = pd.concat([existing, new_df], ignore_index=True)
-                combined = combined.drop_duplicates(subset=["date"], keep="last")
-                combined = combined.sort_values("date").reset_index(drop=True)
-                if "avg_price" not in combined.columns:
-                    combined["avg_price"] = (combined["min_price"] + combined["max_price"]) / 2
-                save_prices(combined)
-                after = len(combined)
-                logger.info(f"Prices updated: {after} total records (+{after - before} new)")
-                _log_refresh(source, before, after, "ok")
-                statuses[source] = {"status": "ok", "new_rows": after - before}
+                new_df["date"] = pd.to_datetime(new_df["date"])
+                # Only add dates that don't already exist — never overwrite existing data
+                existing_dates = set(existing["date"].dt.date)
+                new_only = new_df[~new_df["date"].dt.date.isin(existing_dates)]
+                if not new_only.empty:
+                    combined = pd.concat([existing, new_only], ignore_index=True)
+                    combined = combined.sort_values("date").reset_index(drop=True)
+                    if "avg_price" not in combined.columns:
+                        combined["avg_price"] = (combined["min_price"] + combined["max_price"]) / 2
+                    save_prices(combined)
+                    after = len(combined)
+                    logger.info(f"Prices updated: {after} total records (+{after - before} new)")
+                    _log_refresh(source, before, after, "ok")
+                    statuses[source] = {"status": "ok", "new_rows": after - before}
+                else:
+                    logger.info("Hal prices: no new dates to add")
+                    _log_refresh(source, before, before, "no_new_data")
+                    statuses[source] = {"status": "no_new_data", "new_rows": 0}
             else:
-                logger.warning("No new price data fetched")
+                logger.warning("No price data fetched from API")
                 _log_refresh(source, before, before, "no_new_data")
                 statuses[source] = {"status": "no_new_data", "new_rows": 0}
         else:
@@ -342,8 +351,13 @@ def run_full() -> int:
             logger.error(f"Model retraining failed: {e}")
             return 2
 
-    # Step 3: Generate predictions
-    generate_predictions()
+    # Step 3: Generate predictions & track them
+    from src.prediction_tracker import log_predictions, evaluate_predictions, accuracy_report
+    preds = generate_predictions()
+    if not preds.empty:
+        log_predictions(preds)
+    evaluate_predictions()
+    accuracy_report()
 
     # Step 4: Run alerts
     try:
@@ -401,10 +415,18 @@ def main():
         if args.retrain:
             if should_retrain(statuses):
                 retrain_models()
-            generate_predictions()
+            preds = generate_predictions()
+            if not preds.empty:
+                from src.prediction_tracker import log_predictions, evaluate_predictions
+                log_predictions(preds)
+                evaluate_predictions()
             run_alerts()
         elif args.predict:
-            generate_predictions()
+            preds = generate_predictions()
+            if not preds.empty:
+                from src.prediction_tracker import log_predictions, evaluate_predictions
+                log_predictions(preds)
+                evaluate_predictions()
             if args.alerts:
                 run_alerts()
         elif args.alerts:

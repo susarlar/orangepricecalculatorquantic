@@ -55,14 +55,19 @@ jobs:
 
           if new_data:
               new_df = pd.concat(new_data, ignore_index=True)
+              new_df['date'] = pd.to_datetime(new_df['date'])
               existing = pd.read_csv('data/raw/hal_prices.csv', parse_dates=['date'])
-              combined = pd.concat([existing, new_df], ignore_index=True)
-              combined = combined.drop_duplicates(subset=['date'], keep='last')
-              combined = combined.sort_values('date').reset_index(drop=True)
-              if 'avg_price' not in combined.columns:
-                  combined['avg_price'] = (combined['min_price'] + combined['max_price']) / 2
-              save_prices(combined)
-              print(f'Istanbul prices updated: {len(combined)} total records')
+              existing_dates = set(existing['date'].dt.date)
+              new_only = new_df[~new_df['date'].dt.date.isin(existing_dates)]
+              if not new_only.empty:
+                  combined = pd.concat([existing, new_only], ignore_index=True)
+                  combined = combined.sort_values('date').reset_index(drop=True)
+                  if 'avg_price' not in combined.columns:
+                      combined['avg_price'] = (combined['min_price'] + combined['max_price']) / 2
+                  save_prices(combined)
+                  print(f'Istanbul prices updated: {len(combined)} total records (+{len(new_only)} new)')
+              else:
+                  print('No new price dates to add')
           "
 
       - name: Update weather data
