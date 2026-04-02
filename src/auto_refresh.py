@@ -227,11 +227,18 @@ def retrain_models():
 
 
 def should_retrain(statuses: dict) -> bool:
-    """Check if we have new price data worth retraining on."""
+    """Check if retraining is needed: new price data OR missing model files."""
+    # Always retrain if model files are missing for any horizon
+    for horizon in PREDICTION_HORIZONS:
+        model_path = MODELS_DIR / f"xgboost_tuned_{horizon}d.joblib"
+        if not model_path.exists():
+            logger.info(f"Model missing for {horizon}d horizon — triggering retrain")
+            return True
+
     hal = statuses.get("hal_prices", {})
     if hal.get("status") == "ok" and hal.get("new_rows", 0) > 0:
         return True
-    logger.info("No new price data — skipping model retrain")
+    logger.info("No new price data and all models present — skipping retrain")
     return False
 
 
