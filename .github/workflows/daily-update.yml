@@ -1,0 +1,90 @@
+name: Daily Data Update & Model Retrain
+
+on:
+  schedule:
+    # Every day at 05:00 UTC (08:00 Turkey time)
+    - cron: '0 5 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  daily-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas numpy requests beautifulsoup4 lxml \
+            scikit-learn xgboost lightgbm shap joblib statsmodels \
+            pytrends pyyaml python-dateutil tqdm
+
+      - name: Run full daily pipeline
+        id: pipeline
+        run: |
+          python -m src.auto_refresh --full 2>&1 | tee pipeline.log
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Build commit message
+        id: commit_msg
+        if: always()
+        run: |
+          # Check what data sources were updated
+          MSG="Daily update: $(date +'%Y-%m-%d')"
+          DETAILS=""
+
+          if [ -f data/processed/refresh_log.csv ]; then
+            # Get today's log entries
+            TODAY=$(date +'%Y-%m-%d')
+            DETAILS=$(grep "$TODAY" data/processed/refresh_log.csv | while IFS=, read -r ts source before after status err; do
+              if [ "$status" = "ok" ]; then
+                echo "  + $source: $before -> $after rows"
+              elif [ "$status" = "error" ]; then
+                echo "  ! $source: FAILED ($err)"
+              elif [ "$status" = "no_new_data" ]; then
+                echo "  - $source: no new data"
+              fi
+            done)
+          fi
+
+          # Use heredoc for multiline output
+          {
+            echo "msg<<ENDOFMSG"
+            echo "$MSG"
+            echo ""
+            echo "Sources:"
+            echo "$DETAILS"
+            echo ""
+            echo "Automated by GitHub Actions daily-update workflow."
+            echo ""
+            echo "Co-Authored-By: GitHub Actions <actions@github.com>"
+            echo "ENDOFMSG"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push updates
+        if: always()
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add data/ models/
+          git diff --cached --quiet && echo "No changes to commit" || {
+            git commit -m "${{ steps.commit_msg.outputs.msg }}"
+            git push
+          }
+
+      - name: Report failure
+        if: failure()
+        run: |
+          echo "::error::Daily pipeline failed. Check pipeline.log for details."
+          if [ -f pipeline.log ]; then
+            echo "--- Last 30 lines of pipeline log ---"
+            tail -30 pipeline.log
+          fi

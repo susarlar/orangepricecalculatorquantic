@@ -1,0 +1,5 @@
+timestamp,source,records_before,records_after,status,error_msg
+2026-04-02 06:04:29,hal_prices,4373,4370,ok,
+2026-04-02 06:04:29,weather,7037,7047,ok,
+2026-04-02 06:04:29,fx_rates,1004,1041,ok,
+2026-04-02 06:04:31,demand_policy,0,14064,ok,

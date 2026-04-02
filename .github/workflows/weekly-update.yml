@@ -1,10 +1,11 @@
-name: Weekly Data Update
+name: Weekly Full Rebuild (Manual Fallback)
 
+# Daily pipeline replaces the weekly schedule — see daily-update.yml
+# Keep this workflow as a manual full-rebuild fallback
 on:
-  schedule:
-    # Every Monday at 06:00 UTC (09:00 Turkey time)
-    - cron: '0 6 * * 1'
-  workflow_dispatch: # Allow manual trigger
+  # schedule disabled — daily-update.yml handles automation
+  # - cron: '0 6 * * 1'
+  workflow_dispatch: # Manual trigger only
 
 jobs:
   update-data:

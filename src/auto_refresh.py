@@ -1,13 +1,22 @@
 """
-Automated daily data refresh and prediction pipeline.
+Automated daily data refresh, model retraining, and prediction pipeline.
 
 Usage:
-    python -m src.auto_refresh              # Run once (daily refresh)
-    python -m src.auto_refresh --schedule   # Run on schedule (every 6 hours)
+    python -m src.auto_refresh              # Refresh data only
     python -m src.auto_refresh --predict    # Refresh + generate predictions
+    python -m src.auto_refresh --retrain    # Refresh + rebuild features + retrain models
+    python -m src.auto_refresh --full       # Refresh + retrain + predict + alerts (daily prod mode)
+    python -m src.auto_refresh --schedule   # Run --full on schedule (every 6 hours)
+
+Exit codes:
+    0 = all sources succeeded
+    1 = partial failure (some sources failed, pipeline continued)
+    2 = critical failure (no price data or model training failed)
 """
 import argparse
+import csv
 import logging
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -24,9 +33,37 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+REFRESH_LOG_PATH = PROCESSED_DIR / "refresh_log.csv"
 
-def refresh_data():
-    """Fetch latest data from all sources."""
+
+def _log_refresh(source: str, records_before: int, records_after: int,
+                 status: str, error_msg: str = ""):
+    """Append a row to the refresh log CSV."""
+    REFRESH_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    file_exists = REFRESH_LOG_PATH.exists()
+    with open(REFRESH_LOG_PATH, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(["timestamp", "source", "records_before",
+                             "records_after", "status", "error_msg"])
+        writer.writerow([
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            source, records_before, records_after, status, error_msg,
+        ])
+
+
+def _count_csv_rows(path: Path) -> int:
+    """Count rows in an existing CSV, or return 0."""
+    if path.exists():
+        try:
+            return len(pd.read_csv(path))
+        except Exception:
+            return 0
+    return 0
+
+
+def refresh_data() -> dict:
+    """Fetch latest data from all sources. Returns status dict per source."""
     from src.data.hal_prices import fetch_ibb_monthly, save_prices, PORTAKAL_PRODUCTS
     from src.data.weather import fetch_weather_forecast, fetch_historical_weather, save_weather
     from src.data.fx_rates import fetch_try_rates, save_fx
@@ -36,73 +73,166 @@ def refresh_data():
     logger.info("=" * 50)
 
     now = datetime.now()
+    statuses = {}
 
-    # Refresh hal prices (current month + last month)
-    logger.info("Refreshing hal prices...")
-    guid = PORTAKAL_PRODUCTS["portakal"]
-    new_prices = []
-    for month_offset in [0, 1]:
-        month = now.month - month_offset
-        year = now.year
-        if month <= 0:
-            month += 12
-            year -= 1
-        df = fetch_ibb_monthly(year, month, guid)
-        if not df.empty:
-            new_prices.append(df)
-
-    # Load existing and merge
+    # --- Hal prices ---
+    source = "hal_prices"
     prices_path = RAW_DIR / "hal_prices.csv"
-    if prices_path.exists():
-        existing = pd.read_csv(prices_path, parse_dates=["date"])
-        if new_prices:
-            new_df = pd.concat(new_prices, ignore_index=True)
-            combined = pd.concat([existing, new_df], ignore_index=True)
-            combined = combined.drop_duplicates(subset=["date"], keep="last")
-            combined = combined.sort_values("date").reset_index(drop=True)
-            if "avg_price" not in combined.columns:
-                combined["avg_price"] = (combined["min_price"] + combined["max_price"]) / 2
-            save_prices(combined)
-            logger.info(f"Prices updated: {len(combined)} total records")
+    before = _count_csv_rows(prices_path)
+    try:
+        logger.info("Refreshing hal prices...")
+        guid = PORTAKAL_PRODUCTS["portakal"]
+        new_prices = []
+        for month_offset in [0, 1]:
+            month = now.month - month_offset
+            year = now.year
+            if month <= 0:
+                month += 12
+                year -= 1
+            df = fetch_ibb_monthly(year, month, guid)
+            if not df.empty:
+                new_prices.append(df)
 
-    # Refresh weather (forecast)
-    logger.info("Refreshing weather forecast...")
-    forecast = fetch_weather_forecast()
+        if prices_path.exists():
+            existing = pd.read_csv(prices_path, parse_dates=["date"])
+            if new_prices:
+                new_df = pd.concat(new_prices, ignore_index=True)
+                combined = pd.concat([existing, new_df], ignore_index=True)
+                combined = combined.drop_duplicates(subset=["date"], keep="last")
+                combined = combined.sort_values("date").reset_index(drop=True)
+                if "avg_price" not in combined.columns:
+                    combined["avg_price"] = (combined["min_price"] + combined["max_price"]) / 2
+                save_prices(combined)
+                after = len(combined)
+                logger.info(f"Prices updated: {after} total records (+{after - before} new)")
+                _log_refresh(source, before, after, "ok")
+                statuses[source] = {"status": "ok", "new_rows": after - before}
+            else:
+                logger.warning("No new price data fetched")
+                _log_refresh(source, before, before, "no_new_data")
+                statuses[source] = {"status": "no_new_data", "new_rows": 0}
+        else:
+            logger.warning("No existing price file found")
+            _log_refresh(source, 0, 0, "missing_file")
+            statuses[source] = {"status": "missing_file", "new_rows": 0}
+    except Exception as e:
+        logger.error(f"Hal prices failed: {e}")
+        _log_refresh(source, before, before, "error", str(e))
+        statuses[source] = {"status": "error", "error": str(e)}
+
+    # --- Weather ---
+    source = "weather"
     weather_path = RAW_DIR / "weather_finike.csv"
-    if weather_path.exists() and not forecast.empty:
-        existing_w = pd.read_csv(weather_path, parse_dates=["date"])
-        forecast["is_forecast"] = True
-        combined_w = pd.concat([existing_w, forecast], ignore_index=True)
-        combined_w = combined_w.drop_duplicates(subset=["date"], keep="first")
-        combined_w = combined_w.sort_values("date").reset_index(drop=True)
-        save_weather(combined_w)
-        logger.info(f"Weather updated: {len(combined_w)} records")
+    before = _count_csv_rows(weather_path)
+    try:
+        logger.info("Refreshing weather forecast...")
+        forecast = fetch_weather_forecast()
+        if weather_path.exists() and not forecast.empty:
+            existing_w = pd.read_csv(weather_path, parse_dates=["date"])
+            forecast["is_forecast"] = True
+            combined_w = pd.concat([existing_w, forecast], ignore_index=True)
+            combined_w = combined_w.drop_duplicates(subset=["date"], keep="first")
+            combined_w = combined_w.sort_values("date").reset_index(drop=True)
+            save_weather(combined_w)
+            after = len(combined_w)
+            logger.info(f"Weather updated: {after} records")
+            _log_refresh(source, before, after, "ok")
+            statuses[source] = {"status": "ok", "new_rows": after - before}
+        else:
+            _log_refresh(source, before, before, "no_new_data")
+            statuses[source] = {"status": "no_new_data", "new_rows": 0}
+    except Exception as e:
+        logger.error(f"Weather failed: {e}")
+        _log_refresh(source, before, before, "error", str(e))
+        statuses[source] = {"status": "error", "error": str(e)}
 
-    # Refresh FX rates (last month)
-    logger.info("Refreshing FX rates...")
-    start = (now - pd.Timedelta(days=60)).strftime("%Y-%m-%d")
-    new_fx = fetch_try_rates(start_date=start)
+    # --- FX rates ---
+    source = "fx_rates"
     fx_path = RAW_DIR / "fx_rates.csv"
-    if fx_path.exists() and not new_fx.empty:
-        existing_fx = pd.read_csv(fx_path, parse_dates=["date"])
-        combined_fx = pd.concat([existing_fx, new_fx], ignore_index=True)
-        combined_fx = combined_fx.drop_duplicates(subset=["date"], keep="last")
-        combined_fx = combined_fx.sort_values("date").reset_index(drop=True)
-        from src.data.fx_rates import save_fx
-        save_fx(combined_fx)
-        logger.info(f"FX updated: {len(combined_fx)} records")
+    before = _count_csv_rows(fx_path)
+    try:
+        logger.info("Refreshing FX rates...")
+        start = (now - pd.Timedelta(days=60)).strftime("%Y-%m-%d")
+        new_fx = fetch_try_rates(start_date=start)
+        if fx_path.exists() and not new_fx.empty:
+            existing_fx = pd.read_csv(fx_path, parse_dates=["date"])
+            combined_fx = pd.concat([existing_fx, new_fx], ignore_index=True)
+            combined_fx = combined_fx.drop_duplicates(subset=["date"], keep="last")
+            combined_fx = combined_fx.sort_values("date").reset_index(drop=True)
+            save_fx(combined_fx)
+            after = len(combined_fx)
+            logger.info(f"FX updated: {after} records")
+            _log_refresh(source, before, after, "ok")
+            statuses[source] = {"status": "ok", "new_rows": after - before}
+        else:
+            _log_refresh(source, before, before, "no_new_data")
+            statuses[source] = {"status": "no_new_data", "new_rows": 0}
+    except Exception as e:
+        logger.error(f"FX rates failed: {e}")
+        _log_refresh(source, before, before, "error", str(e))
+        statuses[source] = {"status": "error", "error": str(e)}
+
+    # --- Demand & policy features ---
+    source = "demand_policy"
+    try:
+        logger.info("Refreshing demand & policy features...")
+        from src.data.demand_features import build_demand_features, save_demand_features
+        from src.data.policy_events import build_policy_features, save_policy_features
+
+        demand = build_demand_features(start_date="2007-01-01")
+        if not demand.empty:
+            save_demand_features(demand)
+        policy = build_policy_features(start_date="2007-01-01")
+        save_policy_features(policy)
+        logger.info(f"Demand: {len(demand)} rows, Policy: {len(policy)} rows")
+        _log_refresh(source, 0, len(demand) + len(policy), "ok")
+        statuses[source] = {"status": "ok"}
+    except Exception as e:
+        logger.error(f"Demand/policy features failed: {e}")
+        _log_refresh(source, 0, 0, "error", str(e))
+        statuses[source] = {"status": "error", "error": str(e)}
 
     logger.info("Data refresh complete!")
+    return statuses
+
+
+def retrain_models():
+    """Rebuild feature matrix and retrain all models."""
+    from src.pipeline import build_features, train_models
+    from src.models.farmer import train_all_farmer_models
+
+    logger.info("=" * 50)
+    logger.info("MODEL RETRAINING")
+    logger.info("=" * 50)
+
+    logger.info("Building feature matrix...")
+    build_features()
+
+    logger.info("Training baseline models...")
+    train_models()
+
+    logger.info("Training farmer models...")
+    train_all_farmer_models()
+
+    logger.info("Model retraining complete!")
+
+
+def should_retrain(statuses: dict) -> bool:
+    """Check if we have new price data worth retraining on."""
+    hal = statuses.get("hal_prices", {})
+    if hal.get("status") == "ok" and hal.get("new_rows", 0) > 0:
+        return True
+    logger.info("No new price data — skipping model retrain")
+    return False
 
 
 def generate_predictions() -> pd.DataFrame:
     """Generate predictions using saved models and full feature matrix."""
     logger.info("Generating predictions...")
 
-    # Load the pre-built feature matrix (has all features already merged)
     features_path = PROCESSED_DIR / "feature_matrix.csv"
     if not features_path.exists():
-        logger.error("Feature matrix not found. Run pipeline --features first.")
+        logger.error("Feature matrix not found. Run with --retrain first.")
         return pd.DataFrame()
 
     features = pd.read_csv(features_path, parse_dates=["date"])
@@ -139,7 +269,6 @@ def generate_predictions() -> pd.DataFrame:
                 "current_price": float(current_price),
             }
 
-            # Prediction intervals
             if quantile_path.exists():
                 q_data = joblib.load(quantile_path)
                 q_cols = q_data["feature_cols"]
@@ -184,7 +313,6 @@ def run_alerts():
     report = format_alert_report(alerts)
     logger.info(f"\n{report}")
 
-    # Save alerts
     alert_path = PROCESSED_DIR / "latest_alerts.txt"
     alert_path.parent.mkdir(parents=True, exist_ok=True)
     alert_path.write_text(report, encoding="utf-8")
@@ -192,16 +320,53 @@ def run_alerts():
     return alerts
 
 
+def run_full() -> int:
+    """Run the complete daily pipeline. Returns exit code."""
+    logger.info("=" * 60)
+    logger.info(f"FULL DAILY PIPELINE — {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    logger.info("=" * 60)
+
+    # Step 1: Refresh data
+    statuses = refresh_data()
+
+    errors = [s for s in statuses.values() if s.get("status") == "error"]
+    if statuses.get("hal_prices", {}).get("status") == "error":
+        logger.error("CRITICAL: Price data refresh failed — aborting retrain")
+        return 2
+
+    # Step 2: Retrain models (only if new price data)
+    if should_retrain(statuses):
+        try:
+            retrain_models()
+        except Exception as e:
+            logger.error(f"Model retraining failed: {e}")
+            return 2
+
+    # Step 3: Generate predictions
+    generate_predictions()
+
+    # Step 4: Run alerts
+    try:
+        run_alerts()
+    except Exception as e:
+        logger.warning(f"Alerts failed (non-critical): {e}")
+
+    if errors:
+        logger.warning(f"Completed with {len(errors)} source error(s)")
+        return 1
+
+    logger.info("Full pipeline completed successfully!")
+    return 0
+
+
 def run_scheduled():
-    """Run on a schedule using the schedule library."""
+    """Run full pipeline on a schedule using the schedule library."""
     import schedule
 
     def job():
-        logger.info(f"\n{'='*50}")
+        logger.info(f"\n{'=' * 50}")
         logger.info(f"Scheduled run at {datetime.now()}")
-        refresh_data()
-        generate_predictions()
-        run_alerts()
+        run_full()
 
     # Run immediately
     job()
@@ -217,19 +382,32 @@ def run_scheduled():
 
 def main():
     parser = argparse.ArgumentParser(description="Auto-refresh pipeline")
-    parser.add_argument("--schedule", action="store_true", help="Run on schedule")
-    parser.add_argument("--predict", action="store_true", help="Generate predictions")
+    parser.add_argument("--schedule", action="store_true", help="Run --full on schedule (every 6h)")
+    parser.add_argument("--predict", action="store_true", help="Refresh + generate predictions")
+    parser.add_argument("--retrain", action="store_true", help="Refresh + rebuild features + retrain models")
+    parser.add_argument("--full", action="store_true", help="Full daily pipeline: refresh + retrain + predict + alerts")
     parser.add_argument("--alerts", action="store_true", help="Run alerts only")
 
     args = parser.parse_args()
 
     if args.schedule:
         run_scheduled()
+    elif args.full:
+        exit_code = run_full()
+        sys.exit(exit_code)
     else:
-        refresh_data()
-        if args.predict:
+        statuses = refresh_data()
+
+        if args.retrain:
+            if should_retrain(statuses):
+                retrain_models()
             generate_predictions()
-        if args.alerts or args.predict:
+            run_alerts()
+        elif args.predict:
+            generate_predictions()
+            if args.alerts:
+                run_alerts()
+        elif args.alerts:
             run_alerts()
 
 
