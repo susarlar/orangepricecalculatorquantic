@@ -1,0 +1,4 @@
+date_generated,horizon_days,target_date,predicted_price,pred_lower,pred_upper,current_price,actual_price,error,abs_error,pct_error,evaluated
+2026-04-03 06:13:00,30,2026-05-03 00:00:00,14.6138,19.2455,30.6851,,,,,,False
+2026-04-03 06:13:00,60,2026-06-02 00:00:00,24.6094,20.0273,37.3414,,,,,,False
+2026-04-03 06:13:00,90,2026-07-02 00:00:00,23.7105,24.3891,40.1571,,,,,,False
