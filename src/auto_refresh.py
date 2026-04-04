@@ -105,8 +105,11 @@ def refresh_data() -> dict:
                 if not new_only.empty:
                     combined = pd.concat([existing, new_only], ignore_index=True)
                     combined = combined.sort_values("date").reset_index(drop=True)
-                    if "avg_price" not in combined.columns:
-                        combined["avg_price"] = (combined["min_price"] + combined["max_price"]) / 2
+                    # Always recalculate avg_price for rows where it's missing
+                    mask = combined["avg_price"].isna()
+                    combined.loc[mask, "avg_price"] = (
+                        combined.loc[mask, "min_price"] + combined.loc[mask, "max_price"]
+                    ) / 2
                     save_prices(combined)
                     after = len(combined)
                     logger.info(f"Prices updated: {after} total records (+{after - before} new)")
