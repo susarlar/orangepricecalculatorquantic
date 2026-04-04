@@ -1,52 +1,52 @@
 {
-  "date": "2026-04-03",
+  "date": "2026-04-04",
   "current_price": 20.0,
   "breakeven_price": 13.59,
   "margin_per_kg": 6.41,
   "margin_pct": 47.2,
   "forecasts": {
     "7": {
-      "price": 22.578426361083984,
-      "lower": 20.095918412523464,
-      "upper": 30.458944882840747,
-      "change_pct": 12.892131805419925,
-      "target_date": "2026-04-10"
+      "price": 22.401382446289062,
+      "lower": 20.67439058802215,
+      "upper": 31.25800619423803,
+      "change_pct": 12.006912231445321,
+      "target_date": "2026-04-11"
     },
     "14": {
-      "price": 26.668012619018555,
-      "lower": 19.857308120806778,
-      "upper": 31.8328710086023,
-      "change_pct": 33.340063095092766,
-      "target_date": "2026-04-17"
+      "price": 26.39621353149414,
+      "lower": 22.093114154104192,
+      "upper": 31.205203092888794,
+      "change_pct": 31.981067657470707,
+      "target_date": "2026-04-18"
     },
     "30": {
-      "price": 29.141849517822266,
+      "price": 28.798017501831055,
       "lower": 23.670313589137677,
       "upper": 33.671305306895505,
-      "change_pct": 45.70924758911132,
-      "target_date": "2026-05-03"
+      "change_pct": 43.99008750915527,
+      "target_date": "2026-05-04"
     },
     "60": {
-      "price": 25.712093353271484,
-      "lower": 25.0100912555364,
-      "upper": 37.94784236625021,
-      "change_pct": 28.56046676635742,
-      "target_date": "2026-06-02"
+      "price": 26.182592391967773,
+      "lower": 25.0111851924534,
+      "upper": 39.8198592987779,
+      "change_pct": 30.91296195983886,
+      "target_date": "2026-06-03"
     },
     "90": {
-      "price": 39.483890533447266,
-      "lower": 36.24193121021094,
-      "upper": 38.062622630310386,
-      "change_pct": 97.41945266723633,
-      "target_date": "2026-07-02"
+      "price": 39.25875473022461,
+      "lower": 36.23848975475325,
+      "upper": 38.43043746732836,
+      "change_pct": 96.29377365112303,
+      "target_date": "2026-07-03"
     }
   },
   "recommendation": {
     "action": "SOĞUK HAVA",
-    "reason": "90 gün depolayıp satın. Beklenen fiyat: 39.5 ₺/kg, depolama maliyeti: 13.5 ₺/kg, net kazanç: +6.0 ₺/kg.",
+    "reason": "90 gün depolayıp satın. Beklenen fiyat: 39.3 ₺/kg, depolama maliyeti: 13.5 ₺/kg, net kazanç: +5.8 ₺/kg.",
     "urgency": "medium",
     "best_sell_horizon": 90,
-    "best_expected_price": 39.48
+    "best_expected_price": 39.26
   },
   "season_info": {
     "phase": "Sezon Sonu",
