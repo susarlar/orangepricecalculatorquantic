@@ -35,3 +35,7 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-04-08 06:16:31,weather,7051,7053,ok,
 2026-04-08 06:16:32,fx_rates,1042,1043,ok,
 2026-04-08 06:16:34,demand_policy,0,14076,ok,
+2026-04-09 06:15:40,hal_prices,4375,4375,no_new_data,
+2026-04-09 06:15:41,weather,7053,7054,ok,
+2026-04-09 06:15:41,fx_rates,1043,1044,ok,
+2026-04-09 06:15:43,demand_policy,0,14078,ok,
