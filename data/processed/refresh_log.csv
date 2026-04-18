@@ -71,3 +71,7 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-04-17 06:29:49,weather,7061,7062,ok,
 2026-04-17 06:29:50,fx_rates,1049,1050,ok,
 2026-04-17 06:29:52,demand_policy,0,14094,ok,
+2026-04-18 06:08:01,hal_prices,4381,4382,ok,
+2026-04-18 06:08:02,weather,7062,7063,ok,
+2026-04-18 06:08:02,fx_rates,1050,1051,ok,
+2026-04-18 06:08:05,demand_policy,0,14096,ok,
