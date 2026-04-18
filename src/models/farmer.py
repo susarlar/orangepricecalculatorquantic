@@ -103,6 +103,22 @@ def build_farmer_features() -> pd.DataFrame:
         var_daily = var_daily.rename(columns={"avg_price": f"antalya_{variety.lower()}_price"})
         daily = daily.merge(var_daily, on="date", how="left")
 
+    # Extend rows up to today by forward-filling the last Antalya price.
+    # Why: Antalya hal data can lag a day or more behind. Without this, the
+    # Çiftçi Paneli shows a stale "today" and predictions can't run for the
+    # current date. Weather/FX/demand/policy (merged below) remain authoritative.
+    daily["is_price_ffill"] = 0
+    today = pd.Timestamp.today().normalize()
+    last_obs = daily["date"].max()
+    if pd.notna(last_obs) and last_obs < today:
+        full_idx = pd.date_range(start=daily["date"].min(), end=today, freq="D")
+        daily = daily.set_index("date").reindex(full_idx).reset_index().rename(columns={"index": "date"})
+        mask_new = daily["is_price_ffill"].isna()
+        daily.loc[mask_new, "is_price_ffill"] = 1
+        for col in daily.columns:
+            if col != "date" and pd.api.types.is_numeric_dtype(daily[col]):
+                daily[col] = daily[col].ffill()
+
     # ── Price features ──
     price_col = "antalya_avg"
     for lag in [1, 3, 7, 14, 30]:
@@ -312,6 +328,10 @@ def generate_farmer_advice(df: pd.DataFrame, costs: dict = None) -> dict:
     current = df.iloc[-1]
     current_price = current["antalya_avg"]
 
+    real_rows = df[df.get("is_price_ffill", 0) == 0] if "is_price_ffill" in df.columns else df
+    last_real_date = real_rows["date"].max() if not real_rows.empty else df["date"].max()
+    data_age_days = int((datetime.now().date() - last_real_date.date()).days) if pd.notna(last_real_date) else 0
+
     # Load models and predict
     forecasts = {}
     for horizon in [7, 14, 30, 60, 90]:
@@ -348,6 +368,8 @@ def generate_farmer_advice(df: pd.DataFrame, costs: dict = None) -> dict:
 
     return {
         "date": datetime.now().strftime("%Y-%m-%d"),
+        "last_price_date": last_real_date.strftime("%Y-%m-%d") if pd.notna(last_real_date) else None,
+        "data_age_days": data_age_days,
         "current_price": round(current_price, 2),
         "breakeven_price": breakeven,
         "margin_per_kg": round(current_price - breakeven, 2),

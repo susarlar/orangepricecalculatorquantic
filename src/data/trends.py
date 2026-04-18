@@ -80,7 +80,7 @@ def _build_trend_proxy() -> pd.DataFrame:
     """
     import numpy as np
 
-    dates = pd.date_range(start="2007-01-01", end="2026-03-23", freq="W-MON")
+    dates = pd.date_range(start="2007-01-01", end=pd.Timestamp.today().normalize(), freq="W-MON")
     np.random.seed(42)
 
     rows = []

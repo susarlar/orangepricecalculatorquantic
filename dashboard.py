@@ -150,9 +150,74 @@ def load_data():
 
 data = load_data()
 
+
+def _freshness_summary(data: dict) -> list[tuple[str, pd.Timestamp | None]]:
+    """Return (label, last_date) pairs for each data source shown on the dashboard."""
+    items: list[tuple[str, pd.Timestamp | None]] = []
+
+    def _last(df_key: str, date_col: str = "date") -> pd.Timestamp | None:
+        if df_key in data and date_col in data[df_key].columns:
+            col = pd.to_datetime(data[df_key][date_col], errors="coerce")
+            if col.notna().any():
+                return col.max()
+        return None
+
+    items.append(("İstanbul Hal fiyatları", _last("prices")))
+    items.append(("Antalya Hal fiyatları", _last("antalya")))
+    items.append(("Hava durumu (Finike)", _last("weather")))
+    items.append(("Döviz kurları", _last("fx")))
+    items.append(("Talep/politika", _last("demand")))
+    items.append(("Google Trends", _last("trends")))
+
+    if "farmer_advice" in data and isinstance(data["farmer_advice"], dict):
+        adv = data["farmer_advice"]
+        last_pd = adv.get("last_price_date") or adv.get("date")
+        if last_pd:
+            items.append(("Çiftçi tavsiyesi (Antalya)", pd.Timestamp(last_pd)))
+
+    return items
+
+
+def render_freshness_banner(data: dict) -> None:
+    """Render a top banner showing per-source last-data date + today."""
+    today = pd.Timestamp.today().normalize()
+    summary = _freshness_summary(data)
+    stale_items = [(label, d) for label, d in summary if d is None or (today - d).days > 2]
+
+    header = f"📅 Bugün: **{today.strftime('%d %B %Y')}**"
+    if not stale_items:
+        st.success(f"{header} — Tüm veriler güncel.")
+    else:
+        max_lag = max(((today - d).days if d is not None else 999) for _, d in stale_items)
+        st.warning(f"{header} — {len(stale_items)} veri kaynağı eski (en fazla {max_lag} gün).")
+
+    with st.expander("Veri Güncellik Durumu", expanded=bool(stale_items)):
+        rows = []
+        for label, d in summary:
+            if d is None:
+                status = "❌ Bulunamadı"
+                last_str = "—"
+                age = "—"
+            else:
+                age_days = (today - d).days
+                last_str = d.strftime("%Y-%m-%d")
+                age = f"{age_days} gün"
+                if age_days <= 2:
+                    status = "✅ Güncel"
+                elif age_days <= 7:
+                    status = "⚠️ Biraz eski"
+                else:
+                    status = "🔴 Eski"
+            rows.append({"Kaynak": label, "Son Tarih": last_str, "Yaş": age, "Durum": status})
+        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+render_freshness_banner(data)
+
 # ─── Sidebar ─────────────────────────────────────────────────────────────────────
 
 st.sidebar.title("🍊 Portakal Dashboard")
+st.sidebar.markdown(f"**Bugün:** {pd.Timestamp.today().strftime('%Y-%m-%d')}")
 st.sidebar.markdown("---")
 
 page = st.sidebar.radio(
@@ -165,7 +230,9 @@ page = st.sidebar.radio(
 if "prices" in data:
     prices = data["prices"]
     min_date = prices["date"].min().date()
-    max_date = prices["date"].max().date()
+    data_max = prices["date"].max().date()
+    today_date = pd.Timestamp.today().date()
+    max_date = max(data_max, today_date)
 
     date_range = st.sidebar.date_input(
         "Tarih Aralığı",
@@ -198,6 +265,25 @@ if page == "Çiftçi Paneli":
         st.stop()
 
     advice = data["farmer_advice"]
+
+    advice_date = advice.get("date", "—")
+    last_price_date = advice.get("last_price_date", advice_date)
+    age_days = advice.get("data_age_days")
+    if age_days is None and last_price_date != "—":
+        try:
+            age_days = (pd.Timestamp.today().normalize() - pd.Timestamp(last_price_date)).days
+        except Exception:
+            age_days = None
+
+    today_str = pd.Timestamp.today().strftime("%d %B %Y")
+    if age_days is None:
+        st.caption(f"Bugün: **{today_str}** · Tavsiye tarihi: {advice_date}")
+    elif age_days <= 1:
+        st.caption(f"Bugün: **{today_str}** · Antalya Hal son veri: {last_price_date} (güncel)")
+    elif age_days <= 7:
+        st.info(f"Bugün **{today_str}**. Antalya Hal son fiyat: **{last_price_date}** ({age_days} gün önce). Hesaplamalar son fiyatla devam ediyor.")
+    else:
+        st.warning(f"Bugün **{today_str}**. Antalya Hal verisi **{age_days} gün** eski (son: {last_price_date}). Günlük pipeline'ın çalıştığını kontrol edin.")
 
     # ── Top KPIs ──
     col1, col2, col3, col4 = st.columns(4)
@@ -689,8 +775,8 @@ elif page == "Pazar & Politika":
             usd_col = "TRY_per_USD" if "TRY_per_USD" in fx.columns else "USD_TRY"
 
             fig_dual = make_subplots(specs=[[{"secondary_y": True}]])
-            monthly_p = prices.set_index("date").resample("M")["avg_price"].mean().reset_index()
-            monthly_fx = fx.set_index("date")[usd_col].resample("M").mean().reset_index()
+            monthly_p = prices.set_index("date").resample("ME")["avg_price"].mean().reset_index()
+            monthly_fx = fx.set_index("date")[usd_col].resample("ME").mean().reset_index()
 
             fig_dual.add_trace(
                 go.Scatter(x=monthly_p["date"], y=monthly_p["avg_price"],
@@ -930,7 +1016,7 @@ elif page == "Talep & Trendler":
 
             # Overlay with price
             fig_tp = make_subplots(specs=[[{"secondary_y": True}]])
-            monthly_p = prices.set_index("date").resample("M")["avg_price"].mean().reset_index()
+            monthly_p = prices.set_index("date").resample("ME")["avg_price"].mean().reset_index()
             if "trend_portakal_fiyat" in trends.columns:
                 fig_tp.add_trace(go.Scatter(x=trends["date"], y=trends["trend_portakal_fiyat"],
                                              name="Trend: portakal fiyat", line=dict(color="blue")), secondary_y=False)

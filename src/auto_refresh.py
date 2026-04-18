@@ -184,6 +184,49 @@ def refresh_data() -> dict:
         _log_refresh(source, before, before, "error", str(e))
         statuses[source] = {"status": "error", "error": str(e)}
 
+    # --- Antalya Hal prices (Playwright scraper, optional) ---
+    source = "antalya_hal"
+    antalya_path = RAW_DIR / "antalya_hal_prices.csv"
+    before = _count_csv_rows(antalya_path)
+    try:
+        logger.info("Refreshing Antalya Hal prices...")
+        from src.data.antalya_hal import scrape_antalya_range, save_antalya_prices
+
+        if antalya_path.exists():
+            existing_ant = pd.read_csv(antalya_path, parse_dates=["date"])
+            last_date = existing_ant["date"].max()
+            start_ant = (last_date - pd.Timedelta(days=2)).strftime("%Y-%m-%d")
+        else:
+            existing_ant = pd.DataFrame()
+            start_ant = (now - pd.Timedelta(days=30)).strftime("%Y-%m-%d")
+
+        end_ant = now.strftime("%Y-%m-%d")
+        new_ant = scrape_antalya_range(start_ant, end_ant)
+
+        if not new_ant.empty:
+            parts = [p for p in (existing_ant, new_ant) if not p.empty]
+            combined_ant = pd.concat(parts, ignore_index=True)
+            combined_ant["date"] = pd.to_datetime(combined_ant["date"])
+            combined_ant = combined_ant.drop_duplicates(subset=["date", "product"], keep="last")
+            combined_ant = combined_ant.sort_values(["date", "product"]).reset_index(drop=True)
+            save_antalya_prices(combined_ant)
+            after = len(combined_ant)
+            logger.info(f"Antalya prices updated: {after} total records (+{after - before} new)")
+            _log_refresh(source, before, after, "ok")
+            statuses[source] = {"status": "ok", "new_rows": after - before}
+        else:
+            logger.info("Antalya Hal: no new data scraped")
+            _log_refresh(source, before, before, "no_new_data")
+            statuses[source] = {"status": "no_new_data", "new_rows": 0}
+    except ImportError:
+        logger.warning("Antalya scraper skipped: playwright not installed")
+        _log_refresh(source, before, before, "skipped", "playwright not installed")
+        statuses[source] = {"status": "skipped", "error": "playwright missing"}
+    except Exception as e:
+        logger.warning(f"Antalya Hal failed (non-critical): {e}")
+        _log_refresh(source, before, before, "error", str(e))
+        statuses[source] = {"status": "error", "error": str(e)}
+
     # --- Demand & policy features ---
     source = "demand_policy"
     try:
