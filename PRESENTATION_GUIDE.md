@@ -20,6 +20,7 @@ The rubric requires several things that are easy to forget under recording stres
 | ☐ | Browser at **Trello board** | Required by handbook |
 | ☐ | Browser at **`docs/architecture.html`** open locally (file:///…) | For the architecture walkthrough |
 | ☐ | VS Code or GitHub repo open at the `src/` tree | For brief code walk |
+| ☐ | Browser tab on `src/data/news.py` and `tests/test_news.py` (GitHub view) | For the AI / LLM stretch-goal segment |
 | ☐ | Close Slack / Discord / personal email | Avoid notification interruptions |
 | ☐ | Set screen resolution to 1080p, font sizes large enough to read | Rubric: "screen share is clear and legible" |
 | ☐ | Recording tool: Zoom (records you + screen in one file) | Handbook recommends Zoom |
@@ -29,9 +30,21 @@ The rubric requires several things that are easy to forget under recording stres
 
 ---
 
-## The 18-Minute Script (target middle of the 15–20 range)
+## The 19-Minute Script (target upper-middle of the 15–20 range)
 
-This timing is calibrated for an **18-minute** recording. If you're naturally faster, expect ~16 min; if slower, ~20 min. Both pass the rubric.
+This timing is calibrated for a **19-minute** recording with the AI/LLM stretch-goal segment included. If you're naturally faster, expect ~17 min; if slower, ~20 min. Both pass the rubric.
+
+**At-a-glance budget:**
+
+| Block | Duration | What |
+|---|---|---|
+| 0:00 – 1:00 | 1:00 | Intro + government-issued ID |
+| 1:00 – 3:00 | 2:00 | Problem + personas |
+| 3:00 – 10:00 | 7:00 | Live dashboard demonstration |
+| 10:00 – 13:00 | 3:00 | Architecture walkthrough |
+| 13:00 – 17:00 | 4:00 | GitHub repository + AI/LLM stretch goal |
+| 17:00 – 18:00 | 1:00 | Trello task board |
+| 18:00 – 19:00 | 1:00 | Wrap-up |
 
 ---
 
@@ -45,7 +58,7 @@ This timing is calibrated for an **18-minute** recording. If you're naturally fa
 
 **Then state the agenda:**
 
-> *"In the next 18 minutes I'll walk through three things: the deployed website with the user stories it implements, the system architecture, and the GitHub repository including CI/CD evidence."*
+> *"In the next 19 minutes I'll walk through four things: the deployed website with the user stories it implements, the system architecture, the GitHub repository including CI/CD evidence, and a stretch-goal AI integration — a DeepSeek LLM that automatically classifies Turkish agriculture news into structured price signals."*
 
 ---
 
@@ -53,7 +66,7 @@ This timing is calibrated for an **18-minute** recording. If you're naturally fa
 
 **Stay on camera; share a slide or just speak over a still of the dashboard home page.**
 
-> *"Finike, on the southern Turkish coast, is the country's premium orange-growing region. A grower, a wholesale trader, an exporter, and a ministry analyst all need to know **where prices are heading 7 to 90 days out** — but the data they'd need lives in ten different places: the İstanbul wholesale market API, the Antalya municipality's website, weather APIs, satellite imagery, FX rates, and policy events."*
+> *"Finike, on the southern Turkish coast, is the country's premium orange-growing region. A grower, a wholesale trader, an exporter, and a ministry analyst all need to know **where prices are heading 7 to 90 days out** — but the data they'd need lives in eleven different places: the İstanbul wholesale market API, the Antalya municipality's website, weather APIs, satellite imagery, FX rates, policy events, and — newly added — Turkish agriculture news classified in real time by a DeepSeek language model."*
 
 > *"I built a system that fuses all of those into a single feature matrix, trains an ensemble of gradient-boosted models, and serves daily forecasts and decision recommendations through a public web dashboard. Today I'll demonstrate it through four personas from my user-stories backlog: **Selma**, a Finike farmer; **Mert**, a wholesale trader; **Defne**, an exporter; and **Ahmet**, a ministry analyst."*
 
@@ -119,26 +132,26 @@ This timing is calibrated for an **18-minute** recording. If you're naturally fa
 
 **Switch to `docs/architecture.html` open locally in the browser.** Scroll smoothly between sections — don't dwell.
 
-> *"The architecture is documented in this self-contained HTML deck. Let me walk through the three diagrams that matter most."*
+> *"The architecture is documented in this self-contained HTML deck. Let me walk through the diagrams that matter most."*
 
-**Diagram 1 — System Context (~30 s):**
-> *"At the top level: five user personas, ten external data sources, two surfaces — the dashboard and the GitHub-Actions-driven pipeline. The system is read-only from both directions: no orders are placed and nothing is written back to source APIs."*
+**Diagram 1 — System Context (~25 s):**
+> *"At the top level: five user personas, eleven external data sources including a DeepSeek LLM that classifies news in real time, and two surfaces — the dashboard and the GitHub-Actions-driven pipeline. The system is read-only from both directions: no orders are placed and nothing is written back to source APIs."*
 
-**Diagram 2 — Data Pipeline (~45 s):**
+**Diagram 2 — Data Pipeline (~40 s):**
 > *"Internally it's a Pipes-and-Filters pipeline. Every stage reads from disk and writes to disk. This is deliberate — it means any single failure can't break the day's run, every artifact is auditable in the GitHub UI as a CSV diff, and I can re-run any single stage in seconds during development."*
 
-**Diagram 3 — Pattern Map (~45 s):**
-> *"The codebase uses nine well-known patterns: Repository for each data source, Strategy for the model families, Adapter for the heterogeneous APIs, Composite for the alert engine, plus DTOs, the Streamlit cache decorator, idempotent writers, and a soft circuit-breaker that lets one source fail without taking down the rest. All of this is documented in `DESIGN_AND_TESTING.md` section 2.2."*
+**Diagram 3 — Pattern Map (~35 s):**
+> *"The codebase uses ten well-known patterns. Repository for each data source, Strategy for the model families, Adapter for the heterogeneous APIs, Composite for the alert engine — plus DTOs, the Streamlit cache decorator, idempotent writers, a soft circuit-breaker that lets one source fail without taking down the rest, and crucially the **LLM-as-Extractor** pattern in the news pipeline — the language model is constrained to a fixed JSON schema and never sees the price target. All of this is documented in `DESIGN_AND_TESTING.md` section 2.2."*
 
 **Diagram 4 — CI/CD Flow (~30 s):**
-> *"And this is the daily refresh — at 05:00 UTC, GitHub Actions checks out the repo, installs dependencies, runs the full pipeline, commits the new data and retrained models, and pushes. Render auto-deploys on push, so within minutes the dashboard reflects today's data."*
+> *"And this is the daily refresh — at 05:00 UTC, GitHub Actions checks out the repo, fetches news, calls DeepSeek for classification, runs the full pipeline, commits the new data and retrained models, and pushes. Render auto-deploys on push, so within minutes the dashboard reflects today's data."*
 
 **Diagram 5 — Sprint Timeline (~30 s):**
 > *"And here's the sprint Gantt — three sprints over six weeks, with the daily CI workflow running continuously through Sprints 2 and 3, which is the strongest evidence I can offer that the methodology was actually applied."*
 
 ---
 
-### 🎬 13:00 – 16:00 · GitHub repository + CI/CD evidence (3 min)
+### 🎬 13:00 – 17:00 · GitHub repository + CI/CD evidence + AI/LLM stretch (4 min)
 
 **Switch to GitHub.** This is where you bank the rubric points for *"appropriate software engineering methodology and CI/CD tools."*
 
@@ -168,7 +181,7 @@ This timing is calibrated for an **18-minute** recording. If you're naturally fa
 
 > *"And here's the most recent test run — 26 unit tests across config integrity, the breakeven math, the season-phase mapping, the SELL/WAIT/COLD STORAGE decision logic, the alert engine, and a guard test that ensures policy descriptions stay in English. All passing in under four seconds."*
 
-#### Repository layout (~45 s)
+#### Repository layout (~30 s)
 
 **Switch to:** the repo root file listing.
 
@@ -178,9 +191,33 @@ This timing is calibrated for an **18-minute** recording. If you're naturally fa
 
 > *"The application code is in `src/`, organized by responsibility: collectors, features, models, alerts, plus the orchestrators. The Streamlit dashboard lives in `dashboard.py` at the root."*
 
+#### AI / LLM integration — stretch goal (~75 s) → demonstrates **B-05** (originally a "could-have")
+
+**This is the initiative segment that earns the rubric's top score.**
+
+**Click:** `src/data/news.py`. Scroll to show the structure: `fetch_news_articles`, `classify_with_deepseek`, `parse_classification`, `build_news_features`, `refresh_news`.
+
+> *"Here's the AI integration. The original backlog only required curated policy events as a price-moving signal — that was good for an MVP but not very scalable. So as a stretch goal in Sprint 3 I added a real LLM-driven news pipeline."*
+
+> *"Every morning the daily Action pulls Turkish agriculture news from Google News RSS for seven queries — `portakal fiyat`, `narenciye ihracat`, frost-related terms, and so on. Each article is sent to **DeepSeek's `deepseek-chat` model** through their OpenAI-compatible API. I use a structured-output prompt that forces the model to return one JSON object per article: is this relevant to Turkish orange prices, what's the sentiment, what type of event, what magnitude, and a confidence score."*
+
+**Click:** `parse_classification` function.
+
+> *"This is the validation layer — the LLM output is clamped, schema-checked, and falls back gracefully if it returns invalid JSON. The pattern is **LLM-as-Extractor**: the model is constrained to a fixed schema and never sees the price target, so it can't leak forecasting bias."*
+
+**Click:** `tests/test_news.py`. Show test count.
+
+> *"And this is fully tested — twelve unit tests with mocked LLM and mocked RSS, including markdown-fence recovery, value clamping, unknown-category normalization, and three graceful-degradation paths. The whole suite is now thirty-eight tests, all green."*
+
+**Click:** Actions → recent daily-update run → grep for the news-related log lines.
+
+> *"In production the news step logs how many articles were fetched, classified, and judged relevant. The cost at this volume is under five cents a month — practically free."*
+
+> *"This was an opportunity to demonstrate AI engineering technique on top of the core ML pipeline. It's documented as 'B-05 — DELIVERED' in the user-stories backlog."*
+
 ---
 
-### 🎬 16:00 – 17:00 · Trello task board (60 s)
+### 🎬 17:00 – 18:00 · Trello task board (60 s)
 
 **Switch to the Trello board.**
 
@@ -191,11 +228,11 @@ This timing is calibrated for an **18-minute** recording. If you're naturally fa
 
 ---
 
-### 🎬 17:00 – 18:00 · Wrap-up (60 s)
+### 🎬 18:00 – 19:00 · Wrap-up (60 s)
 
 **Back to camera.**
 
-> *"To recap: I built a production-quality forecasting system that integrates ten data sources, runs unattended on a daily CI pipeline, and serves four user personas through a public Streamlit dashboard. Three sprints, 26 passing tests, 16 days of green CI runs, and full documentation."*
+> *"To recap: I built a production-quality forecasting system that integrates eleven data sources — including a DeepSeek language model that classifies Turkish agriculture news in real time — runs unattended on a daily CI pipeline, and serves four user personas through a public Streamlit dashboard. Three sprints, thirty-eight passing tests, sixteen-plus days of green CI runs, and full documentation. The AI/LLM news classifier was a stretch goal beyond the original backlog and is delivered with twelve dedicated tests."*
 
 > *"All deliverables are in the repository at github.com/susarlar/orangepricecalculatorquantic, the live dashboard is at \<your Render URL\>, and the Trello board is at \<your Trello URL\>. Thank you for reviewing my Capstone."*
 
@@ -217,6 +254,8 @@ If any row is **No**, re-record before submitting.
 | Student is **clearly visible and audible** throughout | ☐ |
 | Government-issued ID shown to camera | ☐ |
 | Recording is between **15 and 20 minutes** | ☐ |
+| Demonstrates **AI tooling / AI engineering technique** (DeepSeek LLM news segment, ~75 s) | ☐ |
+| Shows **initiative beyond minimum requirements** (LLM stretch goal called out as B-05) | ☐ |
 
 ### Capstone Project Rubric (target: 5) — these come from the repo, not the video, but check them while you're at it
 
@@ -251,11 +290,12 @@ If any row is **No**, re-record before submitting.
 
 Do this once with no recording:
 
-1. Open all four tabs in the right order: Render dashboard → architecture.html → GitHub repo → Trello.
+1. Open all six tabs in the right order: Render dashboard → architecture.html → GitHub repo (root) → `src/data/news.py` → `tests/test_news.py` → Trello.
 2. Click through the eight dashboard pages once. Confirm none throw an error.
 3. Verify the freshness banner is green (run `python -m src.auto_refresh --full` if it isn't).
 4. Open the **most recent** green Tests workflow run on GitHub. Bookmark it.
 5. Open the **most recent** *Daily update: YYYY-MM-DD* commit. Bookmark it.
+6. If `DEEPSEEK_API_KEY` is set as a GitHub secret, confirm a recent daily-update log line shows `News: N classified, M relevant`. If not yet configured, the news segment of the script is still valid — you'll demo the code and the test suite, just note that the secret is added at submission time.
 
 Now record, sleep on it overnight, watch it once tomorrow, and submit.
 
