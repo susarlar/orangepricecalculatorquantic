@@ -1,61 +1,96 @@
-# Portakal Fiyatı Tahmini (Orange Price Prediction)
+# Orange Price Predictor (Finike, Turkey)
 
 ## Project Overview
-Machine learning project for predicting orange prices. Python-based data science pipeline.
+Machine learning system that forecasts Finike orange wholesale prices 7–90 days ahead. Built as the MSc Software Engineering Capstone for Quantic School of Business and Technology.
+
+The system fuses wholesale market prices (Hal), weather, satellite NDVI, FX rates, competitor-country supply, and policy events into a feature matrix, trains XGBoost/LightGBM/quantile/ensemble models, and serves predictions through a Streamlit dashboard targeting farmers, traders, exporters, and analysts.
 
 ## Tech Stack
-- **Language:** Python 3.x
-- **ML/Data:** pandas, scikit-learn, numpy
-- **Visualization:** matplotlib, seaborn
-- **Environment:** Anaconda/Miniconda
+- **Language:** Python 3.11
+- **ML / Data:** pandas, NumPy, scikit-learn, XGBoost, LightGBM, statsmodels, SHAP
+- **Visualization:** Plotly, Matplotlib, Seaborn
+- **Web:** Streamlit dashboard, deployed on Render
+- **Data sources:** İBB Hal API (wholesale prices), Open-Meteo (weather), Sentinel-2 (NDVI), TCMB (FX), Google Trends, FAO/USDA-FAS
+- **CI/CD:** GitHub Actions (daily data refresh + model retrain, weekly enrichment)
+- **Persistence:** joblib model artifacts, CSV feature store
 
 ## Project Structure
 ```
-portakalfiyatitahmini/
-├── data/              # Raw and processed datasets
-│   ├── raw/           # Original data files
-│   └── processed/     # Cleaned/transformed data
-├── notebooks/         # Jupyter notebooks for exploration
-├── src/               # Source code
-│   ├── data/          # Data loading and preprocessing
-│   ├── features/      # Feature engineering
-│   ├── models/        # Model training and evaluation
-│   └── utils/         # Utility functions
-├── tests/             # Unit tests
-├── models/            # Saved model artifacts
-├── reports/           # Generated analysis and figures
-├── requirements.txt   # Python dependencies
-└── CLAUDE.md          # This file
+orangepricepredictor/
+├── data/                  # Datasets (gitignored where >10 MB)
+│   ├── raw/               # API/scrape outputs
+│   └── processed/         # Feature matrix, predictions, model results
+├── docs/                  # Project documentation
+│   └── data_sources.md    # Data sources, features, priorities
+├── notebooks/             # Jupyter exploration
+│   └── 01_eda.ipynb
+├── src/                   # Application source
+│   ├── alerts/            # Scenario alert rules (frost, drought, FX shocks)
+│   ├── data/              # Collectors per source
+│   ├── features/          # Feature engineering
+│   ├── models/            # Baseline, advanced, farmer-facing models
+│   ├── utils/             # Shared helpers
+│   ├── auto_refresh.py    # Idempotent daily refresh entry point
+│   ├── pipeline.py        # CLI: collect / features / train / alerts
+│   ├── prediction_tracker.py  # Tracks live prediction accuracy
+│   └── config.py          # Constants, region, thresholds
+├── tests/                 # pytest suite
+├── models/                # Saved .joblib model artifacts
+├── reports/               # Generated figures and HTML reports
+├── plans/                 # CTOC functional/implementation/execution plans
+├── dashboard.py           # Streamlit application
+├── USER_STORIES.md        # Capstone backlog
+├── DESIGN_AND_TESTING.md  # Architecture + testing decisions
+├── SPRINTS.md             # Sprint records and retrospectives
+├── render.yaml            # Render deployment config
+└── requirements.txt
 ```
 
-## Iron Loop Methodology
-This project follows the CTOC Iron Loop:
-1. **Plan** → Define what to build
-2. **Code** → Implement with quality
-3. **Test** → Validate correctness
-4. **Review** → Check quality gates
-5. **Ship** → Deploy or deliver
+## Capstone Methodology (Iron Loop)
+1. **Plan** → user story refinement and sprint planning
+2. **Code** → implementation with quality gates
+3. **Test** → unit + integration + smoke tests
+4. **Review** → architecture, security, code review
+5. **Ship** → push to Render, update Trello task board
 
 ## Quality Gates
-- All code must have docstrings for public functions
-- Tests must pass before merging
-- Data pipeline steps must be reproducible
-- Model metrics must be logged and tracked
+- Public functions have docstrings
+- `pytest tests/` must pass before merge
+- Data pipeline steps are idempotent and reproducible
+- Model metrics tracked in `data/processed/model_results.csv`
+- All UI strings, comments, docs in English
 
 ## Commands
 ```bash
-# Install dependencies
+# Install
 pip install -r requirements.txt
 
-# Run tests
-pytest tests/
+# Tests
+pytest tests/ -v
 
-# Run notebooks
-jupyter notebook notebooks/
+# Pipeline
+python -m src.pipeline --collect
+python -m src.pipeline --features
+python -m src.pipeline --train
+python -m src.pipeline --alerts
+
+# Dashboard (local)
+streamlit run dashboard.py
+
+# Daily refresh (used by GitHub Actions)
+python -m src.auto_refresh --full
 ```
 
 ## Conventions
-- Use snake_case for all Python files and functions
-- Keep notebooks clean: restart kernel and run all before committing
-- Never commit raw data files larger than 10MB to git
-- Use .gitignore for data/, models/, and __pycache__/
+- snake_case for Python files and functions
+- All user-facing strings, comments, and docstrings in **English**
+- Notebooks: restart kernel and run-all before committing
+- Never commit raw data files larger than 10 MB
+- Model artifacts in `models/`, never in `src/`
+
+## Capstone Submission Notes
+- Repository must be shared with the GitHub user `quantic-grader`
+- Trello task board link is in `README.md`
+- `DESIGN_AND_TESTING.md` covers architecture decisions and testing approach
+- `USER_STORIES.md` is the prioritized product backlog
+- `SPRINTS.md` documents the three+ delivered sprints

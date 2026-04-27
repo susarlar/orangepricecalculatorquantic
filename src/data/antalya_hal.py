@@ -4,8 +4,8 @@ Antalya Belediyesi Hal daily price scraper.
 Source: https://www.antalya.bel.tr/tr/halden-gunluk-fiyatlar
 Uses Playwright to render Vue.js dynamic content.
 
-This is the closest public data source to Finike portakal prices —
-Antalya Merkez Hal is the main regional wholesale market.
+This is the closest public data source to Finike orange prices —
+Antalya Central Hal is the main regional wholesale market.
 """
 import logging
 import time
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 ANTALYA_HAL_URL = "https://www.antalya.bel.tr/tr/halden-gunluk-fiyatlar"
 ANTALYA_MERKEZ_ID = "67b1db61b752f39216d8392d"
 
-# Products to track (narenciye)
+# Products to track (citrus). Keywords stay Turkish to match scraped product names.
 CITRUS_KEYWORDS = ["portakal", "mandalina", "limon", "greyfurt", "narenciye"]
 
 

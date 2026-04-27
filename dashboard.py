@@ -1,5 +1,5 @@
 """
-Portakal Fiyat Tahmini — Interactive Dashboard
+Orange Price Predictor — Interactive Dashboard
 
 Run: streamlit run dashboard.py
 """
@@ -25,7 +25,7 @@ RAW_DIR = ROOT / "data" / "raw"
 PROCESSED_DIR = ROOT / "data" / "processed"
 
 st.set_page_config(
-    page_title="Portakal Fiyat Tahmini",
+    page_title="Orange Price Predictor",
     page_icon="🍊",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -39,20 +39,20 @@ def check_password():
     if "authenticated" in st.session_state and st.session_state.authenticated:
         return True
 
-    password = os.environ.get("DASHBOARD_PASSWORD", "Portakal1996!")
+    password = os.environ.get("DASHBOARD_PASSWORD", "Orange1996!")
 
     st.markdown(
         "<div style='max-width:400px;margin:auto;padding-top:15vh;'>",
         unsafe_allow_html=True,
     )
-    st.title("🍊 Portakal Fiyat Tahmini")
-    entered = st.text_input("Şifre", type="password", key="pw_input")
-    if st.button("Giriş", type="primary", use_container_width=True):
+    st.title("🍊 Orange Price Predictor")
+    entered = st.text_input("Password", type="password", key="pw_input")
+    if st.button("Sign in", type="primary", use_container_width=True):
         if entered == password:
             st.session_state.authenticated = True
             st.rerun()
         else:
-            st.error("Yanlış şifre.")
+            st.error("Incorrect password.")
     st.markdown("</div>", unsafe_allow_html=True)
     return False
 
@@ -162,18 +162,18 @@ def _freshness_summary(data: dict) -> list[tuple[str, pd.Timestamp | None]]:
                 return col.max()
         return None
 
-    items.append(("İstanbul Hal fiyatları", _last("prices")))
-    items.append(("Antalya Hal fiyatları", _last("antalya")))
-    items.append(("Hava durumu (Finike)", _last("weather")))
-    items.append(("Döviz kurları", _last("fx")))
-    items.append(("Talep/politika", _last("demand")))
+    items.append(("Istanbul Hal prices", _last("prices")))
+    items.append(("Antalya Hal prices", _last("antalya")))
+    items.append(("Weather (Finike)", _last("weather")))
+    items.append(("FX rates", _last("fx")))
+    items.append(("Demand / policy", _last("demand")))
     items.append(("Google Trends", _last("trends")))
 
     if "farmer_advice" in data and isinstance(data["farmer_advice"], dict):
         adv = data["farmer_advice"]
         last_pd = adv.get("last_price_date") or adv.get("date")
         if last_pd:
-            items.append(("Çiftçi tavsiyesi (Antalya)", pd.Timestamp(last_pd)))
+            items.append(("Farmer advice (Antalya)", pd.Timestamp(last_pd)))
 
     return items
 
@@ -184,31 +184,31 @@ def render_freshness_banner(data: dict) -> None:
     summary = _freshness_summary(data)
     stale_items = [(label, d) for label, d in summary if d is None or (today - d).days > 2]
 
-    header = f"📅 Bugün: **{today.strftime('%d %B %Y')}**"
+    header = f"📅 Today: **{today.strftime('%d %B %Y')}**"
     if not stale_items:
-        st.success(f"{header} — Tüm veriler güncel.")
+        st.success(f"{header} — All data sources are up to date.")
     else:
         max_lag = max(((today - d).days if d is not None else 999) for _, d in stale_items)
-        st.warning(f"{header} — {len(stale_items)} veri kaynağı eski (en fazla {max_lag} gün).")
+        st.warning(f"{header} — {len(stale_items)} data source(s) stale (up to {max_lag} days).")
 
-    with st.expander("Veri Güncellik Durumu", expanded=bool(stale_items)):
+    with st.expander("Data Freshness Status", expanded=bool(stale_items)):
         rows = []
         for label, d in summary:
             if d is None:
-                status = "❌ Bulunamadı"
+                status = "❌ Not found"
                 last_str = "—"
                 age = "—"
             else:
                 age_days = (today - d).days
                 last_str = d.strftime("%Y-%m-%d")
-                age = f"{age_days} gün"
+                age = f"{age_days} days"
                 if age_days <= 2:
-                    status = "✅ Güncel"
+                    status = "✅ Fresh"
                 elif age_days <= 7:
-                    status = "⚠️ Biraz eski"
+                    status = "⚠️ Slightly stale"
                 else:
-                    status = "🔴 Eski"
-            rows.append({"Kaynak": label, "Son Tarih": last_str, "Yaş": age, "Durum": status})
+                    status = "🔴 Stale"
+            rows.append({"Source": label, "Last Date": last_str, "Age": age, "Status": status})
         st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
 
@@ -216,14 +216,14 @@ render_freshness_banner(data)
 
 # ─── Sidebar ─────────────────────────────────────────────────────────────────────
 
-st.sidebar.title("🍊 Portakal Dashboard")
-st.sidebar.markdown(f"**Bugün:** {pd.Timestamp.today().strftime('%Y-%m-%d')}")
+st.sidebar.title("🍊 Orange Dashboard")
+st.sidebar.markdown(f"**Today:** {pd.Timestamp.today().strftime('%Y-%m-%d')}")
 st.sidebar.markdown("---")
 
 page = st.sidebar.radio(
-    "Sayfa",
-    ["Çiftçi Paneli", "Genel Bakış", "Fiyat Analizi", "Hava & Çevre", "Pazar & Politika",
-     "Talep & Trendler", "Model Sonuçları", "Tahminler & Uyarılar"],
+    "Page",
+    ["Farmer Panel", "Overview", "Price Analysis", "Weather & Environment",
+     "Market & Policy", "Demand & Trends", "Model Results", "Forecasts & Alerts"],
 )
 
 # Date range filter
@@ -235,7 +235,7 @@ if "prices" in data:
     max_date = max(data_max, today_date)
 
     date_range = st.sidebar.date_input(
-        "Tarih Aralığı",
+        "Date Range",
         value=(min_date, max_date),
         min_value=min_date,
         max_value=max_date,
@@ -249,19 +249,19 @@ if "prices" in data:
         prices_filtered = prices.copy()
 else:
     prices_filtered = pd.DataFrame()
-    st.error("Fiyat verisi bulunamadı. Önce pipeline çalıştırın.")
+    st.error("No price data found. Run the pipeline first.")
     st.stop()
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Çiftçi Paneli
+# PAGE: Farmer Panel
 # ═════════════════════════════════════════════════════════════════════════════════
 
-if page == "Çiftçi Paneli":
-    st.title("🧑‍🌾 Finike Portakal Çiftçisi — Karar Destek Paneli")
+if page == "Farmer Panel":
+    st.title("🧑‍🌾 Finike Orange Farmer — Decision Support Panel")
 
     if "farmer_advice" not in data:
-        st.warning("Çiftçi modeli henüz çalıştırılmadı. `python -c \"from src.models.farmer import train_all_farmer_models; train_all_farmer_models()\"`")
+        st.warning("Farmer model has not been run yet. `python -c \"from src.models.farmer import train_all_farmer_models; train_all_farmer_models()\"`")
         st.stop()
 
     advice = data["farmer_advice"]
@@ -277,13 +277,13 @@ if page == "Çiftçi Paneli":
 
     today_str = pd.Timestamp.today().strftime("%d %B %Y")
     if age_days is None:
-        st.caption(f"Bugün: **{today_str}** · Tavsiye tarihi: {advice_date}")
+        st.caption(f"Today: **{today_str}** · Advice date: {advice_date}")
     elif age_days <= 1:
-        st.caption(f"Bugün: **{today_str}** · Antalya Hal son veri: {last_price_date} (güncel)")
+        st.caption(f"Today: **{today_str}** · Antalya Hal latest data: {last_price_date} (fresh)")
     elif age_days <= 7:
-        st.info(f"Bugün **{today_str}**. Antalya Hal son fiyat: **{last_price_date}** ({age_days} gün önce). Hesaplamalar son fiyatla devam ediyor.")
+        st.info(f"Today **{today_str}**. Antalya Hal latest price: **{last_price_date}** ({age_days} days ago). Calculations continue with the last price.")
     else:
-        st.warning(f"Bugün **{today_str}**. Antalya Hal verisi **{age_days} gün** eski (son: {last_price_date}). Günlük pipeline'ın çalıştığını kontrol edin.")
+        st.warning(f"Today **{today_str}**. Antalya Hal data is **{age_days} days** old (last: {last_price_date}). Check that the daily pipeline is running.")
 
     # ── Top KPIs ──
     col1, col2, col3, col4 = st.columns(4)
@@ -294,28 +294,28 @@ if page == "Çiftçi Paneli":
     rec = advice["recommendation"]
 
     with col1:
-        st.metric("Antalya Hal Fiyatı", f"{current:.1f} ₺/kg")
+        st.metric("Antalya Hal Price", f"{current:.1f} TRY/kg")
     with col2:
-        st.metric("Maliyet (Kırılma)", f"{breakeven:.1f} ₺/kg")
+        st.metric("Breakeven Cost", f"{breakeven:.1f} TRY/kg")
     with col3:
         color = "normal" if margin > 0 else "inverse"
-        st.metric("Marj", f"{margin:.1f} ₺/kg", delta=f"{advice['margin_pct']:.0f}%")
+        st.metric("Margin", f"{margin:.1f} TRY/kg", delta=f"{advice['margin_pct']:.0f}%")
     with col4:
-        action_colors = {"ŞİMDİ SAT": "🔴", "SAT": "🟡", "SOĞUK HAVA": "🔵", "BEKLE": "⚪"}
+        action_colors = {"SELL NOW": "🔴", "SELL": "🟡", "COLD STORAGE": "🔵", "WAIT": "⚪"}
         emoji = action_colors.get(rec["action"], "⚪")
-        st.metric("Tavsiye", f"{emoji} {rec['action']}")
+        st.metric("Recommendation", f"{emoji} {rec['action']}")
 
     # ── Recommendation box ──
     urgency_colors = {"high": "error", "medium": "warning", "low": "info"}
     alert_type = urgency_colors.get(rec["urgency"], "info")
     getattr(st, alert_type)(f"**{rec['action']}** — {rec['reason']}")
 
-    st.info(f"**Sezon:** {advice['season_info']['phase']} — {advice['season_info']['advice']}")
+    st.info(f"**Season:** {advice['season_info']['phase']} — {advice['season_info']['advice']}")
 
     st.markdown("---")
 
     # ── Forecasts ──
-    st.subheader("Fiyat Tahminleri")
+    st.subheader("Price Forecasts")
     forecasts = advice.get("forecasts", {})
 
     if forecasts:
@@ -324,11 +324,11 @@ if page == "Çiftçi Paneli":
             with cols[i]:
                 change = fc["change_pct"]
                 st.metric(
-                    f"{horizon} Gün",
-                    f"{fc['price']:.1f} ₺/kg",
+                    f"{horizon} Days",
+                    f"{fc['price']:.1f} TRY/kg",
                     delta=f"{change:+.1f}%",
                 )
-                st.caption(f"Aralık: {fc['lower']:.1f} — {fc['upper']:.1f} ₺")
+                st.caption(f"Range: {fc['lower']:.1f} — {fc['upper']:.1f} TRY")
 
         # Forecast chart
         fig_fc = go.Figure()
@@ -336,11 +336,11 @@ if page == "Çiftçi Paneli":
         # Historical Antalya prices
         if "antalya" in data:
             ant = data["antalya"]
-            portakal = ant[ant["product"].str.contains("Portakal", case=False)]
-            daily_ant = portakal.groupby("date")["avg_price"].mean().reset_index()
+            oranges = ant[ant["product"].str.contains("Portakal", case=False)]
+            daily_ant = oranges.groupby("date")["avg_price"].mean().reset_index()
             fig_fc.add_trace(go.Scatter(
                 x=daily_ant["date"], y=daily_ant["avg_price"],
-                mode="lines", name="Antalya Hal (Gerçek)",
+                mode="lines", name="Antalya Hal (actual)",
                 line=dict(color="darkorange", width=2),
             ))
 
@@ -352,7 +352,7 @@ if page == "Çiftçi Paneli":
                 x=[last_date, target_date],
                 y=[current, fc["price"]],
                 mode="lines+markers",
-                name=f"{horizon}g tahmin",
+                name=f"{horizon}d forecast",
                 line=dict(dash="dash"),
                 marker=dict(size=10),
             ))
@@ -367,12 +367,12 @@ if page == "Çiftçi Paneli":
 
         # Breakeven line
         fig_fc.add_hline(y=breakeven, line_dash="dot", line_color="red",
-                          annotation_text=f"Maliyet: {breakeven:.1f} ₺")
+                          annotation_text=f"Breakeven: {breakeven:.1f} TRY")
 
         fig_fc.update_layout(
-            title="Portakal Fiyat Tahminleri — Antalya Hal",
+            title="Orange Price Forecasts — Antalya Hal",
             height=450, hovermode="x unified",
-            yaxis_title="₺/kg",
+            yaxis_title="TRY/kg",
         )
         st.plotly_chart(fig_fc, use_container_width=True)
 
@@ -382,30 +382,30 @@ if page == "Çiftçi Paneli":
     col_a, col_b = st.columns(2)
 
     with col_a:
-        st.subheader("Maliyet Detayı (₺/kg)")
+        st.subheader("Cost Breakdown (TRY/kg)")
         costs = advice.get("costs", {})
         cost_items = {
-            "hasat_iscilik": "Hasat İşçiliği",
-            "nakliye_hale": "Nakliye (Finike→Antalya)",
-            "komisyon_pct": "Hal Komisyonu (%)",
-            "ambalaj": "Ambalaj",
-            "ilac_gubre": "İlaç & Gübre",
-            "sulama": "Sulama",
-            "soguk_hava_gunluk": "Soğuk Hava (₺/kg/gün)",
+            "harvest_labor": "Harvest Labor",
+            "transport_to_hal": "Transport (Finike→Antalya)",
+            "commission_pct": "Hal Commission (%)",
+            "packaging": "Packaging",
+            "pesticide_fertilizer": "Pesticide & Fertilizer",
+            "irrigation": "Irrigation",
+            "cold_storage_daily": "Cold Storage (TRY/kg/day)",
         }
         cost_df = pd.DataFrame([
-            {"Kalem": cost_items.get(k, k), "Tutar": f"{v:.2f}"}
+            {"Item": cost_items.get(k, k), "Amount": f"{v:.2f}"}
             for k, v in costs.items()
         ])
         st.dataframe(cost_df, use_container_width=True, hide_index=True)
 
-        st.markdown("*Maliyetleri düzenlemek için `src/models/farmer.py` → `DEFAULT_COSTS`*")
+        st.markdown("*Edit costs in `src/models/farmer.py` → `DEFAULT_COSTS`*")
 
     with col_b:
-        st.subheader("Soğuk Hava Senaryosu")
-        cold_cost = costs.get("soguk_hava_gunluk", 0.15)
+        st.subheader("Cold Storage Scenario")
+        cold_cost = costs.get("cold_storage_daily", 0.15)
 
-        storage_days = st.slider("Depolama Süresi (gün)", 0, 120, 30)
+        storage_days = st.slider("Storage Duration (days)", 0, 120, 30)
         storage_total = cold_cost * storage_days
 
         # Find forecast closest to selected days
@@ -415,54 +415,54 @@ if page == "Çiftçi Paneli":
             expected = fc["price"]
             net_gain = expected - current - storage_total
 
-            st.metric("Depolama Maliyeti", f"{storage_total:.1f} ₺/kg")
-            st.metric("Beklenen Satış Fiyatı", f"{expected:.1f} ₺/kg")
+            st.metric("Storage Cost", f"{storage_total:.1f} TRY/kg")
+            st.metric("Expected Sale Price", f"{expected:.1f} TRY/kg")
             color = "normal" if net_gain > 0 else "inverse"
-            st.metric("Net Kazanç/Kayıp", f"{net_gain:+.1f} ₺/kg",
-                       delta="Karlı" if net_gain > 0 else "Zararlı")
+            st.metric("Net Gain / Loss", f"{net_gain:+.1f} TRY/kg",
+                       delta="Profitable" if net_gain > 0 else "Loss-making")
 
     # ── Antalya vs Istanbul comparison ──
     if "antalya" in data:
         st.markdown("---")
-        st.subheader("Antalya vs İstanbul Hal Fiyatları")
+        st.subheader("Antalya vs Istanbul Hal Prices")
 
         ant = data["antalya"]
-        portakal_ant = ant[ant["product"].str.contains("Portakal", case=False)]
-        ant_daily = portakal_ant.groupby("date")["avg_price"].mean().reset_index()
+        oranges_ant = ant[ant["product"].str.contains("Portakal", case=False)]
+        ant_daily = oranges_ant.groupby("date")["avg_price"].mean().reset_index()
         ant_daily = ant_daily.rename(columns={"avg_price": "Antalya"})
 
         ist_daily = prices[["date", "avg_price"]].copy()
-        ist_daily = ist_daily.rename(columns={"avg_price": "İstanbul"})
+        ist_daily = ist_daily.rename(columns={"avg_price": "Istanbul"})
 
         merged = ant_daily.merge(ist_daily, on="date", how="inner")
-        merged["Fark (İst-Ant)"] = merged["İstanbul"] - merged["Antalya"]
+        merged["Spread (Ist-Ant)"] = merged["Istanbul"] - merged["Antalya"]
 
         fig_comp = make_subplots(rows=2, cols=1, shared_xaxes=True,
-                                  subplot_titles=("Fiyat Karşılaştırması", "İstanbul-Antalya Farkı (₺/kg)"),
+                                  subplot_titles=("Price Comparison", "Istanbul–Antalya Spread (TRY/kg)"),
                                   row_heights=[0.6, 0.4])
 
         fig_comp.add_trace(go.Scatter(x=merged["date"], y=merged["Antalya"],
                                        name="Antalya Hal", line=dict(color="darkorange")), row=1, col=1)
-        fig_comp.add_trace(go.Scatter(x=merged["date"], y=merged["İstanbul"],
-                                       name="İstanbul Hal", line=dict(color="royalblue")), row=1, col=1)
+        fig_comp.add_trace(go.Scatter(x=merged["date"], y=merged["Istanbul"],
+                                       name="Istanbul Hal", line=dict(color="royalblue")), row=1, col=1)
 
-        fig_comp.add_trace(go.Bar(x=merged["date"], y=merged["Fark (İst-Ant)"],
-                                   marker_color=np.where(merged["Fark (İst-Ant)"] > 0, "green", "red"),
-                                   name="Fark", opacity=0.6), row=2, col=1)
+        fig_comp.add_trace(go.Bar(x=merged["date"], y=merged["Spread (Ist-Ant)"],
+                                   marker_color=np.where(merged["Spread (Ist-Ant)"] > 0, "green", "red"),
+                                   name="Spread", opacity=0.6), row=2, col=1)
 
         fig_comp.update_layout(height=500, hovermode="x unified")
         st.plotly_chart(fig_comp, use_container_width=True)
 
-        avg_spread = merged["Fark (İst-Ant)"].mean()
-        st.info(f"Ortalama İstanbul-Antalya farkı: **{avg_spread:.1f} ₺/kg** (nakliye + komisyon + marj)")
+        avg_spread = merged["Spread (Ist-Ant)"].mean()
+        st.info(f"Average Istanbul–Antalya spread: **{avg_spread:.1f} TRY/kg** (transport + commission + margin)")
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Genel Bakış
+# PAGE: Overview
 # ═════════════════════════════════════════════════════════════════════════════════
 
-elif page == "Genel Bakış":
-    st.title("🍊 Portakal Fiyat Tahmini — Genel Bakış")
+elif page == "Overview":
+    st.title("🍊 Orange Price Predictor — Overview")
 
     # KPI Cards
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -472,19 +472,19 @@ elif page == "Genel Bakış":
 
     with col1:
         st.metric(
-            "Güncel Fiyat",
-            f"{latest['avg_price']:.1f} ₺/kg",
-            delta=f"{latest['avg_price'] - prev_30.iloc[-1]['avg_price']:.1f} ₺" if not prev_30.empty else None,
+            "Latest Price",
+            f"{latest['avg_price']:.1f} TRY/kg",
+            delta=f"{latest['avg_price'] - prev_30.iloc[-1]['avg_price']:.1f} TRY" if not prev_30.empty else None,
         )
     with col2:
-        st.metric("Min Fiyat", f"{latest['min_price']:.1f} ₺/kg")
+        st.metric("Min Price", f"{latest['min_price']:.1f} TRY/kg")
     with col3:
-        st.metric("Max Fiyat", f"{latest['max_price']:.1f} ₺/kg")
+        st.metric("Max Price", f"{latest['max_price']:.1f} TRY/kg")
     with col4:
         spread = latest["max_price"] - latest["min_price"]
-        st.metric("Spread", f"{spread:.1f} ₺")
+        st.metric("Spread", f"{spread:.1f} TRY")
     with col5:
-        st.metric("Kayıt Sayısı", f"{len(prices_filtered):,}")
+        st.metric("Records", f"{len(prices_filtered):,}")
 
     st.markdown("---")
 
@@ -494,7 +494,7 @@ elif page == "Genel Bakış":
         shared_xaxes=True,
         vertical_spacing=0.08,
         row_heights=[0.7, 0.3],
-        subplot_titles=("Portakal Hal Fiyatı (TL/kg)", "Günlük Spread (Max - Min)"),
+        subplot_titles=("Orange Hal Price (TRY/kg)", "Daily Spread (Max − Min)"),
     )
 
     fig.add_trace(
@@ -510,7 +510,7 @@ elif page == "Genel Bakış":
             x=prices_filtered["date"], y=prices_filtered["min_price"],
             fill="tonexty", fillcolor="rgba(255,165,0,0.2)",
             mode="lines", line=dict(width=0),
-            name="Min-Max Aralığı",
+            name="Min–Max range",
         ),
         row=1, col=1,
     )
@@ -518,7 +518,7 @@ elif page == "Genel Bakış":
         go.Scatter(
             x=prices_filtered["date"], y=prices_filtered["avg_price"],
             mode="lines", line=dict(color="darkorange", width=1.5),
-            name="Ortalama Fiyat",
+            name="Average price",
         ),
         row=1, col=1,
     )
@@ -529,7 +529,7 @@ elif page == "Genel Bakış":
         go.Scatter(
             x=prices_filtered["date"], y=prices_filtered["ma30"],
             mode="lines", line=dict(color="red", width=1, dash="dash"),
-            name="30 Gün Ort.",
+            name="30-day MA",
         ),
         row=1, col=1,
     )
@@ -545,32 +545,32 @@ elif page == "Genel Bakış":
     )
 
     fig.update_layout(height=600, hovermode="x unified", legend=dict(orientation="h", y=1.02))
-    fig.update_yaxes(title_text="TL/kg", row=1, col=1)
-    fig.update_yaxes(title_text="TL", row=2, col=1)
+    fig.update_yaxes(title_text="TRY/kg", row=1, col=1)
+    fig.update_yaxes(title_text="TRY", row=2, col=1)
     st.plotly_chart(fig, use_container_width=True)
 
     # Summary stats
     col_a, col_b = st.columns(2)
 
     with col_a:
-        st.subheader("Yıllık Ortalamalar")
+        st.subheader("Yearly Averages")
         yearly = prices_filtered.copy()
         yearly["year"] = yearly["date"].dt.year
         yearly_stats = yearly.groupby("year")["avg_price"].agg(["mean", "min", "max", "std"]).round(2)
-        yearly_stats.columns = ["Ortalama", "Min", "Max", "Std"]
+        yearly_stats.columns = ["Mean", "Min", "Max", "Std"]
         st.dataframe(yearly_stats, use_container_width=True)
 
     with col_b:
-        st.subheader("Aylık Mevsimsellik")
+        st.subheader("Monthly Seasonality")
         monthly = prices_filtered.copy()
         monthly["month"] = monthly["date"].dt.month
-        month_names = {1:"Oca",2:"Şub",3:"Mar",4:"Nis",5:"May",6:"Haz",
-                       7:"Tem",8:"Ağu",9:"Eyl",10:"Eki",11:"Kas",12:"Ara"}
+        month_names = {1:"Jan",2:"Feb",3:"Mar",4:"Apr",5:"May",6:"Jun",
+                       7:"Jul",8:"Aug",9:"Sep",10:"Oct",11:"Nov",12:"Dec"}
         monthly_stats = monthly.groupby("month")["avg_price"].mean().round(2)
         monthly_stats.index = monthly_stats.index.map(month_names)
         fig_month = px.bar(
             x=monthly_stats.index, y=monthly_stats.values,
-            labels={"x": "Ay", "y": "Ort. Fiyat (TL/kg)"},
+            labels={"x": "Month", "y": "Avg price (TRY/kg)"},
             color=monthly_stats.values,
             color_continuous_scale="Oranges",
         )
@@ -579,22 +579,22 @@ elif page == "Genel Bakış":
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Fiyat Analizi
+# PAGE: Price Analysis
 # ═════════════════════════════════════════════════════════════════════════════════
 
-elif page == "Fiyat Analizi":
-    st.title("📈 Fiyat Analizi")
+elif page == "Price Analysis":
+    st.title("📈 Price Analysis")
 
-    tab1, tab2, tab3 = st.tabs(["Trend & Momentum", "Volatilite", "YoY Karşılaştırma"])
+    tab1, tab2, tab3 = st.tabs(["Trend & Momentum", "Volatility", "YoY Comparison"])
 
     with tab1:
         fig = make_subplots(
             rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.06,
-            subplot_titles=("Fiyat + Hareketli Ortalamalar", "7 Günlük Değişim (%)", "30 Günlük Değişim (%)"),
+            subplot_titles=("Price + Moving Averages", "7-Day Change (%)", "30-Day Change (%)"),
         )
 
         fig.add_trace(go.Scatter(x=prices_filtered["date"], y=prices_filtered["avg_price"],
-                                  name="Fiyat", line=dict(color="darkorange")), row=1, col=1)
+                                  name="Price", line=dict(color="darkorange")), row=1, col=1)
 
         for window, color in [(7, "blue"), (30, "red"), (90, "green")]:
             ma = prices_filtered["avg_price"].rolling(window, min_periods=1).mean()
@@ -617,7 +617,7 @@ elif page == "Fiyat Analizi":
         vol_pct = vol30 / prices_filtered["avg_price"].rolling(30, min_periods=7).mean() * 100
 
         fig_vol = make_subplots(rows=2, cols=1, shared_xaxes=True,
-                                 subplot_titles=("30 Gün Volatilite (TL)", "Volatilite (%)"))
+                                 subplot_titles=("30-Day Volatility (TRY)", "Volatility (%)"))
         fig_vol.add_trace(go.Scatter(x=prices_filtered["date"], y=vol30,
                                       fill="tozeroy", fillcolor="rgba(255,0,0,0.1)",
                                       line=dict(color="red"), name="Std Dev"), row=1, col=1)
@@ -633,7 +633,7 @@ elif page == "Fiyat Analizi":
         pf["day_of_year"] = pf["date"].dt.dayofyear
 
         years = sorted(pf["year"].unique())
-        selected_years = st.multiselect("Yıllar", years, default=years[-4:])
+        selected_years = st.multiselect("Years", years, default=years[-4:])
 
         fig_yoy = go.Figure()
         colors = px.colors.qualitative.Set2
@@ -646,21 +646,21 @@ elif page == "Fiyat Analizi":
             ))
 
         fig_yoy.update_layout(
-            height=500, xaxis_title="Yılın Günü", yaxis_title="TL/kg",
-            title="Yıl Bazında Fiyat Karşılaştırması", hovermode="x unified",
+            height=500, xaxis_title="Day of Year", yaxis_title="TRY/kg",
+            title="Year-over-Year Price Comparison", hovermode="x unified",
         )
         st.plotly_chart(fig_yoy, use_container_width=True)
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Hava & Çevre
+# PAGE: Weather & Environment
 # ═════════════════════════════════════════════════════════════════════════════════
 
-elif page == "Hava & Çevre":
-    st.title("🌤️ Hava Durumu & Çevre Faktörleri")
+elif page == "Weather & Environment":
+    st.title("🌤️ Weather & Environmental Factors")
 
     if "weather" not in data:
-        st.warning("Hava durumu verisi bulunamadı.")
+        st.warning("No weather data found.")
         st.stop()
 
     weather = data["weather"]
@@ -671,25 +671,25 @@ elif page == "Hava & Çevre":
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         frost_days = int(wf["frost"].sum()) if "frost" in wf.columns else 0
-        st.metric("Don Günü", frost_days)
+        st.metric("Frost Days", frost_days)
     with col2:
         avg_temp = wf["temp_mean"].mean()
-        st.metric("Ort. Sıcaklık", f"{avg_temp:.1f}°C")
+        st.metric("Avg. Temperature", f"{avg_temp:.1f}°C")
     with col3:
         total_precip = wf["precipitation"].sum()
-        st.metric("Toplam Yağış", f"{total_precip:.0f} mm")
+        st.metric("Total Precipitation", f"{total_precip:.0f} mm")
     with col4:
         max_wind = wf["wind_speed_max"].max() if "wind_speed_max" in wf.columns else 0
-        st.metric("Max Rüzgar", f"{max_wind:.1f} km/h")
+        st.metric("Max Wind", f"{max_wind:.1f} km/h")
 
     st.markdown("---")
 
-    tab1, tab2 = st.tabs(["Sıcaklık & Yağış", "Fiyat-Hava İlişkisi"])
+    tab1, tab2 = st.tabs(["Temperature & Precipitation", "Price–Weather Relationship"])
 
     with tab1:
         fig = make_subplots(
             rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.06,
-            subplot_titles=("Sıcaklık (°C)", "Günlük Yağış (mm)", "Nem (%)"),
+            subplot_titles=("Temperature (°C)", "Daily Precipitation (mm)", "Humidity (%)"),
         )
 
         fig.add_trace(go.Scatter(x=wf["date"], y=wf["temp_max"], name="Max",
@@ -701,11 +701,11 @@ elif page == "Hava & Çevre":
                       line=dict(color="darkblue", dash="dash", width=1), row=1, col=1)
 
         fig.add_trace(go.Bar(x=wf["date"], y=wf["precipitation"],
-                              marker_color="royalblue", name="Yağış", opacity=0.7), row=2, col=1)
+                              marker_color="royalblue", name="Precipitation", opacity=0.7), row=2, col=1)
 
         if "humidity" in wf.columns:
             fig.add_trace(go.Scatter(x=wf["date"], y=wf["humidity"],
-                                      line=dict(color="teal", width=0.8), name="Nem"), row=3, col=1)
+                                      line=dict(color="teal", width=0.8), name="Humidity"), row=3, col=1)
 
         fig.update_layout(height=700, hovermode="x unified")
         st.plotly_chart(fig, use_container_width=True)
@@ -719,8 +719,8 @@ elif page == "Hava & Çevre":
             fig_scatter = px.scatter(
                 merged, x="temp_mean", y="avg_price",
                 color="frost", color_discrete_map={0: "orange", 1: "blue"},
-                labels={"temp_mean": "Ort. Sıcaklık (°C)", "avg_price": "Fiyat (TL/kg)", "frost": "Don"},
-                title="Sıcaklık vs Fiyat",
+                labels={"temp_mean": "Avg. temperature (°C)", "avg_price": "Price (TRY/kg)", "frost": "Frost"},
+                title="Temperature vs Price",
                 opacity=0.5,
             )
             st.plotly_chart(fig_scatter, use_container_width=True)
@@ -728,8 +728,8 @@ elif page == "Hava & Çevre":
         with col_b:
             fig_scatter2 = px.scatter(
                 merged, x="precipitation", y="avg_price",
-                labels={"precipitation": "Yağış (mm)", "avg_price": "Fiyat (TL/kg)"},
-                title="Yağış vs Fiyat",
+                labels={"precipitation": "Precipitation (mm)", "avg_price": "Price (TRY/kg)"},
+                title="Precipitation vs Price",
                 opacity=0.3,
                 color_discrete_sequence=["royalblue"],
             )
@@ -737,13 +737,13 @@ elif page == "Hava & Çevre":
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Pazar & Politika
+# PAGE: Market & Policy
 # ═════════════════════════════════════════════════════════════════════════════════
 
-elif page == "Pazar & Politika":
-    st.title("🌍 Pazar Dinamikleri & Politika Etkileri")
+elif page == "Market & Policy":
+    st.title("🌍 Market Dynamics & Policy Effects")
 
-    tab1, tab2, tab3 = st.tabs(["Döviz & Uluslararası", "Politika Olayları", "Rekabet"])
+    tab1, tab2, tab3 = st.tabs(["FX & International", "Policy Events", "Competition"])
 
     with tab1:
         col_a, col_b = st.columns(2)
@@ -752,8 +752,8 @@ elif page == "Pazar & Politika":
             if "fx" in data:
                 fx = data["fx"]
                 usd_col = "TRY_per_USD" if "TRY_per_USD" in fx.columns else "USD_TRY"
-                fig_fx = px.line(fx, x="date", y=usd_col, title="USD/TRY Kuru",
-                                 labels={"date": "", usd_col: "TL per USD"})
+                fig_fx = px.line(fx, x="date", y=usd_col, title="USD/TRY Rate",
+                                 labels={"date": "", usd_col: "TRY per USD"})
                 fig_fx.update_traces(line_color="purple")
                 fig_fx.update_layout(height=350)
                 st.plotly_chart(fig_fx, use_container_width=True)
@@ -762,8 +762,8 @@ elif page == "Pazar & Politika":
             if "foreign" in data:
                 foreign = data["foreign"]
                 fig_fao = px.line(foreign, x="date", y="fao_fruit_index",
-                                  title="FAO Meyve Fiyat Endeksi",
-                                  labels={"date": "", "fao_fruit_index": "Endeks (2014-16=100)"})
+                                  title="FAO Fruit Price Index",
+                                  labels={"date": "", "fao_fruit_index": "Index (2014–16=100)"})
                 fig_fao.update_traces(line_color="darkgreen")
                 fig_fao.update_layout(height=350)
                 fig_fao.add_hline(y=100, line_dash="dash", line_color="gray")
@@ -780,7 +780,7 @@ elif page == "Pazar & Politika":
 
             fig_dual.add_trace(
                 go.Scatter(x=monthly_p["date"], y=monthly_p["avg_price"],
-                           name="Portakal (TL/kg)", line=dict(color="darkorange", width=2)),
+                           name="Orange (TRY/kg)", line=dict(color="darkorange", width=2)),
                 secondary_y=False,
             )
             fig_dual.add_trace(
@@ -788,9 +788,9 @@ elif page == "Pazar & Politika":
                            name="USD/TRY", line=dict(color="purple", width=2)),
                 secondary_y=True,
             )
-            fig_dual.update_layout(title="Portakal Fiyatı vs Döviz Kuru (Aylık)", height=400,
+            fig_dual.update_layout(title="Orange Price vs FX Rate (Monthly)", height=400,
                                     hovermode="x unified")
-            fig_dual.update_yaxes(title_text="TL/kg", secondary_y=False)
+            fig_dual.update_yaxes(title_text="TRY/kg", secondary_y=False)
             fig_dual.update_yaxes(title_text="USD/TRY", secondary_y=True)
             st.plotly_chart(fig_dual, use_container_width=True)
 
@@ -798,14 +798,14 @@ elif page == "Pazar & Politika":
         if "events" in data:
             events = data["events"]
 
-            st.subheader("Politika ve Olay Zaman Çizelgesi")
+            st.subheader("Policy and Event Timeline")
 
             # Price chart with event markers
             fig_events = go.Figure()
             fig_events.add_trace(go.Scatter(
                 x=prices["date"], y=prices["avg_price"],
                 mode="lines", line=dict(color="darkorange", width=1),
-                name="Fiyat", opacity=0.7,
+                name="Price", opacity=0.7,
             ))
 
             color_map = {
@@ -833,18 +833,18 @@ elif page == "Pazar & Politika":
                     textfont=dict(size=8),
                     name=ev["description"][:40],
                     showlegend=False,
-                    hovertemplate=f"<b>{ev['description']}</b><br>Tarih: {ev['date'].strftime('%Y-%m-%d')}<br>"
-                                 f"Tür: {ev['event_type']}<br>Etki: {ev['impact_direction']} ({ev['impact_magnitude']})<extra></extra>",
+                    hovertemplate=f"<b>{ev['description']}</b><br>Date: {ev['date'].strftime('%Y-%m-%d')}<br>"
+                                 f"Type: {ev['event_type']}<br>Impact: {ev['impact_direction']} ({ev['impact_magnitude']})<extra></extra>",
                 ))
 
-            fig_events.update_layout(height=500, title="Fiyat + Politika Olayları", hovermode="closest")
+            fig_events.update_layout(height=500, title="Price + Policy Events", hovermode="closest")
             st.plotly_chart(fig_events, use_container_width=True)
 
             # Event table
-            st.subheader("Olay Listesi")
+            st.subheader("Event List")
             display_events = events[["date", "event_type", "description", "impact_direction", "impact_magnitude"]].copy()
             display_events["date"] = display_events["date"].dt.strftime("%Y-%m-%d")
-            display_events.columns = ["Tarih", "Tür", "Açıklama", "Etki Yönü", "Büyüklük"]
+            display_events.columns = ["Date", "Type", "Description", "Direction", "Magnitude"]
             st.dataframe(display_events, use_container_width=True, hide_index=True)
 
         # Policy impact score
@@ -854,13 +854,13 @@ elif page == "Pazar & Politika":
             pos_mask = policy["policy_impact_score"] > 0
             fig_impact.add_trace(go.Bar(
                 x=policy.loc[pos_mask, "date"], y=policy.loc[pos_mask, "policy_impact_score"],
-                marker_color="red", name="Fiyat Artırıcı", opacity=0.6,
+                marker_color="red", name="Price-raising", opacity=0.6,
             ))
             fig_impact.add_trace(go.Bar(
                 x=policy.loc[~pos_mask, "date"], y=policy.loc[~pos_mask, "policy_impact_score"],
-                marker_color="blue", name="Fiyat Düşürücü", opacity=0.6,
+                marker_color="blue", name="Price-lowering", opacity=0.6,
             ))
-            fig_impact.update_layout(title="Politika Etki Skoru", height=300, hovermode="x unified",
+            fig_impact.update_layout(title="Policy Impact Score", height=300, hovermode="x unified",
                                       barmode="relative")
             st.plotly_chart(fig_impact, use_container_width=True)
 
@@ -873,7 +873,7 @@ elif page == "Pazar & Politika":
             with col_a:
                 if "eu_orange_price_eur_100kg" in foreign.columns:
                     fig_eu = px.line(foreign, x="date", y="eu_orange_price_eur_100kg",
-                                     title="AB Portakal Fiyatı (EUR/100kg)",
+                                     title="EU Orange Price (EUR/100kg)",
                                      labels={"eu_orange_price_eur_100kg": "EUR/100kg"})
                     fig_eu.update_traces(line_color="royalblue")
                     fig_eu.update_layout(height=350)
@@ -883,8 +883,8 @@ elif page == "Pazar & Politika":
                 if "competition_index" in foreign.columns:
                     comp = foreign.dropna(subset=["competition_index"])
                     fig_comp = px.bar(comp, x="date", y="competition_index",
-                                      title="Rekabet Yoğunluğu Endeksi",
-                                      labels={"competition_index": "Endeks"},
+                                      title="Competition Intensity Index",
+                                      labels={"competition_index": "Index"},
                                       color="active_competitors",
                                       color_continuous_scale="Reds")
                     fig_comp.update_layout(height=350)
@@ -894,36 +894,36 @@ elif page == "Pazar & Politika":
             from src.data.foreign_markets import fetch_competitor_production
             prod = fetch_competitor_production()
 
-            st.subheader("Rakip Ülke Üretim Karşılaştırması")
-            year_select = st.selectbox("Yıl", sorted(prod["year"].unique(), reverse=True))
+            st.subheader("Competitor Country Production")
+            year_select = st.selectbox("Year", sorted(prod["year"].unique(), reverse=True))
             yr = prod[prod["year"] == year_select].sort_values("production_kt", ascending=True)
 
             fig_prod = px.bar(yr, x="production_kt", y="country", orientation="h",
                                color="estimated_export_kt", color_continuous_scale="YlOrRd",
-                               labels={"production_kt": "Üretim (bin ton)", "country": "",
-                                        "estimated_export_kt": "İhracat (bin ton)"},
-                               title=f"{year_select} Portakal Üretimi")
+                               labels={"production_kt": "Production (k tons)", "country": "",
+                                        "estimated_export_kt": "Exports (k tons)"},
+                               title=f"{year_select} Orange Production")
             fig_prod.update_layout(height=350)
             st.plotly_chart(fig_prod, use_container_width=True)
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Model Sonuçları
+# PAGE: Model Results
 # ═════════════════════════════════════════════════════════════════════════════════
 
-elif page == "Model Sonuçları":
-    st.title("🤖 Model Sonuçları")
+elif page == "Model Results":
+    st.title("🤖 Model Results")
 
     if "results" not in data:
-        st.warning("Model sonuçları bulunamadı. Pipeline'ı çalıştırın.")
+        st.warning("No model results found. Run the pipeline.")
         st.stop()
 
     results = data["results"]
 
     # Best model highlight
     best = results.loc[results["MAE"].idxmin()]
-    st.success(f"En iyi model: **{best['model']}** — MAE: {best['MAE']:.2f} TL/kg, "
-               f"MAPE: {best['MAPE']*100:.1f}%, R²: {best['R2']:.3f} ({int(best['horizon_days'])} gün)")
+    st.success(f"Best model: **{best['model']}** — MAE: {best['MAE']:.2f} TRY/kg, "
+               f"MAPE: {best['MAPE']*100:.1f}%, R²: {best['R2']:.3f} ({int(best['horizon_days'])} days)")
 
     st.markdown("---")
 
@@ -932,15 +932,15 @@ elif page == "Model Sonuçları":
 
     with col1:
         fig_mae = px.bar(results, x="model", y="MAE", color="horizon_days",
-                          barmode="group", title="MAE Karşılaştırması (TL/kg)",
+                          barmode="group", title="MAE Comparison (TRY/kg)",
                           color_continuous_scale="Viridis",
-                          labels={"MAE": "MAE (TL/kg)", "model": "", "horizon_days": "Horizon"})
+                          labels={"MAE": "MAE (TRY/kg)", "model": "", "horizon_days": "Horizon"})
         fig_mae.update_layout(height=400)
         st.plotly_chart(fig_mae, use_container_width=True)
 
     with col2:
         fig_r2 = px.bar(results, x="model", y="R2", color="horizon_days",
-                          barmode="group", title="R² Karşılaştırması",
+                          barmode="group", title="R² Comparison",
                           color_continuous_scale="Viridis",
                           labels={"R2": "R²", "model": "", "horizon_days": "Horizon"})
         fig_r2.add_hline(y=0, line_dash="dash", line_color="red")
@@ -948,24 +948,24 @@ elif page == "Model Sonuçları":
         st.plotly_chart(fig_r2, use_container_width=True)
 
     # Full results table
-    st.subheader("Detaylı Sonuçlar")
+    st.subheader("Detailed Results")
     display_results = results.copy()
     display_results["MAPE"] = (display_results["MAPE"] * 100).round(1).astype(str) + "%"
     display_results["MAE"] = display_results["MAE"].round(2)
     display_results["RMSE"] = display_results["RMSE"].round(2)
     display_results["R2"] = display_results["R2"].round(3)
-    display_results.columns = ["Model", "Horizon (gün)", "MAE", "MAPE", "RMSE", "R²"]
+    display_results.columns = ["Model", "Horizon (days)", "MAE", "MAPE", "RMSE", "R²"]
     st.dataframe(display_results, use_container_width=True, hide_index=True)
 
     # Feature importance (if we can compute it)
     st.markdown("---")
-    st.subheader("Özellik Matrisi Özeti")
+    st.subheader("Feature Matrix Summary")
 
     if "features" in data:
         features = data["features"]
         numeric_cols = features.select_dtypes(include=[np.number]).columns
 
-        horizon = st.selectbox("Tahmin Horizon", [30, 60, 90])
+        horizon = st.selectbox("Forecast horizon", [30, 60, 90])
         target = f"target_{horizon}d"
 
         if target in features.columns:
@@ -974,24 +974,24 @@ elif page == "Model Sonuçları":
             top_20 = corr.head(20)
 
             fig_fi = px.bar(x=top_20.values, y=top_20.index, orientation="h",
-                             title=f"Top 20 Özellik — {horizon} Gün Hedefe Korelasyon",
-                             labels={"x": "|Korelasyon|", "y": ""},
+                             title=f"Top 20 Features — Correlation with {horizon}-Day Target",
+                             labels={"x": "|Correlation|", "y": ""},
                              color=top_20.values, color_continuous_scale="Oranges")
             fig_fi.update_layout(height=500, yaxis=dict(autorange="reversed"))
             st.plotly_chart(fig_fi, use_container_width=True)
 
-        st.info(f"Toplam özellik sayısı: **{len(numeric_cols)}** | Satır: **{len(features):,}** | "
-                f"Tarih: {features['date'].min().strftime('%Y-%m-%d')} — {features['date'].max().strftime('%Y-%m-%d')}")
+        st.info(f"Total features: **{len(numeric_cols)}** | Rows: **{len(features):,}** | "
+                f"Date range: {features['date'].min().strftime('%Y-%m-%d')} — {features['date'].max().strftime('%Y-%m-%d')}")
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Talep & Trendler
+# PAGE: Demand & Trends
 # ═════════════════════════════════════════════════════════════════════════════════
 
-elif page == "Talep & Trendler":
-    st.title("📊 Talep Sinyalleri & Google Trends")
+elif page == "Demand & Trends":
+    st.title("📊 Demand Signals & Google Trends")
 
-    tab1, tab2 = st.tabs(["Google Trends", "Talep Faktörleri"])
+    tab1, tab2 = st.tabs(["Google Trends", "Demand Factors"])
 
     with tab1:
         if "trends" in data:
@@ -1008,9 +1008,9 @@ elif page == "Talep & Trendler":
                 ))
 
             fig_trends.update_layout(
-                title="Google Trends — Portakal Arama İlgisi (Türkiye)",
+                title="Google Trends — Orange Search Interest (Turkey)",
                 height=400, hovermode="x unified",
-                yaxis_title="Arama İlgisi (0-100)",
+                yaxis_title="Search Interest (0–100)",
             )
             st.plotly_chart(fig_trends, use_container_width=True)
 
@@ -1019,15 +1019,15 @@ elif page == "Talep & Trendler":
             monthly_p = prices.set_index("date").resample("ME")["avg_price"].mean().reset_index()
             if "trend_portakal_fiyat" in trends.columns:
                 fig_tp.add_trace(go.Scatter(x=trends["date"], y=trends["trend_portakal_fiyat"],
-                                             name="Trend: portakal fiyat", line=dict(color="blue")), secondary_y=False)
+                                             name="Trend: orange price", line=dict(color="blue")), secondary_y=False)
             fig_tp.add_trace(go.Scatter(x=monthly_p["date"], y=monthly_p["avg_price"],
-                                         name="Fiyat (TL/kg)", line=dict(color="darkorange")), secondary_y=True)
-            fig_tp.update_layout(title="Arama İlgisi vs Fiyat", height=350, hovermode="x unified")
-            fig_tp.update_yaxes(title_text="Trend (0-100)", secondary_y=False)
-            fig_tp.update_yaxes(title_text="TL/kg", secondary_y=True)
+                                         name="Price (TRY/kg)", line=dict(color="darkorange")), secondary_y=True)
+            fig_tp.update_layout(title="Search Interest vs Price", height=350, hovermode="x unified")
+            fig_tp.update_yaxes(title_text="Trend (0–100)", secondary_y=False)
+            fig_tp.update_yaxes(title_text="TRY/kg", secondary_y=True)
             st.plotly_chart(fig_tp, use_container_width=True)
         else:
-            st.info("Trend verisi bulunamadı.")
+            st.info("No trend data found.")
 
     with tab2:
         if "demand" in data:
@@ -1039,11 +1039,11 @@ elif page == "Talep & Trendler":
             with col1:
                 # Ramadan periods
                 ramadan_data = dm_filtered[dm_filtered["ramadan_active"] == 1]
-                st.subheader("Ramazan Dönemleri")
+                st.subheader("Ramadan Periods")
                 fig_ram = go.Figure()
                 fig_ram.add_trace(go.Scatter(
                     x=prices_filtered["date"], y=prices_filtered["avg_price"],
-                    mode="lines", line=dict(color="darkorange"), name="Fiyat",
+                    mode="lines", line=dict(color="darkorange"), name="Price",
                 ))
                 # Shade Ramadan periods
                 for _, row in dm_filtered[dm_filtered["ramadan_active"] == 1].groupby(
@@ -1051,53 +1051,53 @@ elif page == "Talep & Trendler":
                 ).agg({"date": ["min", "max"]}).iterrows():
                     fig_ram.add_vrect(x0=row[("date", "min")], x1=row[("date", "max")],
                                       fillcolor="green", opacity=0.1, line_width=0)
-                fig_ram.update_layout(height=300, title="Fiyat + Ramazan Dönemleri (yeşil)")
+                fig_ram.update_layout(height=300, title="Price + Ramadan Periods (green)")
                 st.plotly_chart(fig_ram, use_container_width=True)
 
             with col2:
                 # Input cost index
-                st.subheader("Girdi Maliyet Endeksi")
+                st.subheader("Input Cost Index")
                 fig_input = px.line(dm_filtered, x="date", y="input_cost_index",
-                                     title="Tarımsal Girdi Maliyet Endeksi (2015=100)")
+                                     title="Agricultural Input Cost Index (2015=100)")
                 fig_input.update_traces(line_color="brown")
                 fig_input.update_layout(height=300)
                 st.plotly_chart(fig_input, use_container_width=True)
 
             col3, col4 = st.columns(2)
             with col3:
-                st.subheader("Turizm Yoğunluğu")
+                st.subheader("Tourism Intensity")
                 fig_tour = px.line(dm_filtered, x="date", y="tourism_intensity",
-                                    title="Antalya Turizm Yoğunluğu")
+                                    title="Antalya Tourism Intensity")
                 fig_tour.update_traces(line_color="teal")
                 fig_tour.update_layout(height=300)
                 st.plotly_chart(fig_tour, use_container_width=True)
 
             with col4:
-                st.subheader("TÜFE Endeksi")
+                st.subheader("CPI Index")
                 fig_cpi = px.line(dm_filtered, x="date", y="cpi_index",
-                                   title="Tüketici Fiyat Endeksi (2007=100)")
+                                   title="Consumer Price Index (2007=100)")
                 fig_cpi.update_traces(line_color="purple")
                 fig_cpi.update_layout(height=300)
                 st.plotly_chart(fig_cpi, use_container_width=True)
         else:
-            st.info("Talep verisi bulunamadı.")
+            st.info("No demand data found.")
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
-# PAGE: Tahminler & Uyarılar
+# PAGE: Forecasts & Alerts
 # ═════════════════════════════════════════════════════════════════════════════════
 
-elif page == "Tahminler & Uyarılar":
-    st.title("🔮 Tahminler & Uyarı Sistemi")
+elif page == "Forecasts & Alerts":
+    st.title("🔮 Forecasts & Alert System")
 
-    tab1, tab2, tab3, tab4 = st.tabs(["Fiyat Tahminleri", "Tahmin Takibi", "Uyarılar", "SHAP Analizi"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Price Forecasts", "Forecast Tracking", "Alerts", "SHAP Analysis"])
 
     with tab1:
         if "predictions" in data:
             preds = data["predictions"]
             current = prices.iloc[-1]["avg_price"]
 
-            st.subheader(f"Güncel Fiyat: {current:.1f} ₺/kg")
+            st.subheader(f"Current Price: {current:.1f} TRY/kg")
             st.markdown("---")
 
             cols = st.columns(len(preds))
@@ -1109,19 +1109,19 @@ elif page == "Tahminler & Uyarılar":
                     change_pct = (change / current) * 100
 
                     st.metric(
-                        f"{horizon} Gün Tahmin",
-                        f"{pred:.1f} ₺/kg",
-                        delta=f"{change:+.1f} ₺ ({change_pct:+.1f}%)",
+                        f"{horizon}-Day Forecast",
+                        f"{pred:.1f} TRY/kg",
+                        delta=f"{change:+.1f} TRY ({change_pct:+.1f}%)",
                     )
 
                     if "pred_lower" in row and "pred_upper" in row:
-                        st.caption(f"Aralık: {row['pred_lower']:.1f} — {row['pred_upper']:.1f} ₺")
+                        st.caption(f"Range: {row['pred_lower']:.1f} — {row['pred_upper']:.1f} TRY")
 
             # Prediction chart
             fig_pred = go.Figure()
             fig_pred.add_trace(go.Scatter(
                 x=prices.tail(90)["date"], y=prices.tail(90)["avg_price"],
-                mode="lines", name="Gerçek Fiyat", line=dict(color="darkorange", width=2),
+                mode="lines", name="Actual price", line=dict(color="darkorange", width=2),
             ))
 
             for _, row in preds.iterrows():
@@ -1130,7 +1130,7 @@ elif page == "Tahminler & Uyarılar":
                     x=[prices.iloc[-1]["date"], target_date],
                     y=[current, row["prediction"]],
                     mode="lines+markers",
-                    name=f"{int(row['horizon_days'])}d tahmin",
+                    name=f"{int(row['horizon_days'])}d forecast",
                     line=dict(dash="dash"),
                     marker=dict(size=10),
                 ))
@@ -1143,13 +1143,13 @@ elif page == "Tahminler & Uyarılar":
                         showlegend=False,
                     ))
 
-            fig_pred.update_layout(title="Fiyat Tahmini", height=400, hovermode="x unified")
+            fig_pred.update_layout(title="Price Forecast", height=400, hovermode="x unified")
             st.plotly_chart(fig_pred, use_container_width=True)
         else:
-            st.info("Tahmin verisi bulunamadı. `python -m src.auto_refresh --predict` çalıştırın.")
+            st.info("No prediction data found. Run `python -m src.auto_refresh --predict`.")
 
     with tab2:
-        st.subheader("Tahmin Takibi — Tahmin vs Gerçek")
+        st.subheader("Forecast Tracking — Predicted vs Actual")
 
         if "pred_history" in data:
             hist = data["pred_history"]
@@ -1158,7 +1158,7 @@ elif page == "Tahminler & Uyarılar":
             # ── Data freshness ──
             if "refresh_log" in data:
                 rlog = data["refresh_log"]
-                st.markdown("**Veri Güncelliği**")
+                st.markdown("**Data Freshness**")
                 fresh_cols = st.columns(4)
                 sources = ["hal_prices", "weather", "fx_rates", "demand_policy"]
                 for i, src in enumerate(sources):
@@ -1166,7 +1166,7 @@ elif page == "Tahminler & Uyarılar":
                     if not src_rows.empty:
                         last = src_rows.iloc[-1]
                         status_icon = "✅" if last.get("status") == "ok" else "⚠️"
-                        fresh_cols[i].metric(src, f"{status_icon} {last.get('timestamp', '?')[:10]}")
+                        fresh_cols[i].metric(src, f"{status_icon} {last.get('records_after', '—')}")
                     else:
                         fresh_cols[i].metric(src, "—")
                 st.markdown("---")
@@ -1174,29 +1174,29 @@ elif page == "Tahminler & Uyarılar":
             # ── Accuracy summary table ──
             if "accuracy" in data and not data["accuracy"].empty:
                 acc = data["accuracy"]
-                st.markdown("**Model Doğruluğu (Horizona Göre)**")
+                st.markdown("**Model Accuracy by Horizon**")
 
                 acc_cols = st.columns(len(acc))
                 for i, (_, row) in enumerate(acc.iterrows()):
                     horizon = int(row["horizon_days"])
                     with acc_cols[i]:
-                        label = f"{horizon // 7} Hafta" if horizon % 7 == 0 and horizon <= 28 else f"{horizon} Gün"
-                        st.metric(f"{label} MAE", f"{row['mae']:.2f} ₺/kg")
+                        label = f"{horizon // 7} Week" if horizon % 7 == 0 and horizon <= 28 else f"{horizon} Days"
+                        st.metric(f"{label} MAE", f"{row['mae']:.2f} TRY/kg")
                         st.caption(
                             f"MAPE: {row['mape_pct']:.1f}%\n\n"
-                            f"Yön: %{row['direction_accuracy_pct']:.0f}\n\n"
+                            f"Direction: {row['direction_accuracy_pct']:.0f}%\n\n"
                             f"n={int(row['n_predictions'])}"
                         )
                 st.markdown("---")
 
             # ── Prediction vs Actual chart ──
             if not evaluated.empty:
-                st.markdown("**Tahmin vs Gerçek Fiyat**")
+                st.markdown("**Predicted vs Actual Price**")
 
                 horizon_options = sorted(evaluated["horizon_days"].unique())
-                horizon_labels = {h: (f"{h // 7} Hafta" if h % 7 == 0 and h <= 28 else f"{h} Gün") for h in horizon_options}
+                horizon_labels = {h: (f"{h // 7} Week" if h % 7 == 0 and h <= 28 else f"{h} Days") for h in horizon_options}
                 selected_horizon = st.selectbox(
-                    "Horizon seçin",
+                    "Select horizon",
                     horizon_options,
                     format_func=lambda x: horizon_labels[x],
                 )
@@ -1208,7 +1208,7 @@ elif page == "Tahminler & Uyarılar":
                 # Actual prices
                 fig_track.add_trace(go.Scatter(
                     x=subset["target_date"], y=subset["actual_price"],
-                    mode="lines+markers", name="Gerçek Fiyat",
+                    mode="lines+markers", name="Actual price",
                     line=dict(color="darkorange", width=2),
                     marker=dict(size=6),
                 ))
@@ -1216,7 +1216,7 @@ elif page == "Tahminler & Uyarılar":
                 # Predicted prices
                 fig_track.add_trace(go.Scatter(
                     x=subset["target_date"], y=subset["predicted_price"],
-                    mode="lines+markers", name="Tahmin",
+                    mode="lines+markers", name="Predicted",
                     line=dict(color="royalblue", width=2, dash="dash"),
                     marker=dict(size=6),
                 ))
@@ -1228,12 +1228,12 @@ elif page == "Tahminler & Uyarılar":
                         y=pd.concat([subset["pred_upper"], subset["pred_lower"][::-1]]),
                         fill="toself", fillcolor="rgba(65,105,225,0.1)",
                         line=dict(color="rgba(65,105,225,0)"),
-                        name="Güven Aralığı",
+                        name="Confidence interval",
                     ))
 
                 fig_track.update_layout(
-                    title=f"Tahmin vs Gerçek — {horizon_labels[selected_horizon]}",
-                    xaxis_title="Tarih", yaxis_title="Fiyat (₺/kg)",
+                    title=f"Predicted vs Actual — {horizon_labels[selected_horizon]}",
+                    xaxis_title="Date", yaxis_title="Price (TRY/kg)",
                     height=400, hovermode="x unified",
                 )
                 st.plotly_chart(fig_track, use_container_width=True)
@@ -1242,19 +1242,19 @@ elif page == "Tahminler & Uyarılar":
                 fig_err = go.Figure()
                 fig_err.add_trace(go.Bar(
                     x=subset["target_date"], y=subset["error"],
-                    name="Hata (₺/kg)",
+                    name="Error (TRY/kg)",
                     marker_color=["crimson" if e > 0 else "forestgreen" for e in subset["error"]],
                 ))
                 fig_err.add_hline(y=0, line_dash="dash", line_color="gray")
                 fig_err.update_layout(
-                    title="Tahmin Hatası (Pozitif = Fazla Tahmin)",
-                    xaxis_title="Tarih", yaxis_title="Hata (₺/kg)",
+                    title="Prediction Error (Positive = Overestimate)",
+                    xaxis_title="Date", yaxis_title="Error (TRY/kg)",
                     height=300,
                 )
                 st.plotly_chart(fig_err, use_container_width=True)
 
                 # ── Detailed table ──
-                st.markdown("**Detaylı Tablo**")
+                st.markdown("**Detailed Table**")
                 display_cols = ["date_generated", "target_date", "predicted_price",
                                 "actual_price", "error", "pct_error"]
                 display_cols = [c for c in display_cols if c in subset.columns]
@@ -1262,27 +1262,27 @@ elif page == "Tahminler & Uyarılar":
                     subset[display_cols].sort_values("target_date", ascending=False),
                     use_container_width=True, hide_index=True,
                     column_config={
-                        "date_generated": st.column_config.DateColumn("Tahmin Tarihi"),
-                        "target_date": st.column_config.DateColumn("Hedef Tarih"),
-                        "predicted_price": st.column_config.NumberColumn("Tahmin (₺/kg)", format="%.2f"),
-                        "actual_price": st.column_config.NumberColumn("Gerçek (₺/kg)", format="%.2f"),
-                        "error": st.column_config.NumberColumn("Hata (₺)", format="%.2f"),
-                        "pct_error": st.column_config.NumberColumn("Hata (%)", format="%.1f%%"),
+                        "date_generated": st.column_config.DateColumn("Predicted On"),
+                        "target_date": st.column_config.DateColumn("Target Date"),
+                        "predicted_price": st.column_config.NumberColumn("Predicted (TRY/kg)", format="%.2f"),
+                        "actual_price": st.column_config.NumberColumn("Actual (TRY/kg)", format="%.2f"),
+                        "error": st.column_config.NumberColumn("Error (TRY)", format="%.2f"),
+                        "pct_error": st.column_config.NumberColumn("Error (%)", format="%.1f%%"),
                     },
                 )
             else:
-                st.info("Henüz değerlendirilmiş tahmin yok. Hedef tarihler geçtikçe veriler dolacak.")
+                st.info("No evaluated predictions yet. Data will populate as target dates pass.")
 
             # ── Pending predictions ──
             pending = hist[hist["evaluated"] != True] if "evaluated" in hist.columns else pd.DataFrame()  # noqa: E712
             if not pending.empty:
-                with st.expander(f"Bekleyen Tahminler ({len(pending)})"):
+                with st.expander(f"Pending Forecasts ({len(pending)})"):
                     pending_display = pending[["date_generated", "horizon_days", "target_date",
                                                "predicted_price", "current_price"]].sort_values("target_date")
                     st.dataframe(pending_display, use_container_width=True, hide_index=True)
         else:
             st.info(
-                "Tahmin geçmişi bulunamadı. Günlük pipeline çalıştıkça veriler birikecek.\n\n"
+                "No prediction history found. Data will accumulate as the daily pipeline runs.\n\n"
                 "`python -m src.auto_refresh --full`"
             )
 
@@ -1291,22 +1291,22 @@ elif page == "Tahminler & Uyarılar":
             st.code(data["alerts_text"], language=None)
         else:
             # Generate live alerts
-            st.subheader("Canlı Uyarı Kontrolü")
-            if st.button("Uyarıları Kontrol Et"):
+            st.subheader("Live Alert Check")
+            if st.button("Check Alerts"):
                 from src.auto_refresh import run_alerts
                 alerts = run_alerts()
-                st.success(f"{len(alerts)} uyarı kontrol edildi.")
+                st.success(f"{len(alerts)} alerts checked.")
 
     with tab4:
         if "shap" in data:
             shap_df = data["shap"]
-            top_n = st.slider("Top N Özellik", 10, 40, 20)
+            top_n = st.slider("Top N Features", 10, 40, 20)
             top = shap_df.head(top_n)
 
             fig_shap = px.bar(
                 top, x="shap_importance", y="feature", orientation="h",
                 title=f"SHAP Feature Importance (Top {top_n})",
-                labels={"shap_importance": "Ortalama |SHAP Değeri|", "feature": ""},
+                labels={"shap_importance": "Mean |SHAP value|", "feature": ""},
                 color="shap_importance", color_continuous_scale="Oranges",
             )
             fig_shap.update_layout(height=max(400, top_n * 22), yaxis=dict(autorange="reversed"))
@@ -1314,18 +1314,18 @@ elif page == "Tahminler & Uyarılar":
 
             st.dataframe(top, use_container_width=True, hide_index=True)
         else:
-            st.info("SHAP verisi bulunamadı. `python -m src.pipeline --advanced` çalıştırın.")
+            st.info("No SHAP data found. Run `python -m src.pipeline --advanced`.")
 
 
 # ─── Footer ──────────────────────────────────────────────────────────────────────
 
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    "**Veri Kaynakları:**\n"
+    "**Data Sources:**\n"
     "- İBB Istanbul Hal\n"
     "- Open-Meteo\n"
     "- Frankfurter (FX)\n"
     "- FAO / Eurostat\n"
     "- USDA FAS"
 )
-st.sidebar.markdown(f"Son güncelleme: {prices['date'].max().strftime('%d.%m.%Y')}")
+st.sidebar.markdown(f"Last update: {prices['date'].max().strftime('%d.%m.%Y')}")

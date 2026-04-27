@@ -76,15 +76,15 @@ def check_frost_alerts(weather: pd.DataFrame, days_ahead: int = 16) -> list[Aler
         frost_days = len(mild_frost)
 
         alerts.append(Alert(
-            title=f"Don Uyarısı — Finike'de {min_temp:.1f}°C",
+            title=f"Frost Warning — Finike at {min_temp:.1f}°C",
             category=AlertCategory.WEATHER,
             severity=AlertSeverity.HIGH if frost_days >= 3 else AlertSeverity.MEDIUM,
             expected_impact_pct=(15, 30) if frost_days >= 3 else (5, 15),
             confidence=0.85,
             lead_time_days=(14, 28),
             description=(
-                f"{frost_days} gün don bekleniyor. Minimum sıcaklık: {min_temp:.1f}°C. "
-                f"Portakal arzı düşecek, fiyatlar yükselecek."
+                f"{frost_days} frost days expected. Min temperature: {min_temp:.1f}°C. "
+                f"Orange supply will fall, prices will rise."
             ),
             trigger_value=min_temp,
             threshold=ALERT_THRESHOLDS["frost_mild"],
@@ -96,15 +96,15 @@ def check_frost_alerts(weather: pd.DataFrame, days_ahead: int = 16) -> list[Aler
         min_temp = severe_frost["temp_min"].min()
 
         alerts.append(Alert(
-            title=f"ŞİDDETLİ DON — Finike'de {min_temp:.1f}°C",
+            title=f"SEVERE FROST — Finike at {min_temp:.1f}°C",
             category=AlertCategory.WEATHER,
             severity=AlertSeverity.CRITICAL,
             expected_impact_pct=(40, 80),
             confidence=0.92,
             lead_time_days=(14, 90),
             description=(
-                f"Şiddetli don olayı! {min_temp:.1f}°C ile ciddi ürün hasarı bekleniyor. "
-                f"Sezon boyunca fiyat etkisi sürebilir."
+                f"Severe frost event! Major crop damage expected at {min_temp:.1f}°C. "
+                f"Price impact may persist through the season."
             ),
             trigger_value=min_temp,
             threshold=ALERT_THRESHOLDS["frost_severe"],
@@ -115,15 +115,15 @@ def check_frost_alerts(weather: pd.DataFrame, days_ahead: int = 16) -> list[Aler
         max_dry = weather["consecutive_dry_days"].iloc[-1] if len(weather) > 0 else 0
         if max_dry >= ALERT_THRESHOLDS["drought_days"]:
             alerts.append(Alert(
-                title=f"Kuraklık Uyarısı — {int(max_dry)} gün yağışsız",
+                title=f"Drought Warning — {int(max_dry)} dry days",
                 category=AlertCategory.WEATHER,
                 severity=AlertSeverity.MEDIUM,
                 expected_impact_pct=(10, 20),
                 confidence=0.75,
                 lead_time_days=(30, 60),
                 description=(
-                    f"Son {int(max_dry)} gündür yağış yok. Ağaçlarda su stresi "
-                    f"meyve kalitesini ve verimini etkileyebilir."
+                    f"No rainfall for {int(max_dry)} days. Water stress in trees "
+                    f"may affect fruit quality and yield."
                 ),
                 trigger_value=max_dry,
                 threshold=ALERT_THRESHOLDS["drought_days"],
@@ -136,13 +136,13 @@ def check_frost_alerts(weather: pd.DataFrame, days_ahead: int = 16) -> list[Aler
     ]
     if len(extreme_weather) > 0:
         alerts.append(Alert(
-            title="Fırtına/Dolu Riski",
+            title="Storm / Hail Risk",
             category=AlertCategory.WEATHER,
             severity=AlertSeverity.HIGH,
             expected_impact_pct=(15, 25),
             confidence=0.70,
             lead_time_days=(21, 42),
-            description="Şiddetli rüzgar ve yağış. Meyve hasarı ve erken dökülme riski.",
+            description="Severe wind and rainfall. Risk of fruit damage and early drop.",
         ))
 
     return alerts
@@ -163,15 +163,15 @@ def check_ndvi_alerts(ndvi: pd.DataFrame) -> list[Alert]:
     if latest.get("ndvi_anomaly_pct", 0) < -ALERT_THRESHOLDS["ndvi_drop_pct"]:
         drop_pct = abs(latest["ndvi_anomaly_pct"])
         alerts.append(Alert(
-            title=f"Uydu Uyarısı — NDVI %{drop_pct:.0f} düşüş",
+            title=f"Satellite Alert — NDVI down {drop_pct:.0f}%",
             category=AlertCategory.SATELLITE,
             severity=AlertSeverity.HIGH if drop_pct > 25 else AlertSeverity.MEDIUM,
             expected_impact_pct=(10, 25) if drop_pct > 25 else (5, 15),
             confidence=0.80,
             lead_time_days=(30, 90),
             description=(
-                f"Finike narenciye bölgesinde bitki örtüsü sağlığı mevsim "
-                f"normalinin %{drop_pct:.0f} altında. Düşük verim bekleniyor."
+                f"Vegetation health in the Finike citrus region is {drop_pct:.0f}% "
+                f"below the seasonal normal. Lower yield expected."
             ),
             trigger_value=latest["ndvi_anomaly_pct"],
             threshold=-ALERT_THRESHOLDS["ndvi_drop_pct"],
@@ -182,15 +182,15 @@ def check_ndvi_alerts(ndvi: pd.DataFrame) -> list[Alert]:
         recent_stress = ndvi.tail(3)["ndvi_stress"].sum()
         if recent_stress >= 2:
             alerts.append(Alert(
-                title="Sürekli Bitki Stresi — 2+ gözlem",
+                title="Sustained Vegetation Stress — 2+ observations",
                 category=AlertCategory.SATELLITE,
                 severity=AlertSeverity.HIGH,
                 expected_impact_pct=(15, 30),
                 confidence=0.78,
                 lead_time_days=(30, 90),
                 description=(
-                    "Son 3 uydu gözleminin 2'sinde stres tespit edildi. "
-                    "Kuraklık, hastalık veya don hasarı olabilir."
+                    "Stress detected in 2 of the last 3 satellite observations. "
+                    "Possible drought, disease, or frost damage."
                 ),
             ))
 
@@ -215,30 +215,30 @@ def check_fx_alerts(fx: pd.DataFrame) -> list[Alert]:
         if abs(change_pct) > ALERT_THRESHOLDS["fx_spike_pct"]:
             if change_pct > 0:  # TRY depreciation
                 alerts.append(Alert(
-                    title=f"TL Değer Kaybı — Aylık %{change_pct:.1f}",
+                    title=f"TRY Depreciation — {change_pct:.1f}% monthly",
                     category=AlertCategory.FX,
                     severity=AlertSeverity.MEDIUM,
                     expected_impact_pct=(5, 12),
                     confidence=0.75,
                     lead_time_days=(14, 30),
                     description=(
-                        f"TL son 30 günde %{change_pct:.1f} değer kaybetti. "
-                        f"İthal portakal pahalılaşır → yerli fiyatlar yükselir."
+                        f"TRY lost {change_pct:.1f}% in the last 30 days. "
+                        f"Imported oranges become more expensive → domestic prices rise."
                     ),
                     trigger_value=change_pct,
                     threshold=ALERT_THRESHOLDS["fx_spike_pct"],
                 ))
             else:  # TRY appreciation
                 alerts.append(Alert(
-                    title=f"TL Değer Kazancı — Aylık %{abs(change_pct):.1f}",
+                    title=f"TRY Appreciation — {abs(change_pct):.1f}% monthly",
                     category=AlertCategory.FX,
                     severity=AlertSeverity.LOW,
                     expected_impact_pct=(-8, -3),
                     confidence=0.65,
                     lead_time_days=(14, 30),
                     description=(
-                        f"TL güçleniyor. İthal portakal ucuzlar → "
-                        f"yerli fiyatlarda baskı."
+                        f"TRY is strengthening. Imported oranges get cheaper → "
+                        f"pressure on domestic prices."
                     ),
                     trigger_value=change_pct,
                     threshold=-ALERT_THRESHOLDS["fx_spike_pct"],
@@ -260,37 +260,37 @@ def check_calendar_alerts(date: datetime = None) -> list[Alert]:
     # Harvest season start
     if month == 11:
         alerts.append(Alert(
-            title="Hasat Sezonu Başlangıcı",
+            title="Harvest Season Begins",
             category=AlertCategory.DEMAND,
             severity=AlertSeverity.LOW,
             expected_impact_pct=(-10, -5),
             confidence=0.85,
             lead_time_days=(0, 30),
-            description="Hasat başlıyor. Artan arz ile fiyatlar düşebilir.",
+            description="Harvest is starting. Increasing supply may push prices lower.",
         ))
 
     # Peak harvest
     if month in [12, 1, 2]:
         alerts.append(Alert(
-            title="Hasat Sezonu Zirvesi",
+            title="Peak Harvest Season",
             category=AlertCategory.DEMAND,
             severity=AlertSeverity.LOW,
             expected_impact_pct=(-15, -5),
             confidence=0.80,
             lead_time_days=(0, 14),
-            description="Hasat zirvede. Arz yüksek, fiyatlar mevsimsel dip yapabilir.",
+            description="Harvest at peak. Supply is high; prices may hit a seasonal low.",
         ))
 
     # Late season scarcity
     if month in [4, 5]:
         alerts.append(Alert(
-            title="Sezon Sonu — Arz Azalması",
+            title="End of Season — Supply Tightening",
             category=AlertCategory.DEMAND,
             severity=AlertSeverity.MEDIUM,
             expected_impact_pct=(10, 25),
             confidence=0.80,
             lead_time_days=(0, 30),
-            description="Hasat sonu yaklaşıyor. Azalan arz fiyatları yükseltir.",
+            description="Harvest ending. Falling supply lifts prices.",
         ))
 
     return alerts
@@ -343,19 +343,19 @@ def run_all_alerts(
 def format_alert_report(alerts: list[Alert]) -> str:
     """Format alerts into a readable report."""
     if not alerts:
-        return "Aktif uyarı yok. Tüm göstergeler normal."
+        return "No active alerts. All indicators normal."
 
     lines = [
         "=" * 60,
-        "  PORTAKAL FİYAT UYARI RAPORU",
-        f"  Tarih: {datetime.now().strftime('%Y-%m-%d %H:%M')}",
-        f"  Toplam uyarı: {len(alerts)}",
+        "  ORANGE PRICE ALERT REPORT",
+        f"  Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        f"  Total alerts: {len(alerts)}",
         "=" * 60,
         "",
     ]
 
     for i, alert in enumerate(alerts, 1):
-        lines.append(f"--- Uyarı #{i} ---")
+        lines.append(f"--- Alert #{i} ---")
         lines.append(str(alert))
         lines.append("")
 
@@ -365,7 +365,7 @@ def format_alert_report(alerts: list[Alert]) -> str:
 
     lines.extend([
         "=" * 60,
-        f"  Tahmini Net Etki: %{total_min:+.1f} ile %{total_max:+.1f} arası",
+        f"  Estimated net impact: {total_min:+.1f}% to {total_max:+.1f}%",
         "=" * 60,
     ])
 

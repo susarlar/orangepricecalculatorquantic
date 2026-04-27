@@ -32,3 +32,6 @@ reports/*.html
 
 # CTOC
 .ctoc/
+
+# Claude Code local config
+.claude/

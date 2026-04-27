@@ -1,8 +1,8 @@
 """
 Farmer-focused orange price prediction and decision support.
 
-Target audience: Finike portakal üreticisi (orange grower)
-Target variable: Antalya Hal portakal prices (nearest market to Finike)
+Target audience: Finike orange grower
+Target variable: Antalya Hal orange prices (nearest market to Finike)
 
 Key decisions this model supports:
 1. WHEN to sell — optimal timing within the season
@@ -41,20 +41,20 @@ except ImportError:
 
 # ─── Farmer cost parameters ─────────────────────────────────────────────────────
 
-# Typical Finike portakal üretim maliyeti (2025-2026 sezonu, TL/kg)
+# Typical Finike orange production costs (2025–2026 season, TRY/kg)
 DEFAULT_COSTS = {
-    "hasat_iscilik": 5.0,       # Harvest labor
-    "nakliye_hale": 2.0,        # Transport to hal (Finike→Antalya ~80km)
-    "komisyon_pct": 8.0,        # Hal commission (% of sale price)
-    "ambalaj": 1.5,             # Packaging
-    "ilac_gubre": 3.0,          # Pesticide + fertilizer (amortized per kg)
-    "sulama": 1.0,              # Irrigation
-    "soguk_hava_gunluk": 0.15,  # Cold storage per kg per day
+    "harvest_labor": 5.0,       # Harvest labor
+    "transport_to_hal": 2.0,    # Transport to hal (Finike→Antalya ~80 km)
+    "commission_pct": 8.0,      # Hal commission (% of sale price)
+    "packaging": 1.5,           # Packaging
+    "pesticide_fertilizer": 3.0,  # Pesticide + fertilizer (amortized per kg)
+    "irrigation": 1.0,          # Irrigation
+    "cold_storage_daily": 0.15,  # Cold storage per kg per day
 }
 
 
 def compute_breakeven(costs: dict = None) -> float:
-    """Compute breakeven price (TL/kg) for Finike farmer.
+    """Compute breakeven price (TRY/kg) for a Finike farmer.
 
     This is the minimum hal price needed to cover costs.
     Commission is applied on top, so:
@@ -63,8 +63,11 @@ def compute_breakeven(costs: dict = None) -> float:
     if costs is None:
         costs = DEFAULT_COSTS
 
-    fixed = sum(v for k, v in costs.items() if k != "komisyon_pct" and k != "soguk_hava_gunluk")
-    commission = costs.get("komisyon_pct", 8.0) / 100
+    fixed = sum(
+        v for k, v in costs.items()
+        if k not in ("commission_pct", "cold_storage_daily")
+    )
+    commission = costs.get("commission_pct", 8.0) / 100
     breakeven = fixed / (1 - commission)
     return round(breakeven, 2)
 
@@ -72,11 +75,11 @@ def compute_breakeven(costs: dict = None) -> float:
 # ─── Data preparation ────────────────────────────────────────────────────────────
 
 def build_farmer_features() -> pd.DataFrame:
-    """Build feature matrix centered on Antalya Hal portakal prices.
+    """Build feature matrix centered on Antalya Hal orange prices.
 
     Merges:
-    - Antalya portakal prices (target)
-    - Istanbul portakal prices (downstream signal)
+    - Antalya orange prices (target)
+    - Istanbul orange prices (downstream signal)
     - Weather (Finike region)
     - FX rates
     - Policy events
@@ -85,10 +88,10 @@ def build_farmer_features() -> pd.DataFrame:
     """
     # Load Antalya prices — aggregate both varieties to daily avg
     antalya = pd.read_csv(RAW_DIR / "antalya_hal_prices.csv", parse_dates=["date"])
-    portakal = antalya[antalya["product"].str.contains("Portakal", case=False)].copy()
+    oranges = antalya[antalya["product"].str.contains("Portakal", case=False)].copy()
 
     # Daily aggregate across varieties
-    daily = portakal.groupby("date").agg(
+    daily = oranges.groupby("date").agg(
         antalya_min=("min_price", "min"),
         antalya_max=("max_price", "max"),
         antalya_avg=("avg_price", "mean"),
@@ -98,14 +101,14 @@ def build_farmer_features() -> pd.DataFrame:
 
     # Per-variety prices as separate features
     for variety in ["Sıkmalık", "Valencia"]:
-        var_data = portakal[portakal["product"].str.contains(variety, case=False)]
+        var_data = oranges[oranges["product"].str.contains(variety, case=False)]
         var_daily = var_data.groupby("date")["avg_price"].mean().reset_index()
         var_daily = var_daily.rename(columns={"avg_price": f"antalya_{variety.lower()}_price"})
         daily = daily.merge(var_daily, on="date", how="left")
 
     # Extend rows up to today by forward-filling the last Antalya price.
     # Why: Antalya hal data can lag a day or more behind. Without this, the
-    # Çiftçi Paneli shows a stale "today" and predictions can't run for the
+    # farmer panel shows a stale "today" and predictions can't run for the
     # current date. Weather/FX/demand/policy (merged below) remain authoritative.
     daily["is_price_ffill"] = 0
     today = pd.Timestamp.today().normalize()
@@ -239,7 +242,7 @@ def _get_feature_cols(df, target_col):
 
 
 def train_farmer_model(df: pd.DataFrame, horizon: int = 30) -> dict:
-    """Train XGBoost model for Antalya portakal price prediction."""
+    """Train an XGBoost model for Antalya orange price prediction."""
     target_col = f"target_{horizon}d"
     feature_cols = _get_feature_cols(df, target_col)
 
@@ -383,7 +386,7 @@ def generate_farmer_advice(df: pd.DataFrame, costs: dict = None) -> dict:
 
 def _decide(current_price, forecasts, breakeven, costs, current_row) -> dict:
     """Generate sell/hold/store recommendation."""
-    cold_cost_daily = costs.get("soguk_hava_gunluk", 0.15)
+    cold_cost_daily = costs.get("cold_storage_daily", 0.15)
 
     # Check if selling now is above breakeven
     profitable_now = current_price > breakeven
@@ -406,32 +409,41 @@ def _decide(current_price, forecasts, breakeven, costs, current_row) -> dict:
 
     # Decision
     if not profitable_now and best_net_gain <= 0:
-        action = "BEKLE"
-        reason = f"Mevcut fiyat ({current_price:.1f} ₺) maliyet altında ({breakeven:.1f} ₺). Fiyat artışı bekleniyor mu kontrol edin."
+        action = "WAIT"
+        reason = (
+            f"Current price ({current_price:.1f} TRY) is below breakeven ({breakeven:.1f} TRY). "
+            f"Watch for a price rise before selling."
+        )
         urgency = "low"
     elif best_horizon and best_net_gain > current_price * 0.05:
         storage_cost = cold_cost_daily * best_horizon
-        action = "SOĞUK HAVA"
+        action = "COLD STORAGE"
         reason = (
-            f"{best_horizon} gün depolayıp satın. "
-            f"Beklenen fiyat: {best_price:.1f} ₺/kg, "
-            f"depolama maliyeti: {storage_cost:.1f} ₺/kg, "
-            f"net kazanç: +{best_net_gain:.1f} ₺/kg."
+            f"Store for {best_horizon} days, then sell. "
+            f"Expected price: {best_price:.1f} TRY/kg, "
+            f"storage cost: {storage_cost:.1f} TRY/kg, "
+            f"net gain: +{best_net_gain:.1f} TRY/kg."
         )
         urgency = "medium"
     elif profitable_now:
         margin = current_price - breakeven
         if any(fc["change_pct"] < -5 for fc in forecasts.values()):
-            action = "ŞİMDİ SAT"
-            reason = f"Fiyatlar düşecek. Mevcut marj: {margin:.1f} ₺/kg ({(margin/breakeven)*100:.0f}%). Hemen satmak en karlı."
+            action = "SELL NOW"
+            reason = (
+                f"Prices are about to drop. Current margin: {margin:.1f} TRY/kg "
+                f"({(margin/breakeven)*100:.0f}%). Selling now is most profitable."
+            )
             urgency = "high"
         else:
-            action = "SAT"
-            reason = f"Karlı satış mümkün. Marj: {margin:.1f} ₺/kg. Önemli bir artış beklenmiyor."
+            action = "SELL"
+            reason = (
+                f"Profitable sale possible. Margin: {margin:.1f} TRY/kg. "
+                f"No major rise expected."
+            )
             urgency = "medium"
     else:
-        action = "BEKLE"
-        reason = "Piyasa koşulları belirsiz. Fiyat hareketlerini takip edin."
+        action = "WAIT"
+        reason = "Market conditions are uncertain. Monitor price moves."
         urgency = "low"
 
     return {
@@ -446,20 +458,20 @@ def _decide(current_price, forecasts, breakeven, costs, current_row) -> dict:
 def _season_context(month: int) -> dict:
     """Provide seasonal context for the farmer."""
     contexts = {
-        1: {"phase": "Hasat Zirvesi", "advice": "Arz yüksek, fiyatlar düşük. Kaliteli ürünle öne çıkın."},
-        2: {"phase": "Hasat Zirvesi", "advice": "Washington Navel sezonu. Fiyatlar dipte olabilir."},
-        3: {"phase": "Geç Hasat", "advice": "Valencia sezonu başlıyor. Fiyatlar yükselmeye başlayabilir."},
-        4: {"phase": "Sezon Sonu", "advice": "Arz azalıyor, fiyatlar yükseliyor. Kalan ürünü değerlendirin."},
-        5: {"phase": "Sezon Sonu", "advice": "Son hasat. Depolanabilecek portakal varsa soğuk havaya koyun."},
-        6: {"phase": "Sezon Dışı", "advice": "Hasat bitti. Soğuk havadaki ürünü satma zamanı gelebilir."},
-        7: {"phase": "Sezon Dışı", "advice": "Fiyatlar yüksek ama arz çok düşük. Depo varsa iyi fiyat."},
-        8: {"phase": "Sezon Dışı", "advice": "En yüksek fiyat dönemi yaklaşıyor."},
-        9: {"phase": "Sezon Dışı", "advice": "Fiyatlar zirveye yakın. Ekim öncesi son fırsat."},
-        10: {"phase": "Erken Hasat", "advice": "Yeni sezon başlıyor. İlk hasatlar yüksek fiyat alabilir."},
-        11: {"phase": "Hasat Başlangıcı", "advice": "Hasat yoğunlaşıyor. Erken satış avantajlı olabilir."},
-        12: {"phase": "Hasat Zirvesi", "advice": "Arz artıyor, fiyatlar düşüyor. Hızlı satış önemli."},
+        1: {"phase": "Peak Harvest", "advice": "Supply is high, prices are low. Stand out with quality."},
+        2: {"phase": "Peak Harvest", "advice": "Washington Navel season. Prices may be at the bottom."},
+        3: {"phase": "Late Harvest", "advice": "Valencia season starting. Prices may begin to rise."},
+        4: {"phase": "End of Season", "advice": "Supply is falling, prices are climbing. Move remaining stock."},
+        5: {"phase": "End of Season", "advice": "Final harvest. Move storable oranges into cold storage."},
+        6: {"phase": "Off-Season", "advice": "Harvest is over. Time to consider selling cold-stored fruit."},
+        7: {"phase": "Off-Season", "advice": "Prices are high but supply is very low. Stored fruit gets a good price."},
+        8: {"phase": "Off-Season", "advice": "Peak-price window approaching."},
+        9: {"phase": "Off-Season", "advice": "Prices are near the peak. Last chance before October."},
+        10: {"phase": "Early Harvest", "advice": "New season starting. Earliest harvests can fetch high prices."},
+        11: {"phase": "Harvest Beginning", "advice": "Harvest accelerating. Early sales may be advantageous."},
+        12: {"phase": "Peak Harvest", "advice": "Supply rising, prices falling. Quick sales matter."},
     }
-    return contexts.get(month, {"phase": "Bilinmiyor", "advice": ""})
+    return contexts.get(month, {"phase": "Unknown", "advice": ""})
 
 
 # ─── Train all horizons ──────────────────────────────────────────────────────────
@@ -489,17 +501,17 @@ def train_all_farmer_models() -> pd.DataFrame:
     # Generate current advice
     advice = generate_farmer_advice(df)
     logger.info(f"\n{'='*50}")
-    logger.info(f"PORTAKAL ÇİFTÇİ TAVSİYESİ")
+    logger.info(f"ORANGE FARMER ADVICE")
     logger.info(f"{'='*50}")
-    logger.info(f"Güncel fiyat: {advice['current_price']:.1f} ₺/kg")
-    logger.info(f"Maliyet: {advice['breakeven_price']:.1f} ₺/kg")
-    logger.info(f"Marj: {advice['margin_per_kg']:.1f} ₺/kg ({advice['margin_pct']:.0f}%)")
-    logger.info(f"Sezon: {advice['season_info']['phase']}")
-    logger.info(f"Tavsiye: {advice['recommendation']['action']}")
-    logger.info(f"Neden: {advice['recommendation']['reason']}")
+    logger.info(f"Current price: {advice['current_price']:.1f} TRY/kg")
+    logger.info(f"Breakeven: {advice['breakeven_price']:.1f} TRY/kg")
+    logger.info(f"Margin: {advice['margin_per_kg']:.1f} TRY/kg ({advice['margin_pct']:.0f}%)")
+    logger.info(f"Season: {advice['season_info']['phase']}")
+    logger.info(f"Recommendation: {advice['recommendation']['action']}")
+    logger.info(f"Reason: {advice['recommendation']['reason']}")
 
     for h, fc in advice["forecasts"].items():
-        logger.info(f"  {h:>2}d tahmin: {fc['price']:.1f} ₺ ({fc['change_pct']:+.1f}%) [{fc['lower']:.1f}-{fc['upper']:.1f}]")
+        logger.info(f"  {h:>2}d forecast: {fc['price']:.1f} TRY ({fc['change_pct']:+.1f}%) [{fc['lower']:.1f}-{fc['upper']:.1f}]")
 
     # Save advice
     import json
