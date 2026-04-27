@@ -103,7 +103,7 @@ And cross-validation uses TimeSeriesSplit (no leakage)
 ```gherkin
 Given the data and model artifacts exist
 When I run `streamlit run dashboard.py`
-Then a password-protected dashboard opens
+Then the dashboard opens directly with no authentication
 And the Overview page shows latest price, min/max/spread, and a price chart
 And navigation between pages works without errors
 ```

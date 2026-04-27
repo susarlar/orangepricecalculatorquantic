@@ -137,7 +137,7 @@ Tools used:
 - Plus 16 *Daily update: YYYY-MM-DD* commits driven by GitHub Actions across April 2026 — direct evidence of the CI/CD pipeline running unattended for 16 consecutive days.
 
 **Sprint Review / Demo:** End-to-end demo on the deployed dashboard:
-1. Sign in with the password gate.
+1. Open the public dashboard URL.
 2. Land on the freshness banner — green.
 3. Farmer Panel — show today's price, breakeven, margin, recommendation, and run the cold-storage slider.
 4. Forecasts & Alerts → Forecast Tracking — switch horizons, show predicted-vs-actual chart.

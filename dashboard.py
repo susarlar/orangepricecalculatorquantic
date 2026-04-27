@@ -4,7 +4,6 @@ Orange Price Predictor — Interactive Dashboard
 Run: streamlit run dashboard.py
 """
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -30,35 +29,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
-
-# ─── Password Protection ─────────────────────────────────────────────────────────
-
-def check_password():
-    """Simple password gate."""
-    if "authenticated" in st.session_state and st.session_state.authenticated:
-        return True
-
-    password = os.environ.get("DASHBOARD_PASSWORD", "Orange1996!")
-
-    st.markdown(
-        "<div style='max-width:400px;margin:auto;padding-top:15vh;'>",
-        unsafe_allow_html=True,
-    )
-    st.title("🍊 Orange Price Predictor")
-    entered = st.text_input("Password", type="password", key="pw_input")
-    if st.button("Sign in", type="primary", use_container_width=True):
-        if entered == password:
-            st.session_state.authenticated = True
-            st.rerun()
-        else:
-            st.error("Incorrect password.")
-    st.markdown("</div>", unsafe_allow_html=True)
-    return False
-
-
-if not check_password():
-    st.stop()
 
 
 @st.cache_data(ttl=300)

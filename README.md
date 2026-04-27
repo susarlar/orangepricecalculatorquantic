@@ -57,7 +57,7 @@ python -c "from src.models.farmer import train_all_farmer_models; train_all_farm
 
 # 4. Start the dashboard
 streamlit run dashboard.py
-# Default password (override with DASHBOARD_PASSWORD env var): Orange1996!
+# Public read-only dashboard — no authentication required
 ```
 
 ## Daily operation (production-style)
@@ -77,7 +77,7 @@ pytest tests/ -v
 
 ## Deployment
 
-`render.yaml` is committed at the root. Connect the repo in Render and set the `DASHBOARD_PASSWORD` environment variable in the Render UI (it is intentionally not stored in git).
+`render.yaml` is committed at the root. Connect the repo in Render and the dashboard deploys as a public read-only web service — no environment variables required.
 
 ## Repository layout
 

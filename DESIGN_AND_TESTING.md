@@ -81,7 +81,7 @@ Each stage reads from disk and writes to disk. This deliberate persistence is wh
 5. **Quantile regression for intervals (not bootstrap).** Bootstrap intervals on time-series data are biased; quantile gradient boosting is faster, leakage-free, and gives well-calibrated bounds.
 6. **Log-target for tree models.** Prices are right-skewed and span 1–2 orders of magnitude across a season; `log1p` stabilizes training, `expm1` recovers price space.
 7. **Time-series cross-validation, never random K-fold.** Random folds would leak future into past. We use `TimeSeriesSplit` everywhere a model is evaluated.
-8. **Single password gate, not full auth.** Capstone scope. Real auth (OAuth or per-user accounts) is parked in the backlog.
+8. **Public read-only dashboard, no auth.** The deliverable is intended for evaluation and demonstration. Real auth (OAuth or per-user accounts) is parked in the backlog for any future operational rollout.
 
 ### 2.5 Component Diagram (text)
 
@@ -155,7 +155,7 @@ We deploy to **Render free tier** because the dashboard is read-only, low-traffi
 ### 2.7 Security Considerations
 
 - `.env`, `models/`, and large `data/raw` artifacts handled via `.gitignore`.
-- Render dashboard password set via `DASHBOARD_PASSWORD` environment variable (`sync: false` in `render.yaml` — never committed).
+- Dashboard is public read-only; no credentials are stored or required.
 - All third-party APIs are public and read-only — no credentials in the repo.
 - The Antalya scraper rate-limits itself (1 second between dates) to respect the source.
 - No PII processed; only aggregate market data.
@@ -212,7 +212,7 @@ Pull requests will additionally run `pytest tests/` (added as part of S3-08).
 
 Before each sprint review the following is exercised live in the deployed dashboard:
 
-1. Sign in with the dashboard password.
+1. Open the deployed dashboard URL.
 2. Verify the freshness banner shows green or expected-yellow.
 3. Visit every page in turn — Farmer Panel, Overview, Price Analysis, Weather & Environment, Market & Policy, Demand & Trends, Model Results, Forecasts & Alerts.
 4. On Farmer Panel: change the cold-storage slider and confirm the net-gain metric updates.
