@@ -37,7 +37,7 @@ This timing is calibrated for an **18-minute** recording. If you're naturally fa
 
 ### 🎬 0:00 – 1:00 · Intro + identity check (60 s)
 
-> *"Hello, I'm Sercan Susar, and this is my MSc Software Engineering Capstone for Quantic School of Business and Technology — the **Orange Price Predictor**, an AI-augmented decision-support system for Finike orange prices."*
+> *"Hello, I'm Su Sarlar, and this is my MSc Software Engineering Capstone for Quantic School of Business and Technology — the **Orange Price Predictor**, an AI-augmented decision-support system for Finike orange prices."*
 
 **On camera:** hold up your government-issued ID for ~3 seconds, name and photo clearly visible. Say:
 

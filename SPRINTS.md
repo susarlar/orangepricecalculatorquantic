@@ -10,10 +10,10 @@ This is an individual capstone. The single member rotates across the formal Scru
 
 | Role | Holder |
 |---|---|
-| Product Owner | Sercan Susar |
-| Scrum Master | Sercan Susar |
-| Code Owner / approver | Sercan Susar |
-| Engineer | Sercan Susar |
+| Product Owner | Su Sarlar |
+| Scrum Master | Su Sarlar |
+| Code Owner / approver | Su Sarlar |
+| Engineer | Su Sarlar |
 
 Working agreements: weekly time-boxed self-review on Sunday; daily commit + push when work happens; CI must be green before a sprint review is recorded.
 
