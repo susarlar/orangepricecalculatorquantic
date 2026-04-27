@@ -293,7 +293,7 @@ Then every user story above has a card in the appropriate column
 - **B-02** — Telegram / WhatsApp push alerts to farmers · COULD · 3 pts
 - **B-03** — Multi-region support (Mersin, Adana, Hatay) · COULD · 5 pts
 - **B-04** — Mobile-first responsive layout · COULD · 3 pts
-- **B-05** — News sentiment analysis from agriculture press · COULD · 5 pts
+- **B-05** — News sentiment analysis from agriculture press · ✅ **DELIVERED** (Sprint 3 stretch). Implemented in `src/data/news.py` via Google News RSS + DeepSeek `deepseek-chat` (OpenAI-compatible API) with structured-JSON output. Produces 12 daily features (`news_volume`, `news_sentiment_score`, `news_severity_score`, plus per-category counts). Covered by 12 unit tests with mocked LLM calls. Graceful degradation if `DEEPSEEK_API_KEY` is unset.
 - **B-06** — Importer-country regulation tracker (EU MRL feed, RASFF) · COULD · 3 pts
 - **B-07** — A/B compare farmer recommendations against actual decisions · WON'T (this release) · 5 pts
 

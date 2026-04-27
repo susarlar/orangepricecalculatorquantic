@@ -29,6 +29,10 @@ statsmodels>=0.14
 pytrends>=4.9
 schedule>=1.2
 
+# News + LLM classification (DeepSeek via OpenAI-compatible client)
+feedparser>=6.0
+openai>=1.40
+
 # Model persistence
 joblib>=1.3
 

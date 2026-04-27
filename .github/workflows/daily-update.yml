@@ -28,11 +28,16 @@ jobs:
         run: |
           pip install pandas numpy requests beautifulsoup4 lxml \
             scikit-learn xgboost lightgbm shap joblib statsmodels \
-            pytrends pyyaml python-dateutil tqdm playwright
+            pytrends pyyaml python-dateutil tqdm playwright \
+            feedparser openai
           python -m playwright install --with-deps chromium
 
       - name: Run full daily pipeline
         id: pipeline
+        env:
+          # Optional. If unset, the news-classification step skips with
+          # status "no_api_key" and the rest of the pipeline continues.
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
           python -m src.auto_refresh --full 2>&1 | tee pipeline.log
           echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"

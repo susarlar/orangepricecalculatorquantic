@@ -247,6 +247,31 @@ def refresh_data() -> dict:
         _log_refresh(source, 0, 0, "error", str(e))
         statuses[source] = {"status": "error", "error": str(e)}
 
+    # --- News (DeepSeek LLM classification) ---
+    source = "news_llm"
+    try:
+        logger.info("Refreshing news + DeepSeek classification...")
+        from src.data.news import refresh_news
+        news_status = refresh_news()
+        st = news_status.get("status", "error")
+        relevant = news_status.get("relevant", 0)
+        if st == "ok":
+            _log_refresh(source, 0, news_status.get("classified", 0), "ok",
+                         f"relevant={relevant}")
+            logger.info(f"News: {news_status.get('classified', 0)} classified, "
+                        f"{relevant} relevant")
+        elif st == "no_api_key":
+            _log_refresh(source, 0, 0, "skipped", "DEEPSEEK_API_KEY not set")
+        elif st == "no_articles":
+            _log_refresh(source, 0, 0, "no_new_data", "")
+        else:
+            _log_refresh(source, 0, 0, "error", news_status.get("error", st))
+        statuses[source] = news_status
+    except Exception as e:
+        logger.warning(f"News classification failed (non-critical): {e}")
+        _log_refresh(source, 0, 0, "error", str(e))
+        statuses[source] = {"status": "error", "error": str(e)}
+
     logger.info("Data refresh complete!")
     return statuses
 

@@ -101,6 +101,12 @@ def collect_data(start_year: int = 2007):
         save_demand_features(demand)
         logger.info(f"Built {len(demand)} demand feature records")
 
+    # News (DeepSeek LLM classification)
+    logger.info("\n--- News (DeepSeek LLM) ---")
+    from src.data.news import refresh_news
+    news_status = refresh_news()
+    logger.info(f"News status: {news_status}")
+
     logger.info("\nData collection complete!")
 
 
@@ -121,6 +127,7 @@ def build_features():
     policy = _load_csv("policy_features.csv")
     trends = _load_csv("google_trends.csv")
     demand = _load_csv("demand_features.csv")
+    news = _load_csv("news_features.csv")
 
     if prices.empty:
         logger.error("No price data found. Run --collect first.")
@@ -135,6 +142,7 @@ def build_features():
         foreign_markets=foreign,
         policy_features=policy,
         trends=trends,
+        news=news,
         demand=demand,
         target_horizons=PREDICTION_HORIZONS,
     )

@@ -24,6 +24,7 @@ def build_feature_matrix(
     policy_features: pd.DataFrame = None,
     trends: pd.DataFrame = None,
     demand: pd.DataFrame = None,
+    news: pd.DataFrame = None,
     target_horizons: list[int] = None,
 ) -> pd.DataFrame:
     """Build unified feature matrix from all data sources.
@@ -139,6 +140,18 @@ def build_feature_matrix(
         if dm_cols:
             merged = merged.merge(dm[["date"] + dm_cols], on="date", how="left")
             logger.info(f"Merged {len(dm_cols)} demand features")
+
+    # Merge LLM-classified news features (sentiment, volume, per-category counts)
+    if news is not None and not news.empty:
+        nw = news.copy()
+        nw["date"] = pd.to_datetime(nw["date"])
+        nw_cols = [c for c in nw.columns if c != "date" and c not in merged.columns]
+        if nw_cols:
+            merged = merged.merge(nw[["date"] + nw_cols], on="date", how="left")
+            # Quiet days = zero, not NaN. Trees handle zeros cleanly.
+            for col in nw_cols:
+                merged[col] = merged[col].fillna(0)
+            logger.info(f"Merged {len(nw_cols)} news features")
 
     # ── Create target variables ──
     price_col = "avg_price"

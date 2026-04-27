@@ -124,5 +124,10 @@ Academic project. Data is sourced from public APIs:
 - Frankfurter (FX)
 - FAO GIEWS, USDA FAS, European Commission (foreign markets)
 - Sentinel-2 (NDVI; synthetic proxy used where credentials are absent)
+- Google News RSS (Turkish agriculture news, classified by **DeepSeek** `deepseek-chat`)
 
 All third-party data remains the property of its provider.
+
+### DeepSeek API key (optional)
+
+To enable LLM-based news classification, add your DeepSeek API key as a GitHub Actions secret named `DEEPSEEK_API_KEY` (Settings → Secrets and variables → Actions). The pipeline gracefully no-ops if the key is missing — the only consequence is that the 12 news features are zeroed out.

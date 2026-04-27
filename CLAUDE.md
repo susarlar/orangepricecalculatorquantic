@@ -11,6 +11,7 @@ The system fuses wholesale market prices (Hal), weather, satellite NDVI, FX rate
 - **Visualization:** Plotly, Matplotlib, Seaborn
 - **Web:** Streamlit dashboard, deployed on Render
 - **Data sources:** İBB Hal API (wholesale prices), Open-Meteo (weather), Sentinel-2 (NDVI), TCMB (FX), Google Trends, FAO/USDA-FAS
+- **News + LLM:** Google News RSS → DeepSeek `deepseek-chat` (OpenAI-compatible client) for structured event extraction (sentiment, event type, magnitude, confidence)
 - **CI/CD:** GitHub Actions (daily data refresh + model retrain, weekly enrichment)
 - **Persistence:** joblib model artifacts, CSV feature store
 

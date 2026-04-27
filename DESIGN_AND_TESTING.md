@@ -52,6 +52,7 @@ Each stage reads from disk and writes to disk. This deliberate persistence is wh
 | **Strategy + Composite (alerts)** | `check_frost_alerts`, `check_ndvi_alerts`, `check_fx_alerts`, `check_calendar_alerts` orchestrated by `run_all_alerts` | Each rule is a strategy; the composite runs them all and merges results |
 | **Idempotent writer** | `auto_refresh.py` | Every refresh is safe to re-run; existing rows are deduplicated by date+source key |
 | **Circuit-breaker (soft)** | `try/except` around each collector with status logged to `refresh_log.csv` | One failing source must not break the entire daily pipeline |
+| **LLM-as-extractor (news)** | `src/data/news.py` | Google News RSS → DeepSeek `deepseek-chat` with structured-JSON response → daily aggregates merged into the feature matrix. The LLM is used as a **classifier**, not a generator — output is constrained to a fixed JSON schema and the model never sees the price target |
 
 ### 2.3 Technology Choices and Rationale
 
@@ -70,6 +71,8 @@ Each stage reads from disk and writes to disk. This deliberate persistence is wh
 | **Playwright (Antalya scraper)** | Selenium, requests + bs4 | The Antalya page renders via Vue.js; Playwright handles the JS without custom waits |
 | **Open-Meteo (weather)** | Meteostat, NOAA | Free, no API key, includes 16-day forecast — critical for the alert lead-time guarantee |
 | **Frankfurter (FX)** | Yahoo Finance, ECB SDMX | Free, simple, ECB-backed; sufficient for daily granularity |
+| **DeepSeek `deepseek-chat`** | OpenAI GPT-4o-mini, Anthropic Claude Haiku, local Llama | OpenAI-compatible API; native JSON-mode; ~$0.14/1M input tokens — under $0.05/month at our volume; faithful Turkish→English summarisation in evaluation |
+| **Google News RSS** | Manual scraping, paid news APIs | Free, stable URL contract, pre-aggregates dozens of Turkish ag-news outlets, no API key |
 | **CSV persistence** | Postgres, SQLite | Diff-friendly in git; observable in the GitHub UI; no DB to host on free tier |
 
 ### 2.4 Key Design Decisions
