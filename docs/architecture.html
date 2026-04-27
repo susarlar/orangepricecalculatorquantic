@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orange Price Predictor — Architecture Diagrams</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --orange: #FF8C00;
+    --orange-soft: #FFF0DB;
+    --orange-deep: #C56700;
+    --ink: #1A1A1A;
+    --paper: #FFFAF3;
+    --rule: #E8DCC8;
+    --muted: #6B5C46;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  header {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-deep) 100%);
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(197, 103, 0, 0.15);
+  }
+  header h1 {
+    margin: 0 0 0.4rem;
+    font-size: 2.2rem;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  header .sub {
+    margin: 0;
+    opacity: 0.92;
+    font-size: 1.05rem;
+  }
+  header .meta {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem 2rem;
+    background: white;
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--ink);
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+  }
+  nav a:hover {
+    background: var(--orange-soft);
+    border-color: var(--orange);
+  }
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  section {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 2rem 2rem 2.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  section h2 {
+    margin: 0 0 0.4rem;
+    font-size: 1.55rem;
+    color: var(--orange-deep);
+    letter-spacing: -0.01em;
+  }
+  section h2 .num {
+    display: inline-block;
+    background: var(--orange-soft);
+    color: var(--orange-deep);
+    border-radius: 8px;
+    padding: 0.05rem 0.6rem;
+    margin-right: 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  section .lede {
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+    font-size: 0.98rem;
+  }
+  .diagram {
+    background: var(--paper);
+    border: 1px dashed var(--rule);
+    border-radius: 10px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    text-align: center;
+  }
+  .diagram svg { max-width: 100%; height: auto; }
+  .legend {
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    background: var(--orange-soft);
+    border-left: 4px solid var(--orange);
+    border-radius: 6px;
+    font-size: 0.92rem;
+  }
+  .legend strong { color: var(--orange-deep); }
+  .legend ul { margin: 0.4rem 0 0; padding-left: 1.3rem; }
+  .legend li { margin: 0.25rem 0; }
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+  }
+  .pattern-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--orange);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+  }
+  .pattern-card h4 {
+    margin: 0 0 0.4rem;
+    color: var(--orange-deep);
+    font-size: 1rem;
+  }
+  .pattern-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .pattern-card code {
+    background: white;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.82em;
+    color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+  footer {
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--orange-deep); text-decoration: none; }
+  @media print {
+    nav, footer { display: none; }
+    section { break-inside: avoid; box-shadow: none; }
+    header { background: var(--orange) !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🍊 Orange Price Predictor</h1>
+  <p class="sub">Architecture Diagrams · MSc Software Engineering Capstone</p>
+  <p class="meta">Quantic School of Business and Technology · 2026</p>
+</header>
+
+<nav>
+  <a href="#system">1. System Context</a>
+  <a href="#pipeline">2. Data Pipeline</a>
+  <a href="#components">3. Internal Components</a>
+  <a href="#cicd">4. CI/CD Flow</a>
+  <a href="#sequence">5. Daily Refresh Sequence</a>
+  <a href="#decision">6. Farmer Decision Logic</a>
+  <a href="#alerts">7. Alert Engine</a>
+  <a href="#patterns">8. Pattern Map</a>
+  <a href="#sprints">9. Sprint Timeline</a>
+  <a href="#deploy">10. Deployment Topology</a>
+</nav>
+
+<main>
+
+<section id="system">
+  <h2><span class="num">1</span>System Context</h2>
+  <p class="lede">Who the system serves and the external sources it integrates. Modular monolith with one deployed surface (the Streamlit dashboard) and one orchestrator (GitHub Actions).</p>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  subgraph users["👥 Users"]
+    farmer["🧑‍🌾 Selma<br/>Finike farmer"]
+    trader["💼 Mert<br/>Wholesale trader"]
+    exporter["🌍 Defne<br/>Exporter"]
+    analyst["📊 Ahmet<br/>Ministry analyst"]
+    grader["🎓 Quantic<br/>grader"]
+  end
+
+  subgraph system["🍊 Orange Price Predictor"]
+    dash["Streamlit Dashboard<br/>(Render free tier)"]
+    pipe["Pipeline + Models<br/>(GitHub Actions, daily)"]
+    dash --- pipe
+  end
+
+  subgraph sources["🌐 External Data Sources"]
+    ibb["İBB Hal<br/>(prices)"]
+    ant["Antalya Hal<br/>(prices)"]
+    om["Open-Meteo<br/>(weather)"]
+    fr["Frankfurter<br/>(FX)"]
+    fao["FAO / USDA<br/>(foreign markets)"]
+    s2["Sentinel-2<br/>(NDVI)"]
+    gt["Google Trends<br/>(demand)"]
+  end
+
+  farmer --> dash
+  trader --> dash
+  exporter --> dash
+  analyst --> dash
+  grader --> dash
+
+  ibb --> pipe
+  ant --> pipe
+  om --> pipe
+  fr --> pipe
+  fao --> pipe
+  s2 --> pipe
+  gt --> pipe
+
+  classDef user fill:#FFF0DB,stroke:#C56700,stroke-width:2px,color:#1A1A1A
+  classDef sys fill:#FF8C00,stroke:#C56700,stroke-width:3px,color:#FFFFFF
+  classDef src fill:#FFFFFF,stroke:#6B5C46,stroke-width:1px,color:#1A1A1A
+  class farmer,trader,exporter,analyst,grader user
+  class dash,pipe sys
+  class ibb,ant,om,fr,fao,s2,gt src
+</pre>
+  </div>
+  <div class="legend">
+    <strong>Key idea:</strong> one application surface, ten data sources, five user personas. The system is read-only from the user perspective and read-only from the data-source perspective — no orders are placed, no APIs are written to.
+  </div>
+</section>
+
+<section id="pipeline">
+  <h2><span class="num">2</span>Data Pipeline (Pipes &amp; Filters)</h2>
+  <p class="lede">Every stage reads from disk and writes to disk. This deliberate persistence is what makes each step independently runnable, observable, and idempotent.</p>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart TB
+  subgraph collect["① Collect"]
+    direction LR
+    c1["hal_prices.py<br/>İBB API"]
+    c2["antalya_hal.py<br/>Playwright"]
+    c3["weather.py<br/>Open-Meteo"]
+    c4["fx_rates.py<br/>Frankfurter"]
+    c5["satellite.py<br/>Sentinel-2"]
+    c6["foreign_markets.py<br/>FAO / USDA"]
+    c7["policy_events.py<br/>curated"]
+    c8["demand_features.py<br/>derived"]
+    c9["trends.py<br/>pytrends"]
+  end
+
+  raw["📁 data/raw/*.csv<br/>(idempotent writers)"]
+
+  subgraph features["② Features"]
+    fb["feature_builder.py<br/>lag · rolling · seasonal<br/>policy decay · spreads"]
+  end
+
+  fmat["📁 feature_matrix.csv"]
+
+  subgraph train["③ Train"]
+    direction LR
+    t1["baseline.py<br/>Linear · RF · XGB"]
+    t2["advanced.py<br/>LGBM · tuned · SHAP"]
+    t3["farmer.py<br/>Antalya target<br/>+ quantile"]
+  end
+
+  models["📁 models/*.joblib"]
+
+  subgraph serve["④ Serve"]
+    direction LR
+    s1["alerts<br/>frost · drought · FX"]
+    s2["predictions<br/>7/14/30/60/90d"]
+    s3["tracker<br/>predicted vs actual"]
+  end
+
+  artifacts["📁 data/processed/<br/>predictions · alerts · advice"]
+  dash["🍊 Streamlit Dashboard"]
+
+  c1 --> raw
+  c2 --> raw
+  c3 --> raw
+  c4 --> raw
+  c5 --> raw
+  c6 --> raw
+  c7 --> raw
+  c8 --> raw
+  c9 --> raw
+  raw --> fb
+  fb --> fmat
+  fmat --> t1
+  fmat --> t2
+  fmat --> t3
+  t1 --> models
+  t2 --> models
+  t3 --> models
+  models --> s1
+  models --> s2
+  models --> s3
+  s1 --> artifacts
+  s2 --> artifacts
+  s3 --> artifacts
+  artifacts --> dash
+
+  classDef stage fill:#FFF0DB,stroke:#FF8C00,stroke-width:2px,color:#1A1A1A
+  classDef store fill:#FFFFFF,stroke:#C56700,stroke-width:2px,color:#C56700
+  classDef ui fill:#FF8C00,stroke:#C56700,stroke-width:3px,color:#FFFFFF
+  class c1,c2,c3,c4,c5,c6,c7,c8,c9,fb,t1,t2,t3,s1,s2,s3 stage
+  class raw,fmat,models,artifacts store
+  class dash ui
+</pre>
+  </div>
+  <div class="legend">
+    <strong>Why disk between every stage:</strong>
+    <ul>
+      <li>One failing source can't break the entire daily run.</li>
+      <li>Every artifact is auditable on GitHub (CSV diffs are human-readable).</li>
+      <li>You can re-run any single stage in seconds during development.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="components">
+  <h2><span class="num">3</span>Internal Components</h2>
+  <p class="lede">The application's module map, grouped by responsibility. The boundaries follow Repository / Strategy / Pipeline patterns and keep the Streamlit layer free of business logic.</p>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  subgraph data["src/data — Repository pattern"]
+    d1["hal_prices"]
+    d2["antalya_hal"]
+    d3["weather"]
+    d4["fx_rates"]
+    d5["satellite"]
+    d6["foreign_markets"]
+    d7["policy_events"]
+    d8["demand_features"]
+    d9["trends"]
+    d10["synthetic_prices"]
+  end
+
+  subgraph features_layer["src/features"]
+    f1["feature_builder"]
+    f2["price_features"]
+    f3["weather_features"]
+    f4["satellite_features"]
+  end
+
+  subgraph models_layer["src/models — Strategy pattern"]
+    m1["baseline"]
+    m2["advanced"]
+    m3["farmer"]
+  end
+
+  subgraph alerts_layer["src/alerts — Composite + Strategy"]
+    a1["scenario_alerts<br/>(frost · drought · FX · NDVI · calendar)"]
+  end
+
+  subgraph orch["Orchestration"]
+    o1["pipeline.py<br/>(CLI)"]
+    o2["auto_refresh.py<br/>(CI orchestrator)"]
+    o3["prediction_tracker.py<br/>(live accuracy)"]
+  end
+
+  subgraph ui["UI"]
+    u1["dashboard.py<br/>(Streamlit, 8 pages)"]
+  end
+
+  cfg["config.py<br/>(constants · thresholds · paths)"]
+
+  data --> features_layer
+  features_layer --> models_layer
+  models_layer --> alerts_layer
+  data --> alerts_layer
+  o1 --> data
+  o1 --> features_layer
+  o1 --> models_layer
+  o1 --> alerts_layer
+  o2 --> data
+  o2 --> models_layer
+  o2 --> o3
+  o2 --> alerts_layer
+  models_layer --> u1
+  alerts_layer --> u1
+  data --> u1
+  cfg -.-> data
+  cfg -.-> alerts_layer
+  cfg -.-> models_layer
+
+  classDef layer fill:#FFF0DB,stroke:#FF8C00,stroke-width:2px,color:#1A1A1A
+  classDef cfgnode fill:#FFFFFF,stroke:#6B5C46,stroke-width:1px,stroke-dasharray:5 5,color:#6B5C46
+  classDef uin fill:#FF8C00,stroke:#C56700,stroke-width:3px,color:#FFFFFF
+  class d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,f1,f2,f3,f4,m1,m2,m3,a1,o1,o2,o3 layer
+  class cfg cfgnode
+  class u1 uin
+</pre>
+  </div>
+</section>
+
+<section id="cicd">
+  <h2><span class="num">4</span>CI/CD Flow</h2>
+  <p class="lede">Two GitHub Actions workflows keep the model current. The daily workflow is the system's heartbeat — 16+ consecutive successful runs over April 2026 are the rubric's strongest CI/CD evidence.</p>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  cron["⏰ cron 05:00 UTC<br/>(08:00 Turkey)"]
+  manual["🖱️ workflow_dispatch"]
+  push["📦 push to main"]
+  pr["🔀 pull request"]
+
+  subgraph actions["GitHub Actions"]
+    direction TB
+    daily["daily-update.yml<br/>(refresh + retrain)"]
+    weekly["weekly-update.yml<br/>(slow sources)"]
+    test["pytest tests/<br/>(quality gate)"]
+  end
+
+  subgraph steps["Daily steps"]
+    direction TB
+    s1["actions/checkout"]
+    s2["setup-python 3.11"]
+    s3["install deps + Playwright"]
+    s4["python -m src.auto_refresh --full"]
+    s5["build commit message<br/>from refresh_log.csv"]
+    s6["git add data/ models/<br/>git commit"]
+    s7["git pull --rebase<br/>git push"]
+    s1 --> s2 --> s3 --> s4 --> s5 --> s6 --> s7
+  end
+
+  artifacts["📁 commits to main:<br/>'Daily update: YYYY-MM-DD'"]
+  render["🚀 Render auto-deploy<br/>(triggered by push)"]
+  live["🌐 Live dashboard"]
+
+  cron --> daily
+  manual --> daily
+  daily --> steps
+  s7 --> artifacts
+  artifacts --> render
+  render --> live
+  push --> render
+  pr --> test
+  cron -.-> weekly
+
+  classDef trigger fill:#FFFFFF,stroke:#6B5C46,stroke-width:2px,color:#1A1A1A
+  classDef job fill:#FFF0DB,stroke:#FF8C00,stroke-width:2px,color:#1A1A1A
+  classDef step fill:#FFFAF3,stroke:#E8DCC8,stroke-width:1px,color:#1A1A1A
+  classDef out fill:#FF8C00,stroke:#C56700,stroke-width:3px,color:#FFFFFF
+  class cron,manual,push,pr trigger
+  class daily,weekly,test job
+  class s1,s2,s3,s4,s5,s6,s7 step
+  class artifacts,render,live out
+</pre>
+  </div>
+  <div class="legend">
+    <strong>Rubric evidence:</strong> the <code style="background:white;padding:0 4px;border-radius:3px;">Daily update: YYYY-MM-DD</code> commits in <code style="background:white;padding:0 4px;border-radius:3px;">git log</code> are not manual — they are the artifact of CI running unattended.
+  </div>
+</section>
+
+<section id="sequence">
+  <h2><span class="num">5</span>Daily Refresh — Sequence Diagram</h2>
+  <p class="lede">What actually happens between 05:00 UTC and the dashboard updating ~10 minutes later. Each external call is wrapped in try/except so one failing source cannot break the day.</p>
+  <div class="diagram">
+<pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant CI as GitHub Actions
+  participant Orch as auto_refresh.py
+  participant Coll as collectors
+  participant Disk as data/raw
+  participant Feat as feature_builder
+  participant Train as trainers
+  participant Pred as tracker
+  participant Repo as GitHub repo
+
+  CI->>Orch: run --full
+  loop for each source
+    Orch->>Coll: fetch_*()
+    Coll-->>Orch: DataFrame (or error)
+    Orch->>Disk: append + dedupe by date
+    Orch->>Disk: refresh_log.csv (status)
+  end
+  Orch->>Feat: build_feature_matrix()
+  Feat->>Disk: feature_matrix.csv
+  Orch->>Train: retrain {7,14,30,60,90}d
+  Train->>Disk: models/*.joblib
+  Orch->>Pred: predict + log
+  Pred->>Disk: prediction_history.csv
+  Pred->>Disk: latest_predictions.csv
+  Orch->>Disk: latest_alerts.txt
+  CI->>Repo: git add + commit + push
+  Repo-->>CI: ✅ daily artifact
+</pre>
+  </div>
+</section>
+
+<section id="decision">
+  <h2><span class="num">6</span>Farmer Decision Logic</h2>
+  <p class="lede">The flow that turns a price forecast into an actionable recommendation: SELL NOW, SELL, COLD STORAGE, or WAIT.</p>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart TD
+  start([Today's Antalya Hal price + 7/14/30/60/90d forecasts])
+  q1{Price ≥<br/>breakeven?}
+  q2{Any forecast<br/>shows<br/>−5% drop?}
+  q3{Best storage<br/>net gain ><br/>5% of price?}
+
+  rec_now["🔴 SELL NOW<br/>urgency: high<br/>prices about to drop"]
+  rec_sell["🟡 SELL<br/>urgency: medium<br/>profitable today"]
+  rec_cold["🔵 COLD STORAGE<br/>urgency: medium<br/>store N days, sell later"]
+  rec_wait["⚪ WAIT<br/>urgency: low<br/>monitor the market"]
+
+  start --> q1
+  q1 -- no --> q3
+  q1 -- yes --> q2
+  q2 -- yes --> rec_now
+  q2 -- no --> q3
+  q3 -- yes --> rec_cold
+  q3 -- no, profitable now --> rec_sell
+  q3 -- no, unprofitable --> rec_wait
+
+  classDef startend fill:#FFF0DB,stroke:#C56700,stroke-width:2px,color:#1A1A1A
+  classDef question fill:#FFFFFF,stroke:#FF8C00,stroke-width:2px,color:#1A1A1A
+  classDef rec fill:#FF8C00,stroke:#C56700,stroke-width:2px,color:#FFFFFF
+  class start startend
+  class q1,q2,q3 question
+  class rec_now,rec_sell,rec_cold,rec_wait rec
+</pre>
+  </div>
+  <div class="legend">
+    <strong>Where this lives:</strong> <code style="background:white;padding:0 4px;border-radius:3px;">src/models/farmer.py → _decide()</code>. Output is persisted to <code style="background:white;padding:0 4px;border-radius:3px;">data/processed/farmer_advice.json</code> and rendered by the Farmer Panel page.
+  </div>
+</section>
+
+<section id="alerts">
+  <h2><span class="num">7</span>Alert Engine</h2>
+  <p class="lede">Five independent rule strategies feed a Composite that sorts by severity. Each alert carries its own expected impact, confidence, and lead time.</p>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  subgraph inputs["Inputs"]
+    in_w["weather<br/>(history + 16d forecast)"]
+    in_n["NDVI<br/>(satellite or proxy)"]
+    in_f["FX rates"]
+    in_d["calendar (today's date)"]
+  end
+
+  subgraph rules["Rule strategies"]
+    r1["check_frost_alerts<br/>(mild · severe · drought · hail)"]
+    r2["check_ndvi_alerts<br/>(anomaly · sustained stress)"]
+    r3["check_fx_alerts<br/>(TRY ±10% monthly)"]
+    r4["check_calendar_alerts<br/>(season start · peak · end)"]
+  end
+
+  comp["run_all_alerts<br/>(Composite)"]
+  sort["sort by severity<br/>CRITICAL → HIGH → MEDIUM → LOW"]
+
+  subgraph out["Outputs"]
+    o1["latest_alerts.txt"]
+    o2["dashboard 'Alerts' tab"]
+  end
+
+  in_w --> r1
+  in_n --> r2
+  in_f --> r3
+  in_d --> r4
+  r1 --> comp
+  r2 --> comp
+  r3 --> comp
+  r4 --> comp
+  comp --> sort
+  sort --> o1
+  sort --> o2
+
+  classDef in fill:#FFFFFF,stroke:#6B5C46,stroke-width:1px,color:#1A1A1A
+  classDef rule fill:#FFF0DB,stroke:#FF8C00,stroke-width:2px,color:#1A1A1A
+  classDef agg fill:#FF8C00,stroke:#C56700,stroke-width:3px,color:#FFFFFF
+  classDef outp fill:#FFFAF3,stroke:#C56700,stroke-width:2px,color:#C56700
+  class in_w,in_n,in_f,in_d in
+  class r1,r2,r3,r4 rule
+  class comp,sort agg
+  class o1,o2 outp
+</pre>
+  </div>
+</section>
+
+<section id="patterns">
+  <h2><span class="num">8</span>Design Pattern Map</h2>
+  <p class="lede">Where each pattern shows up in the codebase and what it earns us.</p>
+  <div class="pattern-grid">
+    <div class="pattern-card">
+      <h4>Pipeline / Pipes &amp; Filters</h4>
+      <p>Each stage in <code>pipeline.py</code> and <code>auto_refresh.py</code> reads files and writes files. Composable, observable, restartable.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Repository</h4>
+      <p>Each external source has one module under <code>src/data/</code> that returns a DataFrame, hiding API/scrape mechanics.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Strategy</h4>
+      <p><code>baseline.py</code>, <code>advanced.py</code>, <code>farmer.py</code> all share a <code>train(features, horizon) → metrics</code> contract.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Adapter</h4>
+      <p><code>antalya_hal.py</code> adapts a JS-rendered Vue page; <code>hal_prices.py</code> adapts an ASP form. Both produce the same DataFrame schema.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Composite</h4>
+      <p><code>run_all_alerts</code> orchestrates four rule strategies and merges their outputs into one severity-sorted list.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>DTO (Data Transfer Object)</h4>
+      <p>The <code>Alert</code> dataclass carries title, severity, impact, confidence, lead time as a strongly-typed structure.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Decorator (Cache)</h4>
+      <p><code>@st.cache_data(ttl=300)</code> on <code>load_data()</code> avoids reading every CSV on every Streamlit interaction.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Idempotent Writer</h4>
+      <p>Every collector deduplicates by <code>(date, source)</code> on append. Re-running a refresh is always safe.</p>
+    </div>
+    <div class="pattern-card">
+      <h4>Soft Circuit-Breaker</h4>
+      <p><code>try/except</code> around every collector with status logged to <code>refresh_log.csv</code>. One failing source never breaks the day.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sprints">
+  <h2><span class="num">9</span>Sprint Timeline</h2>
+  <p class="lede">Three sprints from inception to capstone packaging. Goals, deliverables, and demo dates.</p>
+  <div class="diagram">
+<pre class="mermaid">
+gantt
+  title Capstone Sprints (2026)
+  dateFormat YYYY-MM-DD
+  axisFormat %b %d
+
+  section Sprint 0 — Conception
+  Problem statement & data survey   :s0_1, 2026-03-15, 7d
+
+  section Sprint 1 — Foundation
+  Collectors (price · weather · FX)  :s1_1, 2026-03-23, 5d
+  Feature engineering                :s1_2, after s1_1, 3d
+  Baseline models                    :s1_3, after s1_2, 3d
+  Streamlit MVP + Render deploy      :s1_4, after s1_3, 3d
+  Sprint 1 Demo                      :milestone, m1, 2026-04-05, 0d
+
+  section Sprint 2 — Modeling
+  Tuned LGBM/XGB + ensemble          :s2_1, 2026-04-06, 4d
+  Quantile intervals                 :s2_2, after s2_1, 2d
+  SHAP explainability                :s2_3, after s2_2, 2d
+  Scenario alerts                    :s2_4, after s2_3, 3d
+  Policy + foreign markets           :s2_5, 2026-04-06, 5d
+  Sprint 2 Demo                      :milestone, m2, 2026-04-19, 0d
+
+  section Sprint 3 — Polish
+  Antalya Playwright scraper         :s3_1, 2026-04-20, 3d
+  Farmer decision support            :s3_2, after s3_1, 3d
+  Daily GitHub Actions CI            :s3_3, 2026-04-02, 28d
+  Prediction tracker                 :s3_4, after s3_2, 2d
+  Capstone packaging (this PR)       :s3_5, 2026-04-27, 1d
+  Sprint 3 Demo                      :milestone, m3, 2026-05-03, 0d
+</pre>
+  </div>
+  <div class="legend">
+    <strong>Note:</strong> the daily CI workflow started inside Sprint 2 and ran through all of Sprint 3. The 16+ consecutive green runs are visible as <code style="background:white;padding:0 4px;border-radius:3px;">Daily update:</code> commits in <code style="background:white;padding:0 4px;border-radius:3px;">git log</code>.
+  </div>
+</section>
+
+<section id="deploy">
+  <h2><span class="num">10</span>Deployment Topology</h2>
+  <p class="lede">What runs where, and what it costs. Free-tier deployment is sufficient for a graded artifact; the next-step path is documented in <code>DESIGN_AND_TESTING.md</code>.</p>
+  <div class="diagram">
+<pre class="mermaid">
+flowchart TB
+  subgraph dev["💻 Developer machine"]
+    code["VS Code + Claude Code<br/>(CTOC plugin)"]
+  end
+
+  subgraph github["☁️ GitHub"]
+    repo["Repository<br/>orangepricecalculatorquantic"]
+    actions["Actions runners<br/>(ubuntu-latest)"]
+    repo --- actions
+  end
+
+  subgraph render["☁️ Render (free tier)"]
+    web["Web service<br/>orange-price-predictor<br/>Streamlit + Plotly"]
+  end
+
+  subgraph user["🌐 End user"]
+    browser["Web browser<br/>(public, no auth)"]
+  end
+
+  subgraph trello["📋 Trello"]
+    board["Public Scrum board"]
+  end
+
+  code -- "git push" --> repo
+  actions -- "scheduled refresh<br/>commits artifacts" --> repo
+  repo -- "auto-deploy on push" --> web
+  web -- "HTTPS" --> browser
+  repo -. "linked from README" .-> board
+
+  classDef machine fill:#FFFFFF,stroke:#6B5C46,stroke-width:2px,color:#1A1A1A
+  classDef cloud fill:#FFF0DB,stroke:#FF8C00,stroke-width:2px,color:#1A1A1A
+  classDef live fill:#FF8C00,stroke:#C56700,stroke-width:3px,color:#FFFFFF
+  class code machine
+  class repo,actions,board cloud
+  class web,browser live
+</pre>
+  </div>
+  <div class="legend">
+    <strong>Cost:</strong> $0 / month. Render free dyno sleeps after 15 min idle (cold start ≈ 30 s). GitHub Actions and Trello free tiers cover the rest. See <code style="background:white;padding:0 4px;border-radius:3px;">DESIGN_AND_TESTING.md §2.6</code> for the upgrade path.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Generated for the MSc Software Engineering Capstone · Quantic School of Business and Technology<br/>
+  Source: <a href="https://github.com/susarlar/orangepricecalculatorquantic">github.com/susarlar/orangepricecalculatorquantic</a>
+</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FFF0DB',
+      primaryTextColor: '#1A1A1A',
+      primaryBorderColor: '#FF8C00',
+      lineColor: '#C56700',
+      secondaryColor: '#FFFAF3',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: '14px'
+    },
+    flowchart: { curve: 'basis', padding: 14, useMaxWidth: true },
+    sequence: { actorMargin: 60, messageMargin: 40, useMaxWidth: true },
+    gantt: { barHeight: 22, fontSize: 12, sectionFontSize: 13 }
+  });
+</script>
+
+</body>
+</html>
