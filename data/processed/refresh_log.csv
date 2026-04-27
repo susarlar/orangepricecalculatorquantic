@@ -75,3 +75,8 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-04-18 06:08:02,weather,7062,7063,ok,
 2026-04-18 06:08:02,fx_rates,1050,1051,ok,
 2026-04-18 06:08:05,demand_policy,0,14096,ok,
+2026-04-27 17:43:36,hal_prices,4382,4387,ok,
+2026-04-27 17:43:37,weather,7063,7072,ok,
+2026-04-27 17:43:38,fx_rates,1051,1057,ok,
+2026-04-27 17:44:55,antalya_hal,1751,1786,ok,
+2026-04-27 17:44:57,demand_policy,0,14114,ok,

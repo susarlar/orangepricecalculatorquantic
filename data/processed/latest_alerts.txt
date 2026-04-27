@@ -1,16 +1,16 @@
 ============================================================
-  PORTAKAL FİYAT UYARI RAPORU
-  Tarih: 2026-04-18 06:13
-  Toplam uyarı: 1
+  ORANGE PRICE ALERT REPORT
+  Date: 2026-04-27 17:48
+  Total alerts: 1
 ============================================================
 
---- Uyarı #1 ---
-[MEDIUM] Sezon Sonu — Arz Azalması
+--- Alert #1 ---
+[MEDIUM] End of Season — Supply Tightening
   Impact: +10% to +25%
   Confidence: 80%
   Lead time: 0-30 days
-  Hasat sonu yaklaşıyor. Azalan arz fiyatları yükseltir.
+  Harvest ending. Falling supply lifts prices.
 
 ============================================================
-  Tahmini Net Etki: %+8.0 ile %+20.0 arası
+  Estimated net impact: +8.0% to +20.0%
 ============================================================
