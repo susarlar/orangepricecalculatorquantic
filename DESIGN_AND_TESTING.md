@@ -201,12 +201,13 @@ We deploy to **Render free tier** because the dashboard is read-only, low-traffi
 
 ### 3.5 CI/CD
 
-The repository uses **two GitHub Actions workflows**:
+The repository uses **three GitHub Actions workflows**:
 
+- `.github/workflows/tests.yml` — runs `pytest tests/` on every push to `main` and on every pull request. Acts as the merge-blocking quality gate.
 - `.github/workflows/daily-update.yml` — schedule `0 5 * * *` (05:00 UTC = 08:00 Turkey). Pulls fresh data, retrains, commits artifacts. Acts as a continuous live-data smoke test for the entire pipeline.
 - `.github/workflows/weekly-update.yml` — broader weekly enrichment of slower-moving sources (foreign markets, policy events).
 
-Pull requests will additionally run `pytest tests/` (added as part of S3-08).
+Pull requests are blocked from merging if the test workflow fails.
 
 ### 3.6 Manual Testing Protocol (per sprint demo)
 

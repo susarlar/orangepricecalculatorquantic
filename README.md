@@ -3,8 +3,8 @@
 > **MSc Software Engineering Capstone — Quantic School of Business and Technology**
 > AI-augmented decision-support system that forecasts Finike orange wholesale prices 7–90 days ahead.
 
+[![Tests](https://github.com/susarlar/orangepricecalculatorquantic/actions/workflows/tests.yml/badge.svg)](https://github.com/susarlar/orangepricecalculatorquantic/actions/workflows/tests.yml)
 [![Daily refresh](https://github.com/susarlar/orangepricecalculatorquantic/actions/workflows/daily-update.yml/badge.svg)](https://github.com/susarlar/orangepricecalculatorquantic/actions/workflows/daily-update.yml)
-[![Tests](https://img.shields.io/badge/tests-pytest-blue)](./tests)
 [![Deploy: Render](https://img.shields.io/badge/deploy-Render-46e3b7)](https://render.com)
 
 ---
