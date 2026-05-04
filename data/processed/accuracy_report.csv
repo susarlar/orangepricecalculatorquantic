@@ -1,2 +1,2 @@
 horizon_days,n_predictions,mae,mape_pct,rmse,interval_hit_rate_pct,direction_accuracy_pct
-30,1,12.8862,46.86,12.8862,100.0,100.0
+30,2,10.0366,35.41,10.4333,100.0,50.0
