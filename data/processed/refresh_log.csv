@@ -158,3 +158,9 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-05-09 07:12:10,antalya_hal,1836,1841,ok,
 2026-05-09 07:12:12,demand_policy,0,14138,ok,
 2026-05-09 07:12:12,news_llm,0,0,error,Cannot compare tz-naive and tz-aware timestamps
+2026-05-10 07:27:30,hal_prices,4395,4395,no_new_data,
+2026-05-10 07:27:31,weather,7084,7085,ok,
+2026-05-10 07:27:31,fx_rates,1065,1065,ok,
+2026-05-10 07:27:56,antalya_hal,1841,1841,ok,
+2026-05-10 07:27:59,demand_policy,0,14140,ok,
+2026-05-10 07:27:59,news_llm,0,0,error,Cannot compare tz-naive and tz-aware timestamps
