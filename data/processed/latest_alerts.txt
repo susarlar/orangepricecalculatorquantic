@@ -1,15 +1,15 @@
 ============================================================
   ORANGE PRICE ALERT REPORT
-  Date: 2026-05-12 07:49
+  Date: 2026-05-13 07:55
   Total alerts: 2
 ============================================================
 
 --- Alert #1 ---
-[MEDIUM] Drought Warning — 34 dry days
+[MEDIUM] Drought Warning — 35 dry days
   Impact: +10% to +20%
   Confidence: 75%
   Lead time: 30-60 days
-  No rainfall for 34 days. Water stress in trees may affect fruit quality and yield.
+  No rainfall for 35 days. Water stress in trees may affect fruit quality and yield.
 
 --- Alert #2 ---
 [MEDIUM] End of Season — Supply Tightening
