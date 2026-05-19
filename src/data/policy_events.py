@@ -42,6 +42,10 @@ POLICY_EVENTS = [
     ("2023-01-01", "regulation", "Iraq raised customs duty — export cost increased", "down", 2),
     ("2024-01-01", "regulation", "EU pesticide MRLs tightened", "down", 1),
     ("2024-09-01", "regulation", "Egypt increased citrus export subsidies", "down", 2),
+    ("2025-03-15", "regulation", "EU MRL revision for citrus pesticides — tighter limits", "down", 1),
+    ("2025-06-01", "regulation", "Russia phytosanitary inspections tightened on Turkish citrus", "down", 1),
+    ("2025-09-15", "regulation", "Türkiye-Gulf trade agreement — fresh-produce duty cut", "up", 2),
+    ("2026-02-01", "regulation", "EU CBAM consultations include agricultural inputs", "down", 1),
 
     # ── Frost/climate events ──
     ("2008-01-15", "frost", "Antalya region severe frost", "up", 3),
@@ -50,6 +54,9 @@ POLICY_EVENTS = [
     ("2019-01-08", "frost", "Western Mediterranean frost — ~15% crop loss", "up", 2),
     ("2021-02-15", "frost", "Antalya snowfall — citrus damage", "up", 2),
     ("2024-01-20", "frost", "Mersin–Adana frost — early harvest disrupted", "up", 2),
+    ("2025-01-10", "frost", "Eastern Mediterranean cold front — limited citrus damage", "up", 1),
+    ("2025-11-20", "frost", "Early-season Mediterranean cold snap — frost watch issued", "up", 2),
+    ("2026-01-15", "frost", "Antalya region cold spell — localised orchard damage", "up", 2),
 
     # ── Economic/monetary events ──
     ("2018-08-01", "economic", "TRY crisis — FX surge, input costs rose", "up", 3),
@@ -60,6 +67,12 @@ POLICY_EVENTS = [
     ("2023-07-01", "economic", "Minimum wage hike — labor cost up", "up", 1),
     ("2024-01-01", "economic", "Minimum wage +49% — harvest labor cost", "up", 2),
     ("2025-01-01", "economic", "Minimum wage +30%", "up", 1),
+    ("2025-02-20", "economic", "CBRT continues orthodox tightening — TRY stable", "down", 1),
+    ("2025-04-15", "economic", "Türkiye annual inflation eases below 40% — input pressure off", "down", 1),
+    ("2025-07-01", "economic", "Mid-year minimum wage adjustment — labor cost up", "up", 1),
+    ("2025-10-10", "economic", "Diesel price surge — transport cost spike", "up", 2),
+    ("2026-01-01", "economic", "Minimum wage 2026 hike — harvest labor cost", "up", 1),
+    ("2026-03-10", "economic", "TRY weakness resumes — imported input costs rising", "up", 2),
 
     # ── Supply/production events ──
     ("2020-05-01", "supply", "COVID — seasonal labor shortage, harvest delay", "up", 2),
@@ -67,12 +80,18 @@ POLICY_EVENTS = [
     ("2023-02-06", "supply", "Kahramanmaraş earthquake — Hatay citrus region affected", "up", 2),
     ("2023-09-01", "supply", "Mediterranean drought — water restrictions", "up", 2),
     ("2024-04-01", "supply", "Finike region hail damage", "up", 1),
+    ("2025-08-05", "supply", "Antalya summer heat wave — fruit-sizing concern", "up", 1),
+    ("2025-10-25", "supply", "Mediterranean drought stress on early-season citrus", "up", 2),
+    ("2026-04-10", "supply", "Spring rains restore Mediterranean soil moisture", "down", 1),
 
     # ── Trade/market developments ──
     ("2019-10-01", "trade", "Turkey Syria operation — strained ties with some markets", "down", 1),
     ("2021-03-01", "trade", "Suez Canal blockage — sea freight disrupted", "up", 1),
     ("2023-10-07", "trade", "Israel–Gaza conflict — competing exporter sidelined", "up", 2),
     ("2024-12-01", "trade", "Red Sea crisis — freight cost surge", "up", 1),
+    ("2025-05-15", "trade", "Suez disruption easing — shipping costs normalising", "down", 1),
+    ("2025-12-05", "trade", "Gulf demand surge ahead of holiday season", "up", 1),
+    ("2026-02-15", "trade", "Egypt export quota raised — additional Mediterranean competition", "down", 2),
 ]
 
 

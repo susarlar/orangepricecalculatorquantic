@@ -8,47 +8,47 @@
   "margin_pct": 93.2,
   "forecasts": {
     "7": {
-      "price": 26.537485122680664,
-      "lower": 26.170528362699063,
-      "upper": 34.618110097558954,
-      "change_pct": 1.0951814197358578,
+      "price": 26.387969970703125,
+      "lower": 26.249781568139532,
+      "upper": 41.41070692326904,
+      "change_pct": 0.525599888392847,
       "target_date": "2026-05-26"
     },
     "14": {
-      "price": 24.92171287536621,
-      "lower": 26.315565939951565,
-      "upper": 43.09273644849474,
-      "change_pct": -5.060141427176335,
+      "price": 27.006711959838867,
+      "lower": 26.250365703897174,
+      "upper": 43.73927681365906,
+      "change_pct": 2.8827122279575956,
       "target_date": "2026-06-02"
     },
     "30": {
-      "price": 26.166927337646484,
-      "lower": 26.536887740665712,
-      "upper": 46.07155293252104,
-      "change_pct": -0.3164672851562522,
+      "price": 28.146718978881836,
+      "lower": 26.148590719293225,
+      "upper": 45.28659697855391,
+      "change_pct": 7.225596110026045,
       "target_date": "2026-06-18"
     },
     "60": {
-      "price": 39.12517547607422,
-      "lower": 31.35085180675215,
-      "upper": 47.50221060788307,
-      "change_pct": 49.04828752790178,
+      "price": 39.86119079589844,
+      "lower": 31.28098811643463,
+      "upper": 50.60549628695442,
+      "change_pct": 51.85215541294643,
       "target_date": "2026-07-18"
     },
     "90": {
-      "price": 40.98058319091797,
+      "price": 44.534976959228516,
       "lower": 26.24995618416719,
-      "upper": 42.17674520623155,
-      "change_pct": 56.11650739397322,
+      "upper": 42.47447757833636,
+      "change_pct": 69.65705508277529,
       "target_date": "2026-08-17"
     }
   },
   "recommendation": {
     "action": "COLD STORAGE",
-    "reason": "Store for 60 days, then sell. Expected price: 39.1 TRY/kg, storage cost: 9.0 TRY/kg, net gain: +3.9 TRY/kg.",
+    "reason": "Store for 90 days, then sell. Expected price: 44.5 TRY/kg, storage cost: 13.5 TRY/kg, net gain: +4.8 TRY/kg.",
     "urgency": "medium",
-    "best_sell_horizon": 60,
-    "best_expected_price": 39.13
+    "best_sell_horizon": 90,
+    "best_expected_price": 44.53
   },
   "season_info": {
     "phase": "End of Season",

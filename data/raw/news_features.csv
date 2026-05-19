@@ -1,0 +1,5 @@
+date,news_volume,news_sentiment_score,news_severity_score,news_event_drought_count,news_event_policy_count,news_event_demand_count,news_event_frost_count,news_event_economic_count,news_event_trade_count,news_event_other_count,news_event_supply_count
+2026-04-20,1,-0.7,-1.4,0,1,0,0,0,0,0,0
+2026-04-24,1,0.8,1.6,0,0,0,0,0,1,0,0
+2026-05-02,3,0.7333333333333334,4.4,0,2,0,0,0,0,0,1
+2026-05-16,2,0.8,4.1,0,0,0,0,0,1,0,1

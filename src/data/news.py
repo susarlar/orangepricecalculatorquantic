@@ -106,7 +106,7 @@ def fetch_news_articles(
         logger.warning("feedparser not installed — skipping news fetch")
         return []
 
-    cutoff = pd.Timestamp.utcnow() - pd.Timedelta(days=days_back)
+    cutoff = pd.Timestamp.utcnow().tz_localize(None) - pd.Timedelta(days=days_back)
     seen: set[str] = set()
     out: list[NewsArticle] = []
 

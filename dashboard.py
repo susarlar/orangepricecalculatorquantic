@@ -18,6 +18,40 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
+from src.utils.labels import LABELS, render_glossary_expander
+from src.utils.descriptions import explain
+from src.translation.event_vocab import (
+    direction_to_human,
+    event_type_to_human,
+    magnitude_to_human,
+)
+from src.dashboard_helpers.news_table import build_news_table
+
+# ─── Intro page content (American English, <= 160 words incl. attribution) ──────
+
+INTRO_COPY = (
+    "Finike sits on Turkey's southern Mediterranean coast in Antalya province, "
+    "where mild winters and long summers make the town a national benchmark for "
+    "Washington-navel-style oranges. The fruit grown here moves through Hal "
+    "wholesale markets in Antalya and Istanbul before it reaches domestic "
+    "retailers and export buyers across Europe and the Gulf.\n\n"
+    "This dashboard forecasts Finike orange wholesale prices 7 to 90 days ahead "
+    "by fusing daily Hal prices, Finike weather, foreign-exchange rates, "
+    "competitor-country supply, and policy events. It is built for farmers, "
+    "traders, exporters, and analysts who need a fast, transparent read on where "
+    "prices are likely to go next."
+)
+
+INTRO_ATTRIBUTION = (
+    "Su Sarlar — Quantic School of Business and Technology, "
+    "MSc Software Engineering Capstone"
+)
+
+INTRO_PAGE_LABEL = "Welcome / About"
+ARCHITECTURE_PAGE_LABEL = "Architecture"
+FARMER_PAGE_LABEL = "Farmer Panel"
+PAGE_RADIO_KEY = "page_radio"
+
 # ─── Setup ───────────────────────────────────────────────────────────────────────
 
 RAW_DIR = ROOT / "data" / "raw"
@@ -95,6 +129,13 @@ def load_data():
     if antalya_path.exists():
         data["antalya"] = pd.read_csv(antalya_path, parse_dates=["date"])
 
+    news_path = RAW_DIR / "news_events.csv"
+    if news_path.exists():
+        try:
+            data["news"] = pd.read_csv(news_path, parse_dates=["date"])
+        except Exception:
+            pass  # silent fallback → empty-state info() in tab2
+
     farmer_advice_path = PROCESSED_DIR / "farmer_advice.json"
     if farmer_advice_path.exists():
         data["farmer_advice"] = json.loads(farmer_advice_path.read_text(encoding="utf-8"))
@@ -132,8 +173,8 @@ def _freshness_summary(data: dict) -> list[tuple[str, pd.Timestamp | None]]:
                 return col.max()
         return None
 
-    items.append(("Istanbul Hal prices", _last("prices")))
-    items.append(("Antalya Hal prices", _last("antalya")))
+    items.append((LABELS["freshness_istanbul_hal"], _last("prices")))
+    items.append((LABELS["freshness_antalya_hal"], _last("antalya")))
     items.append(("Weather (Finike)", _last("weather")))
     items.append(("FX rates", _last("fx")))
     items.append(("Demand / policy", _last("demand")))
@@ -180,6 +221,35 @@ def render_freshness_banner(data: dict) -> None:
                     status = "🔴 Stale"
             rows.append({"Source": label, "Last Date": last_str, "Age": age, "Status": status})
         st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+        explain("freshness_table")
+
+
+def render_welcome_page() -> None:
+    """Render the Welcome / About landing page (intro for first-time visitors)."""
+    st.title("Welcome to the Orange Price Predictor")
+
+    col_img1, col_img2 = st.columns(2)
+    with col_img1:
+        st.image(
+            str(ROOT / "finikeliman.jpeg"),
+            caption="Finike harbor, Antalya, Turkey",
+            use_container_width=True,
+        )
+    with col_img2:
+        st.image(
+            str(ROOT / "portakal.jpeg"),
+            caption="Finike Washington-navel oranges",
+            use_container_width=True,
+        )
+
+    st.markdown(INTRO_COPY)
+
+    if st.button("Continue to dashboard", type="primary"):
+        st.session_state["intro_done"] = True
+        st.session_state[PAGE_RADIO_KEY] = FARMER_PAGE_LABEL
+        st.rerun()
+
+    st.caption(INTRO_ATTRIBUTION)
 
 
 render_freshness_banner(data)
@@ -188,46 +258,173 @@ render_freshness_banner(data)
 
 st.sidebar.title("🍊 Orange Dashboard")
 st.sidebar.markdown(f"**Today:** {pd.Timestamp.today().strftime('%Y-%m-%d')}")
+render_glossary_expander(st)
 st.sidebar.markdown("---")
 
-page = st.sidebar.radio(
-    "Page",
-    ["Farmer Panel", "Overview", "Price Analysis", "Weather & Environment",
-     "Market & Policy", "Demand & Trends", "Model Results", "Forecasts & Alerts"],
-)
+PAGES = [
+    INTRO_PAGE_LABEL,
+    ARCHITECTURE_PAGE_LABEL,
+    "Farmer Panel", "Overview", "Price Analysis", "Weather & Environment",
+    "Market & Policy", "Demand & Trends", "Model Results", "Forecasts & Alerts",
+]
 
-# Date range filter
-if "prices" in data:
-    prices = data["prices"]
-    min_date = prices["date"].min().date()
-    data_max = prices["date"].max().date()
-    today_date = pd.Timestamp.today().date()
-    max_date = max(data_max, today_date)
+if PAGE_RADIO_KEY not in st.session_state:
+    st.session_state[PAGE_RADIO_KEY] = INTRO_PAGE_LABEL
 
-    date_range = st.sidebar.date_input(
-        "Date Range",
-        value=(min_date, max_date),
-        min_value=min_date,
-        max_value=max_date,
-    )
+page = st.sidebar.radio("Page", PAGES, key=PAGE_RADIO_KEY)
 
-    if len(date_range) == 2:
-        start_date, end_date = date_range
-        mask = (prices["date"].dt.date >= start_date) & (prices["date"].dt.date <= end_date)
-        prices_filtered = prices[mask].copy()
+# Date range filter (only used by operational pages — skip on Intro and Architecture)
+if page not in (INTRO_PAGE_LABEL, ARCHITECTURE_PAGE_LABEL):
+    if "prices" in data:
+        prices = data["prices"]
+        min_date = prices["date"].min().date()
+        data_max = prices["date"].max().date()
+        today_date = pd.Timestamp.today().date()
+        max_date = max(data_max, today_date)
+
+        date_range = st.sidebar.date_input(
+            "Date Range",
+            value=(min_date, max_date),
+            min_value=min_date,
+            max_value=max_date,
+        )
+
+        if len(date_range) == 2:
+            start_date, end_date = date_range
+            mask = (prices["date"].dt.date >= start_date) & (prices["date"].dt.date <= end_date)
+            prices_filtered = prices[mask].copy()
+        else:
+            prices_filtered = prices.copy()
     else:
-        prices_filtered = prices.copy()
+        prices_filtered = pd.DataFrame()
+        st.error("No price data found. Run the pipeline first.")
+        st.stop()
 else:
     prices_filtered = pd.DataFrame()
-    st.error("No price data found. Run the pipeline first.")
-    st.stop()
 
+
+# ═════════════════════════════════════════════════════════════════════════════════
+# PAGE: Welcome / About
+# ═════════════════════════════════════════════════════════════════════════════════
+
+if page == INTRO_PAGE_LABEL:
+    render_welcome_page()
+
+# ═════════════════════════════════════════════════════════════════════════════════
+# PAGE: Architecture
+# ═════════════════════════════════════════════════════════════════════════════════
+
+elif page == ARCHITECTURE_PAGE_LABEL:
+    st.title("🏗️ How the Orange Price Predictor Works")
+
+    st.markdown(
+        """
+        This dashboard is built on a four-stage machine learning pipeline. Each stage
+        produces a checked-in artifact that the next stage consumes. The full system
+        is reproducible by running a single command: `python -m src.auto_refresh --full`.
+        """
+    )
+
+    st.subheader("1. Data Collection")
+    st.markdown(
+        """
+        Eight independent collectors fetch raw signals every day:
+
+        - **Istanbul Hal wholesale prices** — daily auction-floor prices for oranges and
+          mandarins from the İBB Hal data feed.
+        - **Antalya Hal wholesale prices** — the more local benchmark, scraped daily
+          from the Antalya municipal market portal.
+        - **Finike weather** — temperature, precipitation, humidity, growing-degree-days
+          from the Open-Meteo API.
+        - **FX rates** — TRY/USD and TRY/EUR daily fixings from the Turkish Central Bank
+          (TCMB).
+        - **Competitor-country supply** — production and export tonnage for Egypt, Spain,
+          Morocco, South Africa, and other major competitors.
+        - **Policy and market events** — a hand-curated 36-row dataset of frosts,
+          export bans, sanctions, and FX shocks since 2008.
+        - **Google Trends** — weekly search interest for "orange price" in Turkey.
+        - **News and policy headlines** — Google News RSS, classified by a DeepSeek
+          large language model into structured event records.
+
+        Each collector writes one CSV under `data/raw/` and is idempotent — running it
+        twice in a row does not duplicate rows.
+        """
+    )
+
+    st.subheader("2. Feature Engineering")
+    st.markdown(
+        """
+        The raw CSVs are merged into a single daily feature matrix at
+        `data/processed/feature_matrix.csv`. Each row is one calendar day; each column
+        is a feature the model can learn from.
+
+        Engineered features include lagged prices (1, 7, 30, 90 days back), rolling
+        moving averages, a policy-impact decay score, weather aggregations
+        (frost-day counts, dry-day counts), FX volatility, year-over-year price ratios,
+        and seasonal flags (month, harvest period, Ramadan).
+        """
+    )
+
+    st.subheader("3. Model Training")
+    st.markdown(
+        """
+        Four model families compete head-to-head:
+
+        - **XGBoost** — gradient-boosted decision trees, strong on tabular features.
+        - **LightGBM** — faster boosted-tree alternative, similar accuracy profile.
+        - **Quantile regression** — produces a forecast plus a prediction interval
+          rather than a single point estimate.
+        - **Ensemble** — weighted average of the above, usually the strongest performer.
+
+        Each model is trained at three forecast horizons (7, 30, 90 days). Training
+        uses a strict time-based split so the validation set is always more recent
+        than the training set — no future leakage. Results are persisted to
+        `data/processed/model_results.csv` and the trained artifacts to `models/*.joblib`.
+        """
+    )
+
+    st.subheader("4. Serving and Alerting")
+    st.markdown(
+        """
+        The trained models score the latest feature row daily, producing predictions
+        in `data/processed/latest_predictions.csv`. A separate alerts step checks the
+        predictions against threshold rules (frost risk, drought risk, FX shock,
+        sudden price drop) and writes a plain-text alert to
+        `data/processed/latest_alerts.txt`.
+
+        This Streamlit dashboard reads those CSVs directly and renders them. There is
+        no application server in the loop — refreshing the data is just running the
+        pipeline; refreshing the dashboard is just rerunning the page.
+        """
+    )
+
+    st.subheader("Continuous Refresh")
+    st.markdown(
+        """
+        A GitHub Actions workflow runs the full pipeline daily, commits the regenerated
+        CSVs back to the repo, and triggers a Render redeploy. The dashboard you are
+        looking at is never more than 24 hours behind the live Hal markets.
+
+        A separate weekly workflow runs heavier enrichment (satellite NDVI,
+        DeepSeek news classification) that is too expensive to run every day.
+        """
+    )
+
+    st.subheader("Quality Gates")
+    st.markdown(
+        """
+        Every code change runs through a pytest suite (currently 60+ tests covering
+        the feature builders, model loaders, policy-event seed data, and dashboard
+        label module). Public functions carry docstrings; data files larger than 10 MB
+        are gitignored to keep the repository lightweight.
+        """
+    )
 
 # ═════════════════════════════════════════════════════════════════════════════════
 # PAGE: Farmer Panel
 # ═════════════════════════════════════════════════════════════════════════════════
 
-if page == "Farmer Panel":
+elif page == "Farmer Panel":
     st.title("🧑‍🌾 Finike Orange Farmer — Decision Support Panel")
 
     if "farmer_advice" not in data:
@@ -249,11 +446,11 @@ if page == "Farmer Panel":
     if age_days is None:
         st.caption(f"Today: **{today_str}** · Advice date: {advice_date}")
     elif age_days <= 1:
-        st.caption(f"Today: **{today_str}** · Antalya Hal latest data: {last_price_date} (fresh)")
+        st.caption(LABELS["caption_today_antalya_fresh"].format(today_str=today_str, last_price_date=last_price_date))
     elif age_days <= 7:
-        st.info(f"Today **{today_str}**. Antalya Hal latest price: **{last_price_date}** ({age_days} days ago). Calculations continue with the last price.")
+        st.info(LABELS["info_today_antalya_slightly_stale"].format(today_str=today_str, last_price_date=last_price_date, age_days=age_days))
     else:
-        st.warning(f"Today **{today_str}**. Antalya Hal data is **{age_days} days** old (last: {last_price_date}). Check that the daily pipeline is running.")
+        st.warning(LABELS["warning_today_antalya_stale"].format(today_str=today_str, age_days=age_days, last_price_date=last_price_date))
 
     # ── Top KPIs ──
     col1, col2, col3, col4 = st.columns(4)
@@ -264,7 +461,7 @@ if page == "Farmer Panel":
     rec = advice["recommendation"]
 
     with col1:
-        st.metric("Antalya Hal Price", f"{current:.1f} TRY/kg")
+        st.metric(LABELS["metric_antalya_hal_price"], f"{current:.1f} TRY/kg")
     with col2:
         st.metric("Breakeven Cost", f"{breakeven:.1f} TRY/kg")
     with col3:
@@ -310,7 +507,7 @@ if page == "Farmer Panel":
             daily_ant = oranges.groupby("date")["avg_price"].mean().reset_index()
             fig_fc.add_trace(go.Scatter(
                 x=daily_ant["date"], y=daily_ant["avg_price"],
-                mode="lines", name="Antalya Hal (actual)",
+                mode="lines", name=LABELS["trace_antalya_actual"],
                 line=dict(color="darkorange", width=2),
             ))
 
@@ -340,11 +537,12 @@ if page == "Farmer Panel":
                           annotation_text=f"Breakeven: {breakeven:.1f} TRY")
 
         fig_fc.update_layout(
-            title="Orange Price Forecasts — Antalya Hal",
+            title=LABELS["chart_forecast_title"],
             height=450, hovermode="x unified",
             yaxis_title="TRY/kg",
         )
         st.plotly_chart(fig_fc, use_container_width=True)
+        explain("farmer_forecast")
 
     st.markdown("---")
 
@@ -357,7 +555,7 @@ if page == "Farmer Panel":
         cost_items = {
             "harvest_labor": "Harvest Labor",
             "transport_to_hal": "Transport (Finike→Antalya)",
-            "commission_pct": "Hal Commission (%)",
+            "commission_pct": LABELS["cost_commission_pct"],
             "packaging": "Packaging",
             "pesticide_fertilizer": "Pesticide & Fertilizer",
             "irrigation": "Irrigation",
@@ -368,6 +566,7 @@ if page == "Farmer Panel":
             for k, v in costs.items()
         ])
         st.dataframe(cost_df, use_container_width=True, hide_index=True)
+        explain("farmer_cost_breakdown")
 
         st.markdown("*Edit costs in `src/models/farmer.py` → `DEFAULT_COSTS`*")
 
@@ -394,7 +593,7 @@ if page == "Farmer Panel":
     # ── Antalya vs Istanbul comparison ──
     if "antalya" in data:
         st.markdown("---")
-        st.subheader("Antalya vs Istanbul Hal Prices")
+        st.subheader(LABELS["section_antalya_vs_istanbul_hal_prices"])
 
         ant = data["antalya"]
         oranges_ant = ant[ant["product"].str.contains("Portakal", case=False)]
@@ -412,9 +611,9 @@ if page == "Farmer Panel":
                                   row_heights=[0.6, 0.4])
 
         fig_comp.add_trace(go.Scatter(x=merged["date"], y=merged["Antalya"],
-                                       name="Antalya Hal", line=dict(color="darkorange")), row=1, col=1)
+                                       name=LABELS["trace_antalya"], line=dict(color="darkorange")), row=1, col=1)
         fig_comp.add_trace(go.Scatter(x=merged["date"], y=merged["Istanbul"],
-                                       name="Istanbul Hal", line=dict(color="royalblue")), row=1, col=1)
+                                       name=LABELS["trace_istanbul"], line=dict(color="royalblue")), row=1, col=1)
 
         fig_comp.add_trace(go.Bar(x=merged["date"], y=merged["Spread (Ist-Ant)"],
                                    marker_color=np.where(merged["Spread (Ist-Ant)"] > 0, "green", "red"),
@@ -422,6 +621,7 @@ if page == "Farmer Panel":
 
         fig_comp.update_layout(height=500, hovermode="x unified")
         st.plotly_chart(fig_comp, use_container_width=True)
+        explain("overview_antalya_vs_istanbul")
 
         avg_spread = merged["Spread (Ist-Ant)"].mean()
         st.info(f"Average Istanbul–Antalya spread: **{avg_spread:.1f} TRY/kg** (transport + commission + margin)")
@@ -464,7 +664,7 @@ elif page == "Overview":
         shared_xaxes=True,
         vertical_spacing=0.08,
         row_heights=[0.7, 0.3],
-        subplot_titles=("Orange Hal Price (TRY/kg)", "Daily Spread (Max − Min)"),
+        subplot_titles=(LABELS["subplot_orange_hal_price"], "Daily Spread (Max − Min)"),
     )
 
     fig.add_trace(
@@ -518,6 +718,7 @@ elif page == "Overview":
     fig.update_yaxes(title_text="TRY/kg", row=1, col=1)
     fig.update_yaxes(title_text="TRY", row=2, col=1)
     st.plotly_chart(fig, use_container_width=True)
+    explain("overview_main_timeline")
 
     # Summary stats
     col_a, col_b = st.columns(2)
@@ -529,6 +730,7 @@ elif page == "Overview":
         yearly_stats = yearly.groupby("year")["avg_price"].agg(["mean", "min", "max", "std"]).round(2)
         yearly_stats.columns = ["Mean", "Min", "Max", "Std"]
         st.dataframe(yearly_stats, use_container_width=True)
+        explain("overview_yearly_stats")
 
     with col_b:
         st.subheader("Monthly Seasonality")
@@ -546,6 +748,7 @@ elif page == "Overview":
         )
         fig_month.update_layout(height=300, showlegend=False, coloraxis_showscale=False)
         st.plotly_chart(fig_month, use_container_width=True)
+        explain("overview_monthly_seasonality")
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
@@ -581,6 +784,7 @@ elif page == "Price Analysis":
 
         fig.update_layout(height=700, hovermode="x unified", showlegend=True)
         st.plotly_chart(fig, use_container_width=True)
+        explain("price_with_ma")
 
     with tab2:
         vol30 = prices_filtered["avg_price"].rolling(30, min_periods=7).std()
@@ -596,6 +800,7 @@ elif page == "Price Analysis":
                                       line=dict(color="purple"), name="CV%"), row=2, col=1)
         fig_vol.update_layout(height=500, hovermode="x unified")
         st.plotly_chart(fig_vol, use_container_width=True)
+        explain("price_volume_spread")
 
     with tab3:
         pf = prices_filtered.copy()
@@ -620,6 +825,7 @@ elif page == "Price Analysis":
             title="Year-over-Year Price Comparison", hovermode="x unified",
         )
         st.plotly_chart(fig_yoy, use_container_width=True)
+        explain("price_yoy_change")
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
@@ -679,6 +885,7 @@ elif page == "Weather & Environment":
 
         fig.update_layout(height=700, hovermode="x unified")
         st.plotly_chart(fig, use_container_width=True)
+        explain("weather_subplots")
 
     with tab2:
         # Merge price and weather
@@ -694,6 +901,7 @@ elif page == "Weather & Environment":
                 opacity=0.5,
             )
             st.plotly_chart(fig_scatter, use_container_width=True)
+            explain("weather_temp_vs_price")
 
         with col_b:
             fig_scatter2 = px.scatter(
@@ -704,6 +912,7 @@ elif page == "Weather & Environment":
                 color_discrete_sequence=["royalblue"],
             )
             st.plotly_chart(fig_scatter2, use_container_width=True)
+            explain("weather_rain_vs_price")
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
@@ -727,6 +936,7 @@ elif page == "Market & Policy":
                 fig_fx.update_traces(line_color="purple")
                 fig_fx.update_layout(height=350)
                 st.plotly_chart(fig_fx, use_container_width=True)
+                explain("market_usd_try")
 
         with col_b:
             if "foreign" in data:
@@ -738,6 +948,7 @@ elif page == "Market & Policy":
                 fig_fao.update_layout(height=350)
                 fig_fao.add_hline(y=100, line_dash="dash", line_color="gray")
                 st.plotly_chart(fig_fao, use_container_width=True)
+                explain("market_fao_fruit_index")
 
         # Dual axis: Price vs USD/TRY
         if "fx" in data:
@@ -763,6 +974,7 @@ elif page == "Market & Policy":
             fig_dual.update_yaxes(title_text="TRY/kg", secondary_y=False)
             fig_dual.update_yaxes(title_text="USD/TRY", secondary_y=True)
             st.plotly_chart(fig_dual, use_container_width=True)
+            explain("market_price_vs_fx")
 
     with tab2:
         if "events" in data:
@@ -798,24 +1010,30 @@ elif page == "Market & Policy":
                         symbol=symbol_map.get(ev["impact_direction"], "circle"),
                         line=dict(width=1, color="white"),
                     ),
-                    text=ev["event_type"],
+                    text=event_type_to_human(ev["event_type"]),
                     textposition="top center",
                     textfont=dict(size=8),
                     name=ev["description"][:40],
                     showlegend=False,
                     hovertemplate=f"<b>{ev['description']}</b><br>Date: {ev['date'].strftime('%Y-%m-%d')}<br>"
-                                 f"Type: {ev['event_type']}<br>Impact: {ev['impact_direction']} ({ev['impact_magnitude']})<extra></extra>",
+                                 f"Type: {event_type_to_human(ev['event_type'])}<br>"
+                                 f"Impact: {direction_to_human(ev['impact_direction'])} ({magnitude_to_human(ev['impact_magnitude'])})<extra></extra>",
                 ))
 
             fig_events.update_layout(height=500, title="Price + Policy Events", hovermode="closest")
             st.plotly_chart(fig_events, use_container_width=True)
+            explain("market_event_timeline")
 
-            # Event table
+            # Event table — render with human-friendly type/direction/magnitude labels.
             st.subheader("Event List")
             display_events = events[["date", "event_type", "description", "impact_direction", "impact_magnitude"]].copy()
             display_events["date"] = display_events["date"].dt.strftime("%Y-%m-%d")
+            display_events["event_type"] = display_events["event_type"].map(event_type_to_human)
+            display_events["impact_direction"] = display_events["impact_direction"].map(direction_to_human)
+            display_events["impact_magnitude"] = display_events["impact_magnitude"].map(magnitude_to_human)
             display_events.columns = ["Date", "Type", "Description", "Direction", "Magnitude"]
             st.dataframe(display_events, use_container_width=True, hide_index=True)
+            explain("market_event_list")
 
         # Policy impact score
         if "policy" in data:
@@ -833,6 +1051,24 @@ elif page == "Market & Policy":
             fig_impact.update_layout(title="Policy Impact Score", height=300, hovermode="x unified",
                                       barmode="relative")
             st.plotly_chart(fig_impact, use_container_width=True)
+            explain("market_policy_impact_score")
+
+        # Recent News (DeepSeek-classified)
+        st.subheader("Recent News (DeepSeek-classified)")
+        _news_display = build_news_table(data.get("news"))
+        if _news_display is None:
+            st.info(
+                "No DeepSeek-classified news yet. Set `DEEPSEEK_API_KEY` and run "
+                "`python -m src.auto_refresh --full` to populate."
+            )
+        else:
+            st.dataframe(
+                _news_display,
+                use_container_width=True,
+                hide_index=True,
+                column_config={"Source": st.column_config.LinkColumn("Source")},
+            )
+            explain("market_news_feed")
 
     with tab3:
         if "foreign" in data:
@@ -848,6 +1084,7 @@ elif page == "Market & Policy":
                     fig_eu.update_traces(line_color="royalblue")
                     fig_eu.update_layout(height=350)
                     st.plotly_chart(fig_eu, use_container_width=True)
+                    explain("market_eu_price")
 
             with col_b:
                 if "competition_index" in foreign.columns:
@@ -859,6 +1096,7 @@ elif page == "Market & Policy":
                                       color_continuous_scale="Reds")
                     fig_comp.update_layout(height=350)
                     st.plotly_chart(fig_comp, use_container_width=True)
+                    explain("market_competition_index")
 
             # Competitor production
             from src.data.foreign_markets import fetch_competitor_production
@@ -875,6 +1113,7 @@ elif page == "Market & Policy":
                                title=f"{year_select} Orange Production")
             fig_prod.update_layout(height=350)
             st.plotly_chart(fig_prod, use_container_width=True)
+            explain("market_competitor_production")
 
 
 # ═════════════════════════════════════════════════════════════════════════════════
@@ -907,6 +1146,7 @@ elif page == "Model Results":
                           labels={"MAE": "MAE (TRY/kg)", "model": "", "horizon_days": "Horizon"})
         fig_mae.update_layout(height=400)
         st.plotly_chart(fig_mae, use_container_width=True)
+        explain("model_mae_comparison")
 
     with col2:
         fig_r2 = px.bar(results, x="model", y="R2", color="horizon_days",
@@ -916,6 +1156,7 @@ elif page == "Model Results":
         fig_r2.add_hline(y=0, line_dash="dash", line_color="red")
         fig_r2.update_layout(height=400)
         st.plotly_chart(fig_r2, use_container_width=True)
+        explain("model_r2_comparison")
 
     # Full results table
     st.subheader("Detailed Results")
@@ -926,6 +1167,7 @@ elif page == "Model Results":
     display_results["R2"] = display_results["R2"].round(3)
     display_results.columns = ["Model", "Horizon (days)", "MAE", "MAPE", "RMSE", "R²"]
     st.dataframe(display_results, use_container_width=True, hide_index=True)
+    explain("model_detailed_results")
 
     # Feature importance (if we can compute it)
     st.markdown("---")
@@ -949,6 +1191,7 @@ elif page == "Model Results":
                              color=top_20.values, color_continuous_scale="Oranges")
             fig_fi.update_layout(height=500, yaxis=dict(autorange="reversed"))
             st.plotly_chart(fig_fi, use_container_width=True)
+            explain("model_feature_importance")
 
         st.info(f"Total features: **{len(numeric_cols)}** | Rows: **{len(features):,}** | "
                 f"Date range: {features['date'].min().strftime('%Y-%m-%d')} — {features['date'].max().strftime('%Y-%m-%d')}")
@@ -983,6 +1226,7 @@ elif page == "Demand & Trends":
                 yaxis_title="Search Interest (0–100)",
             )
             st.plotly_chart(fig_trends, use_container_width=True)
+            explain("demand_google_trends")
 
             # Overlay with price
             fig_tp = make_subplots(specs=[[{"secondary_y": True}]])
@@ -996,6 +1240,7 @@ elif page == "Demand & Trends":
             fig_tp.update_yaxes(title_text="Trend (0–100)", secondary_y=False)
             fig_tp.update_yaxes(title_text="TRY/kg", secondary_y=True)
             st.plotly_chart(fig_tp, use_container_width=True)
+            explain("demand_trend_vs_price")
         else:
             st.info("No trend data found.")
 
@@ -1023,6 +1268,7 @@ elif page == "Demand & Trends":
                                       fillcolor="green", opacity=0.1, line_width=0)
                 fig_ram.update_layout(height=300, title="Price + Ramadan Periods (green)")
                 st.plotly_chart(fig_ram, use_container_width=True)
+                explain("demand_ramadan")
 
             with col2:
                 # Input cost index
@@ -1032,6 +1278,7 @@ elif page == "Demand & Trends":
                 fig_input.update_traces(line_color="brown")
                 fig_input.update_layout(height=300)
                 st.plotly_chart(fig_input, use_container_width=True)
+                explain("demand_input_cost")
 
             col3, col4 = st.columns(2)
             with col3:
@@ -1041,6 +1288,7 @@ elif page == "Demand & Trends":
                 fig_tour.update_traces(line_color="teal")
                 fig_tour.update_layout(height=300)
                 st.plotly_chart(fig_tour, use_container_width=True)
+                explain("demand_tourism")
 
             with col4:
                 st.subheader("CPI Index")
@@ -1049,6 +1297,7 @@ elif page == "Demand & Trends":
                 fig_cpi.update_traces(line_color="purple")
                 fig_cpi.update_layout(height=300)
                 st.plotly_chart(fig_cpi, use_container_width=True)
+                explain("demand_cpi")
         else:
             st.info("No demand data found.")
 
@@ -1115,6 +1364,7 @@ elif page == "Forecasts & Alerts":
 
             fig_pred.update_layout(title="Price Forecast", height=400, hovermode="x unified")
             st.plotly_chart(fig_pred, use_container_width=True)
+            explain("forecast_predictions")
         else:
             st.info("No prediction data found. Run `python -m src.auto_refresh --predict`.")
 
@@ -1207,6 +1457,7 @@ elif page == "Forecasts & Alerts":
                     height=400, hovermode="x unified",
                 )
                 st.plotly_chart(fig_track, use_container_width=True)
+                explain("forecast_tracking")
 
                 # ── Error over time chart ──
                 fig_err = go.Figure()
@@ -1222,6 +1473,7 @@ elif page == "Forecasts & Alerts":
                     height=300,
                 )
                 st.plotly_chart(fig_err, use_container_width=True)
+                explain("forecast_error")
 
                 # ── Detailed table ──
                 st.markdown("**Detailed Table**")
@@ -1250,6 +1502,7 @@ elif page == "Forecasts & Alerts":
                     pending_display = pending[["date_generated", "horizon_days", "target_date",
                                                "predicted_price", "current_price"]].sort_values("target_date")
                     st.dataframe(pending_display, use_container_width=True, hide_index=True)
+                    explain("forecast_pending")
         else:
             st.info(
                 "No prediction history found. Data will accumulate as the daily pipeline runs.\n\n"
@@ -1281,8 +1534,10 @@ elif page == "Forecasts & Alerts":
             )
             fig_shap.update_layout(height=max(400, top_n * 22), yaxis=dict(autorange="reversed"))
             st.plotly_chart(fig_shap, use_container_width=True)
+            explain("forecast_shap")
 
             st.dataframe(top, use_container_width=True, hide_index=True)
+            explain("forecast_shap_table")
         else:
             st.info("No SHAP data found. Run `python -m src.pipeline --advanced`.")
 
@@ -1292,10 +1547,11 @@ elif page == "Forecasts & Alerts":
 st.sidebar.markdown("---")
 st.sidebar.markdown(
     "**Data Sources:**\n"
-    "- İBB Istanbul Hal\n"
+    f"{LABELS['sidebar_footer_ibb']}\n"
     "- Open-Meteo\n"
     "- Frankfurter (FX)\n"
     "- FAO / Eurostat\n"
     "- USDA FAS"
 )
-st.sidebar.markdown(f"Last update: {prices['date'].max().strftime('%d.%m.%Y')}")
+if "prices" in data:
+    st.sidebar.markdown(f"Last update: {data['prices']['date'].max().strftime('%d.%m.%Y')}")

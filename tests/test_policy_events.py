@@ -47,3 +47,28 @@ def test_build_policy_features_has_one_row_per_day():
                 "policy_event_count_90d", "policy_impact_30d_avg",
                 "policy_impact_90d_avg"}
     assert expected.issubset(df.columns)
+
+
+def test_policy_events_csv_matches_english_source():
+    """The on-disk CSV must contain the same English descriptions as the source list.
+
+    Prevents the drift bug that motivated the news-translation plan: the source
+    POLICY_EVENTS was English while the committed CSV held an older Turkish payload.
+    """
+    from pathlib import Path
+
+    csv_path = Path(__file__).resolve().parent.parent / "data" / "raw" / "policy_events.csv"
+    if not csv_path.exists():
+        return  # CSV not regenerated yet (e.g. CI cold start); skip without failing.
+
+    df_disk = pd.read_csv(csv_path)
+    df_source = build_policy_events_df()
+
+    source_pairs = set(zip(df_source["date"].dt.strftime("%Y-%m-%d"), df_source["description"]))
+    disk_pairs = set(zip(df_disk["date"].astype(str).str[:10], df_disk["description"]))
+
+    missing_from_disk = source_pairs - disk_pairs
+    assert not missing_from_disk, (
+        f"policy_events.csv is stale — missing rows from POLICY_EVENTS source: "
+        f"{list(missing_from_disk)[:3]}"
+    )
