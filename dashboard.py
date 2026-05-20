@@ -189,10 +189,53 @@ def _freshness_summary(data: dict) -> list[tuple[str, pd.Timestamp | None]]:
     return items
 
 
-def render_freshness_banner(data: dict) -> None:
-    """Render a top banner showing per-source last-data date + today."""
+# Per-page subset of freshness rows. Overview shows every source; Welcome and
+# Architecture skip the banner entirely. Pages not listed here fall back to all
+# rows. Label strings here must match those produced by `_freshness_summary`.
+PAGE_FRESHNESS_SOURCES: dict[str, list[str] | None] = {
+    "Farmer Panel": [
+        LABELS["freshness_antalya_hal"],
+        "Farmer advice (Antalya)",
+        "Weather (Finike)",
+        "FX rates",
+    ],
+    "Overview": None,  # full table
+    "Price Analysis": [
+        LABELS["freshness_istanbul_hal"],
+        LABELS["freshness_antalya_hal"],
+    ],
+    "Weather & Environment": ["Weather (Finike)"],
+    "Market & Policy": ["FX rates", "Demand / policy"],
+    "Demand & Trends": ["Google Trends", "Demand / policy"],
+    "Model Results": [LABELS["freshness_istanbul_hal"]],
+    "Forecasts & Alerts": [
+        LABELS["freshness_istanbul_hal"],
+        "Weather (Finike)",
+        "FX rates",
+    ],
+}
+
+
+def render_freshness_banner(data: dict, page: str) -> None:
+    """Render a top banner showing per-source last-data date + today.
+
+    The set of rows displayed depends on the active page: Welcome and
+    Architecture are intro pages and render nothing; Overview shows every
+    tracked source; all other pages show only the sources relevant to them.
+    """
+    if page in (INTRO_PAGE_LABEL, ARCHITECTURE_PAGE_LABEL):
+        return
+
     today = pd.Timestamp.today().normalize()
     summary = _freshness_summary(data)
+
+    allowed = PAGE_FRESHNESS_SOURCES.get(page)
+    if allowed is not None:
+        summary = [(label, d) for label, d in summary if label in allowed]
+
+    if not summary:
+        return
+
     stale_items = [(label, d) for label, d in summary if d is None or (today - d).days > 2]
 
     header = f"📅 Today: **{today.strftime('%d %B %Y')}**"
@@ -246,13 +289,11 @@ def render_welcome_page() -> None:
 
     if st.button("Continue to dashboard", type="primary"):
         st.session_state["intro_done"] = True
-        st.session_state[PAGE_RADIO_KEY] = FARMER_PAGE_LABEL
+        st.session_state["_pending_page"] = FARMER_PAGE_LABEL
         st.rerun()
 
     st.caption(INTRO_ATTRIBUTION)
 
-
-render_freshness_banner(data)
 
 # ─── Sidebar ─────────────────────────────────────────────────────────────────────
 
@@ -271,7 +312,18 @@ PAGES = [
 if PAGE_RADIO_KEY not in st.session_state:
     st.session_state[PAGE_RADIO_KEY] = INTRO_PAGE_LABEL
 
+# Apply any pending page change requested by a previous run (e.g., "Continue to dashboard"
+# button on the welcome page). Must run BEFORE the radio widget is instantiated, otherwise
+# Streamlit raises "session_state.page_radio cannot be modified after the widget ... is
+# instantiated."
+pending_page = st.session_state.pop("_pending_page", None)
+if pending_page in PAGES:
+    st.session_state[PAGE_RADIO_KEY] = pending_page
+
 page = st.sidebar.radio("Page", PAGES, key=PAGE_RADIO_KEY)
+
+# Page-aware freshness banner (no-op on Welcome / Architecture).
+render_freshness_banner(data, page)
 
 # Date range filter (only used by operational pages — skip on Intro and Architecture)
 if page not in (INTRO_PAGE_LABEL, ARCHITECTURE_PAGE_LABEL):
@@ -586,9 +638,10 @@ elif page == "Farmer Panel":
 
             st.metric("Storage Cost", f"{storage_total:.1f} TRY/kg")
             st.metric("Expected Sale Price", f"{expected:.1f} TRY/kg")
-            color = "normal" if net_gain > 0 else "inverse"
-            st.metric("Net Gain / Loss", f"{net_gain:+.1f} TRY/kg",
-                       delta="Profitable" if net_gain > 0 else "Loss-making")
+            # Embed the signed value into the delta so Streamlit picks the correct
+            # arrow direction (▲/▼) and color (green/red) from the leading sign.
+            delta_label = f"{net_gain:+.2f}: {'Profitable' if net_gain > 0 else 'Loss-making'}"
+            st.metric("Net Gain / Loss", f"{net_gain:+.1f} TRY/kg", delta=delta_label)
 
     # ── Antalya vs Istanbul comparison ──
     if "antalya" in data:
@@ -1548,10 +1601,14 @@ st.sidebar.markdown("---")
 st.sidebar.markdown(
     "**Data Sources:**\n"
     f"{LABELS['sidebar_footer_ibb']}\n"
-    "- Open-Meteo\n"
+    "- Antalya Wholesale Market (Hal)\n"
+    "- Open-Meteo (weather)\n"
+    "- Sentinel-2 (NDVI)\n"
     "- Frankfurter (FX)\n"
     "- FAO / Eurostat\n"
-    "- USDA FAS"
+    "- USDA FAS\n"
+    "- Google Trends\n"
+    "- Google News RSS + DeepSeek"
 )
 if "prices" in data:
     st.sidebar.markdown(f"Last update: {data['prices']['date'].max().strftime('%d.%m.%Y')}")
