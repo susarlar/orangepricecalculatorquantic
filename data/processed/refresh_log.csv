@@ -104,3 +104,9 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-05-19 13:28:56,antalya_hal,1881,1881,ok,
 2026-05-19 13:28:58,demand_policy,0,14158,ok,
 2026-05-19 13:28:58,news_llm,0,0,skipped,DEEPSEEK_API_KEY not set
+2026-05-20 08:28:47,hal_prices,4401,4402,ok,
+2026-05-20 08:28:48,weather,7088,7089,ok,
+2026-05-20 08:28:48,fx_rates,1071,1072,ok,
+2026-05-20 08:29:20,antalya_hal,1881,1886,ok,
+2026-05-20 08:29:23,demand_policy,0,14160,ok,
+2026-05-20 08:29:30,news_llm,0,0,no_new_data,
