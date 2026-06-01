@@ -1,16 +1,1 @@
-============================================================
-  ORANGE PRICE ALERT REPORT
-  Date: 2026-05-31 08:21
-  Total alerts: 1
-============================================================
-
---- Alert #1 ---
-[MEDIUM] End of Season — Supply Tightening
-  Impact: +10% to +25%
-  Confidence: 80%
-  Lead time: 0-30 days
-  Harvest ending. Falling supply lifts prices.
-
-============================================================
-  Estimated net impact: +8.0% to +20.0%
-============================================================
+No active alerts. All indicators normal.
