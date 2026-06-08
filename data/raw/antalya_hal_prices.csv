@@ -1959,4 +1959,9 @@ date,product,min_price,max_price,avg_price,unit,market
 2026-06-06,Lime Limon,120.0,200.0,160.0,Kg,antalya
 2026-06-06,Limon,50.0,100.0,75.0,Kg,antalya
 2026-06-06,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
-2026-06-06,Portakal (Valencia Pak),15.0,30.0,22.5,Kg,antalya
+2026-06-06,Portakal (Valencia Pak),15.0,35.0,25.0,Kg,antalya
+2026-06-08,Greyfurt,25.0,40.0,32.5,Kg,antalya
+2026-06-08,Lime Limon,120.0,200.0,160.0,Kg,antalya
+2026-06-08,Limon,50.0,100.0,75.0,Kg,antalya
+2026-06-08,Portakal (Sıkmalık),15.0,25.0,20.0,Kg,antalya
+2026-06-08,Portakal (Valencia Pak),15.0,35.0,25.0,Kg,antalya
