@@ -272,3 +272,9 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-06-17 09:53:35,antalya_hal,2001,2006,ok,
 2026-06-17 09:53:38,demand_policy,0,14216,ok,
 2026-06-17 09:53:47,news_llm,0,1,ok,relevant=0
+2026-06-18 09:17:53,hal_prices,4417,4418,ok,
+2026-06-18 09:17:54,weather,7117,7118,ok,
+2026-06-18 09:17:54,fx_rates,1092,1093,ok,
+2026-06-18 09:18:25,antalya_hal,2006,2011,ok,
+2026-06-18 09:18:28,demand_policy,0,14218,ok,
+2026-06-18 09:18:38,news_llm,0,1,ok,relevant=1
