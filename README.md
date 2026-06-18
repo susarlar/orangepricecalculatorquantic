@@ -13,8 +13,8 @@
 
 | Item | Where |
 |---|---|
-| **Live deployed app** | _Add the Render URL here once the service is live._ |
-| **Trello task board** | _Add the public Trello URL here._ |
+| **Live deployed app** | (https://orange-price-predictor.onrender.com) |
+| **Trello task board** | (https://quanticcapstone.atlassian.net/jira/software/projects/OR/boards/1) |
 | **User stories (initial backlog)** | [USER_STORIES.md](./USER_STORIES.md) |
 | **Design and testing document** | [DESIGN_AND_TESTING.md](./DESIGN_AND_TESTING.md) |
 | **Sprint records (≥3 sprints)** | [SPRINTS.md](./SPRINTS.md) |
