@@ -290,3 +290,9 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-06-20 08:24:07,antalya_hal,2016,2021,ok,
 2026-06-20 08:24:10,demand_policy,0,14222,ok,
 2026-06-20 08:24:21,news_llm,0,2,ok,relevant=0
+2026-06-21 08:59:11,hal_prices,4419,4419,no_new_data,
+2026-06-21 08:59:12,weather,7120,7121,ok,
+2026-06-21 08:59:13,fx_rates,1095,1095,ok,
+2026-06-21 08:59:36,antalya_hal,2021,2021,ok,
+2026-06-21 08:59:39,demand_policy,0,14224,ok,
+2026-06-21 08:59:48,news_llm,0,1,ok,relevant=1
