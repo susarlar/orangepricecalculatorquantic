@@ -1,54 +1,54 @@
 {
-  "date": "2026-07-25",
+  "date": "2026-07-26",
   "last_price_date": "2026-06-30",
-  "data_age_days": 25,
+  "data_age_days": 26,
   "current_price": 26.25,
   "breakeven_price": 13.59,
   "margin_per_kg": 12.66,
   "margin_pct": 93.2,
   "forecasts": {
     "7": {
-      "price": 26.503990173339844,
-      "lower": 26.228533503461605,
-      "upper": 27.58348594430261,
-      "change_pct": 0.9675816127232117,
-      "target_date": "2026-08-01"
+      "price": 26.588665008544922,
+      "lower": 26.095689755369975,
+      "upper": 31.38290297279003,
+      "change_pct": 1.290152413504475,
+      "target_date": "2026-08-02"
     },
     "14": {
-      "price": 24.465103149414062,
-      "lower": 23.171416175362058,
-      "upper": 28.692059841361733,
-      "change_pct": -6.799607049851186,
-      "target_date": "2026-08-08"
+      "price": 24.459850311279297,
+      "lower": 23.681541281662586,
+      "upper": 32.427680078919224,
+      "change_pct": -6.819617861793159,
+      "target_date": "2026-08-09"
     },
     "30": {
-      "price": 25.163259506225586,
-      "lower": 23.567682938256723,
-      "upper": 35.65136371329642,
-      "change_pct": -4.1399637858072875,
-      "target_date": "2026-08-24"
+      "price": 24.781658172607422,
+      "lower": 23.262660343502432,
+      "upper": 35.553631382460686,
+      "change_pct": -5.593683151971729,
+      "target_date": "2026-08-25"
     },
     "60": {
-      "price": 47.63153076171875,
-      "lower": 26.149354507196797,
-      "upper": 44.319167655573,
-      "change_pct": 81.45345052083333,
-      "target_date": "2026-09-23"
+      "price": 47.04387664794922,
+      "lower": 27.002653299984857,
+      "upper": 44.195748887461804,
+      "change_pct": 79.21476818266369,
+      "target_date": "2026-09-24"
     },
     "90": {
-      "price": 56.379051208496094,
+      "price": 56.750160217285156,
       "lower": 26.24995618416719,
-      "upper": 83.19898300634755,
-      "change_pct": 114.77733793712797,
-      "target_date": "2026-10-23"
+      "upper": 81.85408332588509,
+      "change_pct": 116.19108654203868,
+      "target_date": "2026-10-24"
     }
   },
   "recommendation": {
     "action": "COLD STORAGE",
-    "reason": "Store for 90 days, then sell. Expected price: 56.4 TRY/kg, storage cost: 13.5 TRY/kg, net gain: +16.6 TRY/kg.",
+    "reason": "Store for 90 days, then sell. Expected price: 56.8 TRY/kg, storage cost: 13.5 TRY/kg, net gain: +17.0 TRY/kg.",
     "urgency": "medium",
     "best_sell_horizon": 90,
-    "best_expected_price": 56.38
+    "best_expected_price": 56.75
   },
   "season_info": {
     "phase": "Off-Season",
