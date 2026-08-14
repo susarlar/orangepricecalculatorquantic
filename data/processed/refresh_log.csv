@@ -614,3 +614,9 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-08-13 06:22:08,antalya_hal,2061,2061,no_new_data,
 2026-08-13 06:22:10,demand_policy,0,14330,ok,
 2026-08-13 06:22:24,news_llm,0,3,ok,relevant=0
+2026-08-14 06:16:34,hal_prices,4456,4457,ok,
+2026-08-14 06:16:34,weather,7174,7175,ok,
+2026-08-14 06:16:35,fx_rates,1133,1134,ok,
+2026-08-14 06:19:32,antalya_hal,2061,2061,no_new_data,
+2026-08-14 06:19:33,demand_policy,0,14332,ok,
+2026-08-14 06:19:46,news_llm,0,2,ok,relevant=1
