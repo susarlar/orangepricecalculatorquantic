@@ -7184,3 +7184,4 @@ date,temp_max,temp_min,temp_mean,precipitation,humidity,wind_speed_max,frost,sev
 2026-09-06,,,,,,,0,0,,True
 2026-09-07,,,,,,,0,0,,True
 2026-09-08,31.7,21.2,26.1,0.0,72.0,18.0,0,0,10.5,True
+2026-09-09,30.3,21.2,25.5,0.0,72.0,21.6,0,0,9.100000000000001,True
