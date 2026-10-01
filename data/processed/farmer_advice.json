@@ -1,46 +1,46 @@
 {
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "last_price_date": "2026-06-30",
-  "data_age_days": 92,
+  "data_age_days": 93,
   "current_price": 26.25,
   "breakeven_price": 13.59,
   "margin_per_kg": 12.66,
   "margin_pct": 93.2,
   "forecasts": {
     "7": {
-      "price": 26.08506965637207,
-      "lower": 26.197428754864884,
-      "upper": 26.819416457590577,
-      "change_pct": -0.6283060709635468,
-      "target_date": "2026-10-07"
+      "price": 25.986608505249023,
+      "lower": 25.674794898387667,
+      "upper": 26.38431688407379,
+      "change_pct": -1.0033961704799088,
+      "target_date": "2026-10-08"
     },
     "14": {
-      "price": 26.58216094970703,
+      "price": 26.603618621826172,
       "lower": 26.127279833231924,
-      "upper": 27.473759215604627,
-      "change_pct": 1.26537504650297,
-      "target_date": "2026-10-14"
+      "upper": 26.65087342213279,
+      "change_pct": 1.347118559337801,
+      "target_date": "2026-10-15"
     },
     "30": {
-      "price": 25.778627395629883,
-      "lower": 25.590245168066264,
-      "upper": 72.84783703128186,
-      "change_pct": -1.795705159505212,
-      "target_date": "2026-10-30"
+      "price": 25.888717651367188,
+      "lower": 25.51060998680343,
+      "upper": 33.03784907496053,
+      "change_pct": -1.3763137090773814,
+      "target_date": "2026-10-31"
     },
     "60": {
-      "price": 26.429859161376953,
+      "price": 26.374013900756836,
       "lower": 26.24995618416719,
-      "upper": 31.246365776253775,
-      "change_pct": 0.6851777576264872,
-      "target_date": "2026-11-29"
+      "upper": 30.80088013274175,
+      "change_pct": 0.47243390764508675,
+      "target_date": "2026-11-30"
     },
     "90": {
-      "price": 26.36994171142578,
+      "price": 26.304737091064453,
       "lower": 26.24995618416719,
-      "upper": 26.119176845829678,
-      "change_pct": 0.4569208054315377,
-      "target_date": "2026-12-29"
+      "upper": 26.535609595559155,
+      "change_pct": 0.20852225167411476,
+      "target_date": "2026-12-30"
     }
   },
   "recommendation": {
@@ -51,8 +51,8 @@
     "best_expected_price": 26.25
   },
   "season_info": {
-    "phase": "Off-Season",
-    "advice": "Prices are near the peak. Last chance before October."
+    "phase": "Early Harvest",
+    "advice": "New season starting. Earliest harvests can fetch high prices."
   },
   "costs": {
     "harvest_labor": 5.0,
