@@ -1076,3 +1076,9 @@ timestamp,source,records_before,records_after,status,error_msg
 2026-10-29 11:30:43,antalya_hal,2061,2061,no_new_data,
 2026-10-29 11:30:44,demand_policy,0,14484,ok,
 2026-10-29 11:30:56,news_llm,0,3,ok,relevant=1
+2026-10-30 11:15:57,hal_prices,4503,4503,no_new_data,
+2026-10-30 11:15:58,weather,7251,7252,ok,
+2026-10-30 11:15:58,fx_rates,1188,1189,ok,
+2026-10-30 11:25:05,antalya_hal,2061,2061,no_new_data,
+2026-10-30 11:25:07,demand_policy,0,14486,ok,
+2026-10-30 11:25:20,news_llm,0,3,ok,relevant=0
